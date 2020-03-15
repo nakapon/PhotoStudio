@@ -14,6 +14,7 @@ extern HINSTANCE g_hInstance;
 static CImageData gs_ImageData; /* 読み込んだ画像データ */
 static CImageData gs_ProcImage; /* 処理結果画像データ */
 
+static void UpdateImage(HWND hWindow);
 static void LoadImage(HWND hWindow, LPCTSTR pszFilePath);
 
 // メインウィンドウ作成時の処理
@@ -134,7 +135,7 @@ INT OnCommand(HWND hWindow, WPARAM wParam, LPARAM lParam)
 		// 画像データを破棄して画面を再描画
 		gs_ImageData.Destroy();
 		gs_ProcImage.Destroy();
-		RedrawWindow(hWindow, nullptr, nullptr, RDW_INVALIDATE | RDW_ERASENOW | RDW_UPDATENOW);
+		UpdateImage(hWindow);
 		break;
 
 	case ID_FILE_SAVE:
@@ -172,11 +173,15 @@ INT OnCommand(HWND hWindow, WPARAM wParam, LPARAM lParam)
 		}
 		break;
 
+	case ID_FILE_EXIT:
+		PostMessage(hWindow, WM_CLOSE, 0, 0);
+		break;
+
 	case ID_IMAGE_MONO:
 		if(gs_ImageData.IsCreated())
 		{
 			ImageProc::GrayScale(gs_ProcImage, gs_ImageData);
-			RedrawWindow(hWindow, nullptr, nullptr, RDW_INVALIDATE | RDW_ERASENOW | RDW_UPDATENOW);
+			UpdateImage(hWindow);
 		}
 		break;
 	}
@@ -223,6 +228,11 @@ INT OnDropFiles(HWND hWindow, WPARAM wParam, LPARAM lParam)
 	return 0;
 }
 
+static void UpdateImage(HWND hWindow)
+{
+	RedrawWindow(hWindow, nullptr, nullptr, RDW_INVALIDATE | RDW_ERASENOW | RDW_UPDATENOW);
+}
+
 static void LoadImage(HWND hWindow, LPCTSTR pszFilePath)
 {
 	// 処理結果画像を破棄
@@ -236,6 +246,6 @@ static void LoadImage(HWND hWindow, LPCTSTR pszFilePath)
 	else
 	{
 		// 読み込み成功 - メインウィンドウを再描画して画面に読み込んだ画像を表示する
-		RedrawWindow(hWindow, nullptr, nullptr, RDW_INVALIDATE | RDW_ERASENOW | RDW_UPDATENOW);
+		UpdateImage(hWindow);
 	}
 }

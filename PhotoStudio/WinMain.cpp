@@ -143,7 +143,6 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR pszComman
 		return -1;
 
 	// メッセージループ．メインウィンドウを閉じる(WM_QUIT メッセージを受信する)まで無限ループ．
-#if 0
 	{
 		INT nResult = 0;
 
@@ -152,12 +151,12 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR pszComman
 
 		hAccel = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDR_ACCELERATOR));
 
+		// GetMessage は WM_QUIT を受信すると FALSE を返す
 		while((nResult = GetMessage(&Message, NULL, 0, 0)) != 0)
 		{
 			if(nResult == -1)
 			{
-				MessageBox(hWindow, TEXT("Error occurred !!"), TEXT("Message loop : error !"), MB_ICONERROR | MB_TOPMOST);
-				//break;
+				MessageBox(hWindow, TEXT("Fatal error occurred at message loop!!"), TEXT("Error"), MB_ICONERROR | MB_TOPMOST | MB_OK);
 			}
 			else
 			{
@@ -171,20 +170,6 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR pszComman
 
 		nReturn = (INT)Message.wParam;
 	}
-#else
-	{
-		MSG Message;
-
-		// GetMessage は WM_QUIT を受信すると FALSE を返す
-		while(GetMessage(&Message, NULL, 0, 0))
-		{
-			TranslateMessage(&Message);
-			DispatchMessage(&Message);
-		}
-
-		nReturn = (INT)Message.wParam;
-	}
-#endif
 
 	CoUninitialize();
 
