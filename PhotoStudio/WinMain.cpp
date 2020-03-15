@@ -32,6 +32,7 @@ INT OnNotify(HWND hWindow, WPARAM wParam, LPARAM lParam);
 INT OnScrollEvent(HWND hWindow, UINT Message, WPARAM wParam, LPARAM lParam);
 INT OnMouseEvent(HWND hWindow, UINT Message, WPARAM wParam, LPARAM lParam);
 INT OnKeyEvent(HWND hWindow, UINT Message, WPARAM wParam, LPARAM lParam);
+INT OnDropFiles(HWND hWindow, WPARAM wParam, LPARAM lParam);
 
 static LRESULT CALLBACK WindowProcedure(HWND hWindow, UINT Message, WPARAM wParam, LPARAM lParam)
 {
@@ -58,14 +59,17 @@ static LRESULT CALLBACK WindowProcedure(HWND hWindow, UINT Message, WPARAM wPara
 	case WM_HSCROLL:	case WM_VSCROLL:
 		return OnScrollEvent(hWindow, Message, wParam, lParam);
 
-	case WM_LBUTTONDOWN:	case WM_LBUTTONUP:
-	case WM_RBUTTONDOWN:	case WM_RBUTTONUP:
+	case WM_LBUTTONDOWN: case WM_LBUTTONUP:
+	case WM_RBUTTONDOWN: case WM_RBUTTONUP:
 	case WM_MOUSEMOVE:
 		return OnMouseEvent(hWindow, Message, wParam, lParam);
 
 	case WM_KEYDOWN:	case WM_KEYUP:
 	case WM_CHAR:
 		return OnKeyEvent(hWindow, Message, wParam, lParam);
+
+	case WM_DROPFILES:
+		return OnDropFiles(hWindow, wParam, lParam);
 
 	default:
 		return DefWindowProc(hWindow, Message, wParam, lParam);

@@ -14,6 +14,8 @@ extern HINSTANCE g_hInstance;
 static CImageData gs_ImageData; /* 読み込んだ画像データ */
 static CImageData gs_ProcImage; /* 処理結果画像データ */
 
+static void LoadImage(HWND hWindow, LPCTSTR pszFilePath);
+
 // メインウィンドウ作成時の処理
 INT OnCreate(HWND hWindow, CREATESTRUCT* pCreateStruct)
 {
@@ -23,6 +25,9 @@ INT OnCreate(HWND hWindow, CREATESTRUCT* pCreateStruct)
 		SendMessage(hWindow, WM_SETICON, ICON_BIG, (WPARAM)hIcon);
 		SendMessage(hWindow, WM_SETICON, ICON_SMALL, (WPARAM)hIcon);
 	}
+
+	// ファイルドロップ許可
+	DragAcceptFiles(hWindow, TRUE);
 
 	return 0;
 }
@@ -102,14 +107,14 @@ INT OnCommand(HWND hWindow, WPARAM wParam, LPARAM lParam)
 		{
 			OPENFILENAME OpenFileName = { 0 };
 
-			TCHAR szFileName[MAX_PATH] = { 0 };
+			TCHAR szFilePath[MAX_PATH] = { 0 };
 
 			// 「ファイル選択ダイアログ」を表示
 			OpenFileName.lStructSize     = sizeof(OPENFILENAME);
 			OpenFileName.hwndOwner       = hWindow;
 			OpenFileName.lpstrFilter     = TEXT("All Files(*.*)\0*.*\0\0");
 			OpenFileName.nFilterIndex    = 1;
-			OpenFileName.lpstrFile       = szFileName;
+			OpenFileName.lpstrFile       = szFilePath;
 			OpenFileName.nMaxFile        = MAX_PATH;
 			OpenFileName.Flags           = OFN_FILEMUSTEXIST | OFN_HIDEREADONLY;
 			OpenFileName.lpstrDefExt     = TEXT("");
@@ -119,19 +124,7 @@ INT OnCommand(HWND hWindow, WPARAM wParam, LPARAM lParam)
 
 			if(GetOpenFileName(&OpenFileName))
 			{
-				// 処理結果画像を破棄
-				gs_ProcImage.Destroy();
-
-				if(!ImageReader::ReadImage(szFileName, gs_ImageData))
-				{
-					// 読み込み失敗
-					MessageBox(hWindow, TEXT("Failed to load the specified file."), TEXT("Error"), MB_ICONERROR | MB_OK | MB_TOPMOST);
-				}
-				else
-				{
-					// 読み込み成功 - メインウィンドウを再描画して画面に読み込んだ画像を表示する
-					RedrawWindow(hWindow, nullptr, nullptr, RDW_INVALIDATE | RDW_ERASENOW | RDW_UPDATENOW);
-				}
+				LoadImage(hWindow, szFilePath);
 			}
 		}
 		break;
@@ -150,14 +143,14 @@ INT OnCommand(HWND hWindow, WPARAM wParam, LPARAM lParam)
 		{
 			OPENFILENAME SaveFileName = { 0 };
 
-			TCHAR szFileName[MAX_PATH] = { 0 };
+			TCHAR szFilePath[MAX_PATH] = { 0 };
 
 			// 「ファイル選択ダイアログ」を表示
 			SaveFileName.lStructSize     = sizeof(OPENFILENAME);
 			SaveFileName.hwndOwner       = hWindow;
 			SaveFileName.lpstrFilter     = TEXT("All Files(*.*)\0*.*\0\0");
 			SaveFileName.nFilterIndex    = 1;
-			SaveFileName.lpstrFile       = szFileName;
+			SaveFileName.lpstrFile       = szFilePath;
 			SaveFileName.nMaxFile        = MAX_PATH;
 			SaveFileName.Flags           = OFN_OVERWRITEPROMPT;
 			SaveFileName.lpstrDefExt     = TEXT("");
@@ -169,11 +162,11 @@ INT OnCommand(HWND hWindow, WPARAM wParam, LPARAM lParam)
 			{
 				if(gs_ProcImage.IsCreated())
 				{
-					ImageWriter::WriteImage(szFileName, gs_ProcImage);
+					ImageWriter::WriteImage(szFilePath, gs_ProcImage);
 				}
 				else
 				{
-					ImageWriter::WriteImage(szFileName, gs_ImageData);
+					ImageWriter::WriteImage(szFilePath, gs_ImageData);
 				}
 			}
 		}
@@ -215,3 +208,34 @@ INT OnKeyEvent(HWND hWindow, UINT Message, WPARAM wParam, LPARAM lParam)
 	return 0;
 }
 
+INT OnDropFiles(HWND hWindow, WPARAM wParam, LPARAM lParam)
+{
+	HDROP hDrop = (HDROP)wParam;
+
+	TCHAR szFilePath[MAX_PATH] = { 0 };
+
+	UINT ItemCount = DragQueryFile(hDrop, (UINT)-1, nullptr, 0);
+
+	DragQueryFile(hDrop, 0, szFilePath, sizeof(szFilePath) / sizeof(szFilePath[0]));
+
+	LoadImage(hWindow, szFilePath);
+
+	return 0;
+}
+
+static void LoadImage(HWND hWindow, LPCTSTR pszFilePath)
+{
+	// 処理結果画像を破棄
+	gs_ProcImage.Destroy();
+
+	if(!ImageReader::ReadImage(pszFilePath, gs_ImageData))
+	{
+		// 読み込み失敗
+		MessageBox(hWindow, TEXT("Failed to load the specified file."), TEXT("Error"), MB_ICONERROR | MB_OK | MB_TOPMOST);
+	}
+	else
+	{
+		// 読み込み成功 - メインウィンドウを再描画して画面に読み込んだ画像を表示する
+		RedrawWindow(hWindow, nullptr, nullptr, RDW_INVALIDATE | RDW_ERASENOW | RDW_UPDATENOW);
+	}
+}
