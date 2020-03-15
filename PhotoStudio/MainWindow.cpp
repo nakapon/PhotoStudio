@@ -173,6 +173,10 @@ INT OnCommand(HWND hWindow, WPARAM wParam, LPARAM lParam)
 		}
 		break;
 
+	case ID_FILE_EXIT:
+		PostMessage(hWindow, WM_CLOSE, 0, 0);
+		break;
+
 	case ID_IMAGE_MONO:
 		if(gs_ImageData.IsCreated())
 		{
