@@ -88,6 +88,7 @@
     <ClCompile Include="ImageProc.cpp" />
     <ClCompile Include="ImageReader.cpp" />
     <ClCompile Include="ImageRenderer.cpp" />
+    <ClCompile Include="ImageWriter.cpp" />
     <ClCompile Include="MainWindow.cpp" />
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
@@ -96,6 +97,7 @@
     <ClInclude Include="ImageProc.h" />
     <ClInclude Include="ImageReader.h" />
     <ClInclude Include="ImageRenderer.h" />
+    <ClInclude Include="ImageWriter.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>

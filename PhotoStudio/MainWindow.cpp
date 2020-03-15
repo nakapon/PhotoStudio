@@ -2,6 +2,7 @@
 
 #include "ImageData.h"
 #include "ImageReader.h"
+#include "ImageWriter.h"
 #include "ImageRenderer.h"
 
 #include "ImageProc.h"
@@ -145,8 +146,38 @@ INT OnCommand(HWND hWindow, WPARAM wParam, LPARAM lParam)
 
 	case ID_FILE_SAVE:
 		// MENU 「File」→「Save」の処理
-		break;
+		if(gs_ImageData.IsCreated() || gs_ProcImage.IsCreated())
+		{
+			OPENFILENAME SaveFileName = { 0 };
 
+			TCHAR szFileName[MAX_PATH] = { 0 };
+
+			// 「ファイル選択ダイアログ」を表示
+			SaveFileName.lStructSize     = sizeof(OPENFILENAME);
+			SaveFileName.hwndOwner       = hWindow;
+			SaveFileName.lpstrFilter     = TEXT("All Files(*.*)\0*.*\0\0");
+			SaveFileName.nFilterIndex    = 1;
+			SaveFileName.lpstrFile       = szFileName;
+			SaveFileName.nMaxFile        = MAX_PATH;
+			SaveFileName.Flags           = OFN_OVERWRITEPROMPT;
+			SaveFileName.lpstrDefExt     = TEXT("");
+			SaveFileName.nMaxFileTitle   = MAX_PATH;
+			SaveFileName.lpstrFileTitle  = nullptr;
+			SaveFileName.lpstrTitle      = nullptr;
+
+			if(GetSaveFileName(&SaveFileName))
+			{
+				if(gs_ProcImage.IsCreated())
+				{
+					ImageWriter::WriteImage(szFileName, gs_ProcImage);
+				}
+				else
+				{
+					ImageWriter::WriteImage(szFileName, gs_ImageData);
+				}
+			}
+		}
+		break;
 
 	case ID_IMAGE_MONO:
 		if(gs_ImageData.IsCreated())
