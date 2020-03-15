@@ -122,8 +122,6 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR pszComman
 
 	HWND hWindow;
 
-	HACCEL hAccel;
-
 	g_hInstance = hInstance;
 
 	CoInitialize(NULL);
