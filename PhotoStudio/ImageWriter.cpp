@@ -7,23 +7,23 @@
 
 static FREE_IMAGE_FORMAT GetFileType(LPCTSTR pszFilePath);
 
-bool ImageWriter::WriteImage(LPCTSTR pszFilePath, const CImageData& ImageData)
+bool ImageWriter::WriteImage(LPCTSTR pszFilePath, const IImageData* pImageData)
 {
 	bool bReturn;
 
 	FREE_IMAGE_FORMAT fif = FIF_UNKNOWN;
 	FIBITMAP *dib = nullptr;
 
-	IMAGEINFO ImageInfo = { 0 };
+	IImageData::IMAGEINFO ImageInfo = { 0 };
 
-	if(pszFilePath == nullptr || !ImageData.IsCreated())
+	if(pszFilePath == nullptr || pImageData == nullptr || !pImageData->IsCreated())
 		return false;
 
 	fif = ::GetFileType(pszFilePath);
 	if(FIF_UNKNOWN == fif)
 		return false;
 
-	ImageInfo = ImageData.GetImageInfo();
+	ImageInfo = pImageData->GetImageInfo();
 
 	if(8 < ImageInfo.BitsPerChannel)
 	{
@@ -51,7 +51,7 @@ bool ImageWriter::WriteImage(LPCTSTR pszFilePath, const CImageData& ImageData)
 		if(dib == nullptr)
 			return nullptr;
 
-		pbySrcBits = ImageData.GetDataPtr();
+		pbySrcBits = pImageData->GetDataPtr();
 
 		BytesPerLine = FreeImage_GetPitch(dib);
 		pbyDstBits = FreeImage_GetBits(dib);
@@ -86,7 +86,7 @@ bool ImageWriter::WriteImage(LPCTSTR pszFilePath, const CImageData& ImageData)
 		if(dib == nullptr)
 			return nullptr;
 
-		pbySrcBits = ImageData.GetDataPtr();
+		pbySrcBits = pImageData->GetDataPtr();
 
 		BytesPerLine = FreeImage_GetPitch(dib);
 		pbyDstBits = FreeImage_GetBits(dib);

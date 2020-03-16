@@ -66,7 +66,7 @@ bool CImageData::IsCreated() const
 	return !this->m_ImageData.empty();
 }
 
-const IMAGEINFO& CImageData::GetImageInfo() const
+const IImageData::IMAGEINFO& CImageData::GetImageInfo() const
 {
 	return this->m_ImageInfo;
 }

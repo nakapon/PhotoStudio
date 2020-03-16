@@ -93,12 +93,12 @@ INT OnPaint(HWND hWindow)
 		if(gs_ProcImage.IsCreated())
 		{
 			// 処理結果を表示
-			ImageRenderer::Render(hDC, ClientSize, gs_ProcImage);
+			ImageRenderer::Render(hDC, ClientSize, &gs_ProcImage);
 		}
 		else
 		{
 			// オリジナルを表示
-			ImageRenderer::Render(hDC, ClientSize, gs_ImageData);
+			ImageRenderer::Render(hDC, ClientSize, &gs_ImageData);
 		}
 	}
 
@@ -176,11 +176,11 @@ INT OnCommand(HWND hWindow, WPARAM wParam, LPARAM lParam)
 			{
 				if(gs_ProcImage.IsCreated())
 				{
-					ImageWriter::WriteImage(szFilePath, gs_ProcImage);
+					ImageWriter::WriteImage(szFilePath, &gs_ProcImage);
 				}
 				else
 				{
-					ImageWriter::WriteImage(szFilePath, gs_ImageData);
+					ImageWriter::WriteImage(szFilePath, &gs_ImageData);
 				}
 			}
 		}
@@ -193,7 +193,7 @@ INT OnCommand(HWND hWindow, WPARAM wParam, LPARAM lParam)
 	case ID_IMAGE_MONO:
 		if(gs_ImageData.IsCreated())
 		{
-			ImageProc::GrayScale(gs_ProcImage, gs_ImageData);
+			ImageProc::GrayScale(&gs_ProcImage, &gs_ImageData);
 			UpdateImage(hWindow);
 		}
 		break;
@@ -251,7 +251,7 @@ static void LoadImage(HWND hWindow, LPCTSTR pszFilePath, bool bShowErrorMsg)
 	// 処理結果画像を破棄
 	gs_ProcImage.Destroy();
 
-	if(!ImageReader::ReadImage(pszFilePath, gs_ImageData))
+	if(!ImageReader::ReadImage(pszFilePath, &gs_ImageData))
 	{
 		// 読み込み失敗
 		if(bShowErrorMsg)

@@ -1,11 +1,11 @@
 #pragma once
 
-#include "ImageData.h"
+#include "IImageData.h"
 
 class ImageProc
 {
 public:
-	static void GrayScale(CImageData& ProcImage, const CImageData& ImageData);
+	static void GrayScale(IImageData* pDstImage, const IImageData* pSrcImage);
 
 private:
 	ImageProc() = delete;
@@ -13,4 +13,3 @@ private:
 	ImageProc(const ImageProc&) = delete;
 	ImageProc& operator=(const ImageProc&) = delete;
 };
-
