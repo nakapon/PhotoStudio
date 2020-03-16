@@ -21,6 +21,8 @@ static CImageData gs_ProcImage; /* 処理結果画像データ */
 static void UpdateImage(HWND hWindow);
 static void LoadImage(HWND hWindow, LPCTSTR pszFilePath, bool bShowErrorMsg);
 
+static void UpdateAppTitle(HWND hWindow);
+
 // メインウィンドウ作成時の処理
 INT OnCreate(HWND hWindow, CREATESTRUCT* pCreateStruct)
 {
@@ -43,6 +45,8 @@ INT OnCreate(HWND hWindow, CREATESTRUCT* pCreateStruct)
 			LoadImage(hWindow, szFilePath, false);
 		}
 	}
+
+	UpdateAppTitle(hWindow);
 
 	return 0;
 }
@@ -142,6 +146,8 @@ INT OnCommand(HWND hWindow, WPARAM wParam, LPARAM lParam)
 			if(GetOpenFileName(&OpenFileName))
 			{
 				LoadImage(hWindow, szFilePath, true);
+
+				UpdateAppTitle(hWindow);
 			}
 		}
 		break;
@@ -241,6 +247,8 @@ INT OnDropFiles(HWND hWindow, WPARAM wParam, LPARAM lParam)
 
 	LoadImage(hWindow, szFilePath, true);
 
+	UpdateAppTitle(hWindow);
+
 	return 0;
 }
 
@@ -267,4 +275,33 @@ static void LoadImage(HWND hWindow, LPCTSTR pszFilePath, bool bShowErrorMsg)
 		// 読み込み成功 - メインウィンドウを再描画して画面に読み込んだ画像を表示する
 		UpdateImage(hWindow);
 	}
+}
+
+static void UpdateAppTitle(HWND hWindow)
+{
+	TCHAR szTitle[256] = { 0 };
+
+	_tcscpy_s(szTitle, TEXT("Photo Studio"));
+
+	if(gs_ImageData.IsCreated())
+	{
+		LPCTSTR pszImageName;
+
+		_tcscat_s(szTitle, TEXT(" - "));
+
+		pszImageName = _tcsrchr(gs_ImageData.GetImageName(), _T('\\'));
+		if(pszImageName != nullptr)
+		{
+			TCHAR szInfo[128] = { 0 };
+
+			IImageData::IMAGEINFO ImageInfo = gs_ImageData.GetImageInfo();
+
+			_tcscat_s(szTitle, &pszImageName[1]);
+
+			_stprintf_s(szInfo, TEXT(" [%dx%d %dch %dbit]"), ImageInfo.Width, ImageInfo.Height, ImageInfo.ChannelCount, ImageInfo.BitsPerChannel);
+			_tcscat_s(szTitle, szInfo);
+		}
+	}
+
+	SetWindowText(hWindow, szTitle);
 }
