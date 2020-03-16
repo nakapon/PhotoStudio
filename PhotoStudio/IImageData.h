@@ -15,15 +15,24 @@ public:
 public:
 	virtual ~IImageData(){}
 
-	// 画像データ作成（空の黒データ）
+	// 画像データ作成
 	// BytesPerLine は指定しても無視される（内部で自動計算する）
-	virtual bool Create(const IMAGEINFO& ImageInfo) = 0;
+	virtual bool Create(LPCTSTR pszImageName, const IMAGEINFO& ImageInfo) = 0;
+
+	// 画像データ作成
+	virtual bool Create(LPCTSTR pszImageName, UINT Width, UINT Height, UINT ChannelCount, UINT BitsPerChannel) = 0;
 
 	// 画像データ破棄
 	virtual void Destroy() = 0;
 
 	// 画像データ作成済み？
 	virtual bool IsCreated() const = 0;
+
+	// 画像名取得
+	virtual LPCTSTR GetImageName() const = 0;
+
+	// 画像名変更
+	virtual void SetImageName(LPCTSTR pszImageName) = 0;
 
 	// 画像情報取得
 	virtual const IMAGEINFO& GetImageInfo() const = 0;

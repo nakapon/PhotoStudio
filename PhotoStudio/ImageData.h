@@ -12,11 +12,17 @@ public:
 	CImageData(const CImageData& ImageData);
 	CImageData& operator=(const CImageData& ImageData);
 
-	virtual bool Create(const IMAGEINFO& ImageInfo) override;
+	virtual bool Create(LPCTSTR pszImageName, const IMAGEINFO& ImageInfo) override;
+
+	virtual bool Create(LPCTSTR pszImageName, UINT Width, UINT Height, UINT ChannelCount, UINT BitsPerChannel) override;
 
 	virtual void Destroy() override;
 
 	virtual bool IsCreated() const override;
+
+	virtual LPCTSTR GetImageName() const override;
+
+	virtual void SetImageName(LPCTSTR pszImageName) override;
 
 	virtual const IMAGEINFO& GetImageInfo() const override;
 
@@ -24,6 +30,8 @@ public:
 	virtual BYTE* GetDataPtr() override;
 
 private:
+	// TODO ï∂éöóÒÉNÉâÉXÇçÏÇÎÇ§ (std::basic_string ÇÕÇøÇÂÇ¡Ç∆ÇÀÅc)
+	TCHAR m_szImageName[MAX_PATH];
 
 	IMAGEINFO m_ImageInfo;
 

@@ -63,7 +63,7 @@ bool ImageReader::ReadImage(LPCTSTR pszFilePath, IImageData* pImageData)
 
 	GetImageInfo(dib, ImageInfo);
 
-	pImageData->Create(ImageInfo);
+	pImageData->Create(pszFilePath, ImageInfo);
 	ImageInfo = pImageData->GetImageInfo(); // BytesPerLine ‚ðŽæ“¾‚·‚éˆ×‚É Create Œã‚ÉŽæ“¾‚·‚é
 
 	if(ImageInfo.BitsPerChannel == 8)

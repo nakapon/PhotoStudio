@@ -17,7 +17,6 @@ extern HINSTANCE g_hInstance;
 
 static CImageData gs_ImageData; /* 読み込んだ画像データ */
 static CImageData gs_ProcImage; /* 処理結果画像データ */
-static TCHAR gs_szFilePath[MAX_PATH]; /* 最新のファイルパス */
 
 static void UpdateImage(HWND hWindow);
 static void LoadImage(HWND hWindow, LPCTSTR pszFilePath, bool bShowErrorMsg);
@@ -36,9 +35,13 @@ INT OnCreate(HWND hWindow, CREATESTRUCT* pCreateStruct)
 	DragAcceptFiles(hWindow, TRUE);
 
 	// 前回の画像データを読み込む
-	if(Session::RestoreSession(gs_szFilePath, sizeof(gs_szFilePath) / sizeof(gs_szFilePath[0])))
 	{
-		LoadImage(hWindow, gs_szFilePath, false);
+		TCHAR szFilePath[MAX_PATH] = { 0 };
+
+		if(Session::RestoreSession(szFilePath, sizeof(szFilePath) / sizeof(szFilePath[0])))
+		{
+			LoadImage(hWindow, szFilePath, false);
+		}
 	}
 
 	return 0;
@@ -49,7 +52,7 @@ INT OnClose(HWND hWindow)
 {
 	DestroyWindow(hWindow);
 
-	Session::StoreSession(gs_szFilePath);
+	Session::StoreSession(gs_ImageData.GetImageName());
 
 	return 0;
 }
@@ -261,9 +264,6 @@ static void LoadImage(HWND hWindow, LPCTSTR pszFilePath, bool bShowErrorMsg)
 	}
 	else
 	{
-		// ファイルパス更新
-		_tcscpy_s(gs_szFilePath, pszFilePath);
-
 		// 読み込み成功 - メインウィンドウを再描画して画面に読み込んだ画像を表示する
 		UpdateImage(hWindow);
 	}
