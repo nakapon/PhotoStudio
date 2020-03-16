@@ -1,5 +1,7 @@
 #include <windows.h>
 
+#include <tchar.h>
+
 #include "ImageData.h"
 #include "ImageReader.h"
 #include "ImageWriter.h"
@@ -13,6 +15,7 @@ extern HINSTANCE g_hInstance;
 
 static CImageData gs_ImageData; /* 読み込んだ画像データ */
 static CImageData gs_ProcImage; /* 処理結果画像データ */
+static TCHAR gs_szFilePath[MAX_PATH]; /* 最新のファイルパス */
 
 static void UpdateImage(HWND hWindow);
 static void LoadImage(HWND hWindow, LPCTSTR pszFilePath);
@@ -245,6 +248,9 @@ static void LoadImage(HWND hWindow, LPCTSTR pszFilePath)
 	}
 	else
 	{
+		// ファイルパス更新
+		_tcscpy_s(gs_szFilePath, pszFilePath);
+
 		// 読み込み成功 - メインウィンドウを再描画して画面に読み込んだ画像を表示する
 		UpdateImage(hWindow);
 	}
