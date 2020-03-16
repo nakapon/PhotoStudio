@@ -1,12 +1,12 @@
 #pragma once
 
-#include "ImageData.h"
+#include "IImageData.h"
 
 class ImageWriter
 {
 public:
 	// TODO Support 1CH
-	static bool WriteImage(LPCTSTR pszFilePath, const CImageData& ImageData);
+	static bool WriteImage(LPCTSTR pszFilePath, const IImageData* pImageData);
 
 private:
 	ImageWriter() = delete;

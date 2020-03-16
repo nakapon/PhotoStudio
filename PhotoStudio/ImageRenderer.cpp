@@ -2,9 +2,9 @@
 
 #include "ImageRenderer.h"
 
-bool ImageRenderer::Render(HDC hDC, SIZE ClientSize, const CImageData& ImageData)
+bool ImageRenderer::Render(HDC hDC, SIZE ClientSize, const IImageData* pImageData)
 {
-	IMAGEINFO ImageInfo = ImageData.GetImageInfo();
+	IImageData::IMAGEINFO ImageInfo;;
 
 	BITMAPINFO BitmapInfo = { 0 };
 	HBITMAP hBitmap;
@@ -15,7 +15,12 @@ bool ImageRenderer::Render(HDC hDC, SIZE ClientSize, const CImageData& ImageData
 	BYTE* pbyDIBits, *pbyDIBitsLine;
 	UINT DIBBytesPerLine;
 
-	pbySrcBits = ImageData.GetDataPtr();
+	if(pImageData == nullptr || !pImageData->IsCreated())
+		return false;
+
+	ImageInfo = pImageData->GetImageInfo();
+
+	pbySrcBits = pImageData->GetDataPtr();
 
 	{
 		BitmapInfo.bmiHeader.biSize = sizeof(BITMAPINFOHEADER);

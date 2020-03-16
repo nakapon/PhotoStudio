@@ -94,6 +94,7 @@
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="IImageData.h" />
     <ClInclude Include="ImageData.h" />
     <ClInclude Include="ImageProc.h" />
     <ClInclude Include="ImageReader.h" />

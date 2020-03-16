@@ -7,9 +7,9 @@
 
 static FREE_IMAGE_FORMAT GetFileType(LPCTSTR pszFilePath);
 
-static void GetImageInfo(FIBITMAP* dib, IMAGEINFO& ImageInfo);
+static void GetImageInfo(FIBITMAP* dib, IImageData::IMAGEINFO& ImageInfo);
 
-bool ImageReader::ReadImage(LPCTSTR pszFilePath, CImageData& ImageData)
+bool ImageReader::ReadImage(LPCTSTR pszFilePath, IImageData* pImageData)
 {
 	bool bReturn = false;
 
@@ -17,9 +17,9 @@ bool ImageReader::ReadImage(LPCTSTR pszFilePath, CImageData& ImageData)
 	FREE_IMAGE_TYPE fit = FIT_UNKNOWN;
 	FIBITMAP *dib;
 
-	IMAGEINFO ImageInfo = { 0 };
+	IImageData::IMAGEINFO ImageInfo = { 0 };
 
-	if(pszFilePath == nullptr)
+	if(pszFilePath == nullptr || pImageData == nullptr)
 		return false;
 
 	fif = ::GetFileType(pszFilePath);
@@ -63,8 +63,8 @@ bool ImageReader::ReadImage(LPCTSTR pszFilePath, CImageData& ImageData)
 
 	GetImageInfo(dib, ImageInfo);
 
-	ImageData.Create(ImageInfo);
-	ImageInfo = ImageData.GetImageInfo(); // BytesPerLine ‚ðŽæ“¾‚·‚éˆ×‚É Create Œã‚ÉŽæ“¾‚·‚é
+	pImageData->Create(ImageInfo);
+	ImageInfo = pImageData->GetImageInfo(); // BytesPerLine ‚ðŽæ“¾‚·‚éˆ×‚É Create Œã‚ÉŽæ“¾‚·‚é
 
 	if(ImageInfo.BitsPerChannel == 8)
 	{
@@ -77,7 +77,7 @@ bool ImageReader::ReadImage(LPCTSTR pszFilePath, CImageData& ImageData)
 		PBYTE pbySrcPixel, pbyDstPixel;
 
 		pbySrcBits = FreeImage_GetBits(dib);
-		pbyDstBits = ImageData.GetDataPtr();
+		pbyDstBits = pImageData->GetDataPtr();
 
 		for(UINT i = 0; i < ImageInfo.Height; i++)
 		{
@@ -105,7 +105,7 @@ bool ImageReader::ReadImage(LPCTSTR pszFilePath, CImageData& ImageData)
 		PWORD pwSrcPixel, pwDstPixel;
 
 		pbySrcBits = FreeImage_GetBits(dib);
-		pbyDstBits = ImageData.GetDataPtr();
+		pbyDstBits = pImageData->GetDataPtr();
 
 		for(UINT i = 0; i < ImageInfo.Height; i++)
 		{
@@ -133,7 +133,7 @@ bool ImageReader::ReadImage(LPCTSTR pszFilePath, CImageData& ImageData)
 		PFLOAT pfSrcPixel, pfDstPixel;
 
 		pbySrcBits = FreeImage_GetBits(dib);
-		pbyDstBits = ImageData.GetDataPtr();
+		pbyDstBits = pImageData->GetDataPtr();
 
 		for(UINT i = 0; i < ImageInfo.Height; i++)
 		{
@@ -194,7 +194,7 @@ static FREE_IMAGE_FORMAT GetFileType(LPCTSTR pszFilePath)
 	return fif;
 }
 
-static void GetImageInfo(FIBITMAP* dib, IMAGEINFO& ImageInfo)
+static void GetImageInfo(FIBITMAP* dib, IImageData::IMAGEINFO& ImageInfo)
 {
 	FREE_IMAGE_TYPE fit = FIT_UNKNOWN;
 

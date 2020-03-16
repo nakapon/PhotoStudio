@@ -2,20 +2,25 @@
 
 #include "ImageProc.h"
 
-void ImageProc::GrayScale(CImageData& ProcImage, const CImageData& ImageData)
+void ImageProc::GrayScale(IImageData* pDstImage, const IImageData* pSrcImage)
 {
-	IMAGEINFO SrcInfo = ImageData.GetImageInfo();
-	IMAGEINFO DstInfo;
+	IImageData::IMAGEINFO SrcInfo;
+	IImageData::IMAGEINFO DstInfo;
 
 	const BYTE* pSrcBits, *pSrcLine, *pSrcPixel;
 	BYTE* pDstBits, *pDstLine, *pDstPixel;
 
-	// 画像処理結果用画像データを作成
-	ProcImage.Create(SrcInfo);
-	DstInfo = ProcImage.GetImageInfo();
+	if(pDstImage == nullptr || pSrcImage == nullptr || !pSrcImage->IsCreated())
+		return;
 
-	pSrcBits = ImageData.GetDataPtr();
-	pDstBits = ProcImage.GetDataPtr();
+	SrcInfo = pSrcImage->GetImageInfo();
+
+	// 画像処理結果用画像データを作成
+	pDstImage->Create(SrcInfo);
+	DstInfo = pDstImage->GetImageInfo();
+
+	pSrcBits = pSrcImage->GetDataPtr();
+	pDstBits = pDstImage->GetDataPtr();
 
 	// 1画素ずつループ回して処理する
 

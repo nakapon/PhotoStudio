@@ -1,11 +1,11 @@
 #pragma once
 
-#include "ImageData.h"
+#include "IImageData.h"
 
 class ImageRenderer
 {
 public:
-	static bool Render(HDC hDC, SIZE ClientSize, const CImageData& ImageData);
+	static bool Render(HDC hDC, SIZE ClientSize, const IImageData* pImageData);
 
 private:
 	ImageRenderer() = delete;
@@ -13,4 +13,3 @@ private:
 	ImageRenderer(const ImageRenderer&) = delete;
 	ImageRenderer& operator=(const ImageRenderer&) = delete;
 };
-

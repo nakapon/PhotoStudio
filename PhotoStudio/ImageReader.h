@@ -1,13 +1,13 @@
 #pragma once
 
-#include "ImageData.h"
+#include "IImageData.h"
 
 class ImageReader
 {
 public:
 
 	// TODO Support 1CH
-	static bool ReadImage(LPCTSTR pszFilePath, CImageData& ImageData);
+	static bool ReadImage(LPCTSTR pszFilePath, IImageData* pImageData);
 
 private:
 	ImageReader() = delete;
