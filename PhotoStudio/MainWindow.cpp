@@ -1,5 +1,7 @@
 #include <windows.h>
 
+#include <tchar.h>
+
 #include "ImageData.h"
 #include "ImageReader.h"
 #include "ImageWriter.h"
@@ -7,15 +9,18 @@
 
 #include "ImageProc.h"
 
+#include "Session.h"
+
 #include "resource.h"
 
 extern HINSTANCE g_hInstance;
 
 static CImageData gs_ImageData; /* 読み込んだ画像データ */
 static CImageData gs_ProcImage; /* 処理結果画像データ */
+static TCHAR gs_szFilePath[MAX_PATH]; /* 最新のファイルパス */
 
 static void UpdateImage(HWND hWindow);
-static void LoadImage(HWND hWindow, LPCTSTR pszFilePath);
+static void LoadImage(HWND hWindow, LPCTSTR pszFilePath, bool bShowErrorMsg);
 
 // メインウィンドウ作成時の処理
 INT OnCreate(HWND hWindow, CREATESTRUCT* pCreateStruct)
@@ -30,6 +35,12 @@ INT OnCreate(HWND hWindow, CREATESTRUCT* pCreateStruct)
 	// ファイルドロップ許可
 	DragAcceptFiles(hWindow, TRUE);
 
+	// 前回の画像データを読み込む
+	if(Session::RestoreSession(gs_szFilePath, sizeof(gs_szFilePath) / sizeof(gs_szFilePath[0])))
+	{
+		LoadImage(hWindow, gs_szFilePath, false);
+	}
+
 	return 0;
 }
 
@@ -37,6 +48,8 @@ INT OnCreate(HWND hWindow, CREATESTRUCT* pCreateStruct)
 INT OnClose(HWND hWindow)
 {
 	DestroyWindow(hWindow);
+
+	Session::StoreSession(gs_szFilePath);
 
 	return 0;
 }
@@ -125,7 +138,7 @@ INT OnCommand(HWND hWindow, WPARAM wParam, LPARAM lParam)
 
 			if(GetOpenFileName(&OpenFileName))
 			{
-				LoadImage(hWindow, szFilePath);
+				LoadImage(hWindow, szFilePath, true);
 			}
 		}
 		break;
@@ -223,7 +236,7 @@ INT OnDropFiles(HWND hWindow, WPARAM wParam, LPARAM lParam)
 
 	DragQueryFile(hDrop, 0, szFilePath, sizeof(szFilePath) / sizeof(szFilePath[0]));
 
-	LoadImage(hWindow, szFilePath);
+	LoadImage(hWindow, szFilePath, true);
 
 	return 0;
 }
@@ -233,7 +246,7 @@ static void UpdateImage(HWND hWindow)
 	RedrawWindow(hWindow, nullptr, nullptr, RDW_INVALIDATE | RDW_ERASENOW | RDW_UPDATENOW);
 }
 
-static void LoadImage(HWND hWindow, LPCTSTR pszFilePath)
+static void LoadImage(HWND hWindow, LPCTSTR pszFilePath, bool bShowErrorMsg)
 {
 	// 処理結果画像を破棄
 	gs_ProcImage.Destroy();
@@ -241,10 +254,16 @@ static void LoadImage(HWND hWindow, LPCTSTR pszFilePath)
 	if(!ImageReader::ReadImage(pszFilePath, gs_ImageData))
 	{
 		// 読み込み失敗
-		MessageBox(hWindow, TEXT("Failed to load the specified file."), TEXT("Error"), MB_ICONERROR | MB_OK | MB_TOPMOST);
+		if(bShowErrorMsg)
+		{
+			MessageBox(hWindow, TEXT("Failed to load the specified file."), TEXT("Error"), MB_ICONERROR | MB_OK | MB_TOPMOST);
+		}
 	}
 	else
 	{
+		// ファイルパス更新
+		_tcscpy_s(gs_szFilePath, pszFilePath);
+
 		// 読み込み成功 - メインウィンドウを再描画して画面に読み込んだ画像を表示する
 		UpdateImage(hWindow);
 	}

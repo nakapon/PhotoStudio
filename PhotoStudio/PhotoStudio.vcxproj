@@ -90,6 +90,7 @@
     <ClCompile Include="ImageRenderer.cpp" />
     <ClCompile Include="ImageWriter.cpp" />
     <ClCompile Include="MainWindow.cpp" />
+    <ClCompile Include="Sessoin.cpp" />
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -99,6 +100,7 @@
     <ClInclude Include="ImageRenderer.h" />
     <ClInclude Include="ImageWriter.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="Session.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Resource.rc" />
