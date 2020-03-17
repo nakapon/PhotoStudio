@@ -1,59 +1,59 @@
-#pragma once
+ï»¿#pragma once
 
 class IImageData
 {
 public:
 	typedef struct
 	{
-		UINT Width;			/* • pix */
-		UINT Height;		/* ‚‚³ pix */
-		UINT ChannelCount;	/* ƒ`ƒƒƒ“ƒlƒ‹” */
-		UINT BitsPerChannel;/* 1ƒ`ƒƒƒ“ƒlƒ‹“–‚½‚è‚Ìƒrƒbƒg” */
-		UINT BytesPerLine;	/* ƒƒ‚ƒŠã‚Ì‰¡1ƒ‰ƒCƒ“‚ÌƒoƒCƒg” */
+		UINT Width;			/* å¹… pix */
+		UINT Height;		/* é«˜ã• pix */
+		UINT ChannelCount;	/* ãƒãƒ£ãƒ³ãƒãƒ«æ•° */
+		UINT BitsPerChannel;/* 1ãƒãƒ£ãƒ³ãƒãƒ«å½“ãŸã‚Šã®ãƒ“ãƒƒãƒˆæ•° */
+		UINT BytesPerLine;	/* ãƒ¡ãƒ¢ãƒªä¸Šã®æ¨ª1ãƒ©ã‚¤ãƒ³ã®ãƒã‚¤ãƒˆæ•° */
 	} IMAGEINFO;
 
 public:
 	virtual ~IImageData(){}
 
-	// ‰æ‘œƒf[ƒ^ì¬
-	// BytesPerLine ‚Íw’è‚µ‚Ä‚à–³‹‚³‚ê‚éi“à•”‚Å©“®ŒvZ‚·‚éj
+	// ç”»åƒãƒ‡ãƒ¼ã‚¿ä½œæˆ
+	// BytesPerLine ã¯æŒ‡å®šã—ã¦ã‚‚ç„¡è¦–ã•ã‚Œã‚‹ï¼ˆå†…éƒ¨ã§è‡ªå‹•è¨ˆç®—ã™ã‚‹ï¼‰
 	virtual bool Create(LPCTSTR pszImageName, const IMAGEINFO& ImageInfo) = 0;
 
-	// ‰æ‘œƒf[ƒ^ì¬
+	// ç”»åƒãƒ‡ãƒ¼ã‚¿ä½œæˆ
 	virtual bool Create(LPCTSTR pszImageName, UINT Width, UINT Height, UINT ChannelCount, UINT BitsPerChannel) = 0;
 
-	// ‰æ‘œƒf[ƒ^”jŠü
+	// ç”»åƒãƒ‡ãƒ¼ã‚¿ç ´æ£„
 	virtual void Destroy() = 0;
 
-	// ‰æ‘œƒf[ƒ^ì¬Ï‚İH
+	// ç”»åƒãƒ‡ãƒ¼ã‚¿ä½œæˆæ¸ˆã¿ï¼Ÿ
 	virtual bool IsCreated() const = 0;
 
-	// ‰æ‘œ–¼æ“¾
+	// ç”»åƒåå–å¾—
 	virtual LPCTSTR GetImageName() const = 0;
 
-	// ‰æ‘œ–¼•ÏX
+	// ç”»åƒåå¤‰æ›´
 	virtual void SetImageName(LPCTSTR pszImageName) = 0;
 
-	// ‰æ‘œî•ñæ“¾
+	// ç”»åƒæƒ…å ±å–å¾—
 	virtual const IMAGEINFO& GetImageInfo() const = 0;
 
-	// ‰æ‘œƒf[ƒ^‚Ìƒ|ƒCƒ“ƒ^æ“¾
+	// ç”»åƒãƒ‡ãƒ¼ã‚¿ã®ãƒã‚¤ãƒ³ã‚¿å–å¾—
 	virtual const BYTE* GetDataPtr() const = 0;
 	virtual BYTE* GetDataPtr() = 0;
 
-	/* —áj —á‚¦‚Î ‰¡3pix c2pix ƒ`ƒƒƒ“ƒlƒ‹” 3 ƒrƒbƒg” 8 (RGB 24bit) ‚Ìê‡CˆÈ‰º‚Ì‚æ‚¤‚Éƒƒ‚ƒŠã‚Éƒf[ƒ^‚ª•À‚Ô
+	/* ä¾‹ï¼‰ ä¾‹ãˆã° æ¨ª3pix ç¸¦2pix ãƒãƒ£ãƒ³ãƒãƒ«æ•° 3 ãƒ“ãƒƒãƒˆæ•° 8 (RGB 24bit) ã®å ´åˆï¼Œä»¥ä¸‹ã®ã‚ˆã†ã«ãƒ¡ãƒ¢ãƒªä¸Šã«ãƒ‡ãƒ¼ã‚¿ãŒä¸¦ã¶
 
 			Width = 3;
 			Height = 2;
 			ChannelCount = 3;
 			BitsPerChannel = 8;
-			BytesPerLine = Width * ChannelCount * ((BitsPerChannel + 7) / 8) + padding;  ¦ padding ‚ÍƒAƒ‰ƒCƒƒ“ƒg’²®‚Ì‹l‚ß•¨
+			BytesPerLine = Width * ChannelCount * ((BitsPerChannel + 7) / 8) + padding;  â€» padding ã¯ã‚¢ãƒ©ã‚¤ãƒ¡ãƒ³ãƒˆèª¿æ•´ã®è©°ã‚ç‰©
 
 			[R(0,0)][G(0,0)][B(0,0)][R(1,0)][G(1,0)][B(1,0)][R(2,0)][G(2,0)][B(2,0)][ padding ]
 			[R(0,1)][G(0,1)][B(0,1)][R(1,1)][G(1,1)][B(1,1)][R(2,1)][G(2,1)][B(2,1)][ padding ]
 			|<------------------------- BytesPerLine ---------------------------------------->|
 
-			¦ [R(x,y)] ‚Í À•W(x,y) ‚ÌR‰æ‘f’l(BitsPerChannel ‚ª8‚È‚ç1ƒoƒCƒg‚È‚Ì‚Å 0 - 255)
+			â€» [R(x,y)] ã¯ åº§æ¨™(x,y) ã®Rç”»ç´ å€¤(BitsPerChannel ãŒ8ãªã‚‰1ãƒã‚¤ãƒˆãªã®ã§ 0 - 255)
 
 	*/
 };

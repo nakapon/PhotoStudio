@@ -1,4 +1,4 @@
-#include <windows.h>
+﻿#include <windows.h>
 
 #include <freeimage/FreeImage.h>
 #pragma comment (lib, "FreeImage.lib")

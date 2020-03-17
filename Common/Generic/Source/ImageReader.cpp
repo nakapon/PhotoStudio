@@ -1,4 +1,4 @@
-#include <windows.h>
+ï»¿#include <windows.h>
 
 #include <freeimage/FreeImage.h>
 #pragma comment (lib, "FreeImage.lib")
@@ -64,7 +64,7 @@ bool ImageReader::ReadImage(LPCTSTR pszFilePath, IImageData* pImageData)
 	GetImageInfo(dib, ImageInfo);
 
 	pImageData->Create(pszFilePath, ImageInfo);
-	ImageInfo = pImageData->GetImageInfo(); // BytesPerLine ‚ğæ“¾‚·‚éˆ×‚É Create Œã‚Éæ“¾‚·‚é
+	ImageInfo = pImageData->GetImageInfo(); // BytesPerLine ã‚’å–å¾—ã™ã‚‹ç‚ºã« Create å¾Œã«å–å¾—ã™ã‚‹
 
 	if(ImageInfo.BitsPerChannel == 8)
 	{
