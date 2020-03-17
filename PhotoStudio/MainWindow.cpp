@@ -11,6 +11,8 @@
 
 #include "Session.h"
 
+#include "NewDlg.h"
+
 #include "resource.h"
 
 extern HINSTANCE g_hInstance;
@@ -121,6 +123,14 @@ INT OnCommand(HWND hWindow, WPARAM wParam, LPARAM lParam)
 	{
 	case ID_FILE_NEW:
 		// MENU 「File」→「New」の処理
+		if(NewDlg::DoModal(g_hInstance, hWindow, &gs_ImageData))
+		{
+			gs_ProcImage.Destroy();
+
+			UpdateImage(hWindow);
+
+			UpdateAppTitle(hWindow);
+		}
 		break;
 
 	case ID_FILE_OPEN:
@@ -285,18 +295,30 @@ static void UpdateAppTitle(HWND hWindow)
 
 	if(gs_ImageData.IsCreated())
 	{
-		LPCTSTR pszImageName;
-
 		_tcscat_s(szTitle, TEXT(" - "));
 
-		pszImageName = _tcsrchr(gs_ImageData.GetImageName(), _T('\\'));
-		if(pszImageName != nullptr)
+		// 画像名 (ファイルパスの場合はファイル名部分だけを表示）
+		{
+			LPCTSTR pszImageName;
+
+			pszImageName = _tcsrchr(gs_ImageData.GetImageName(), _T('\\'));
+			if(pszImageName != nullptr)
+			{
+				pszImageName++;
+			}
+			else
+			{
+				pszImageName =gs_ImageData.GetImageName();
+			}
+
+			_tcscat_s(szTitle, pszImageName);
+		}
+
+		// 画像情報
 		{
 			TCHAR szInfo[128] = { 0 };
 
 			IImageData::IMAGEINFO ImageInfo = gs_ImageData.GetImageInfo();
-
-			_tcscat_s(szTitle, &pszImageName[1]);
 
 			_stprintf_s(szInfo, TEXT(" [%dx%d %dch %dbit]"), ImageInfo.Width, ImageInfo.Height, ImageInfo.ChannelCount, ImageInfo.BitsPerChannel);
 			_tcscat_s(szTitle, szInfo);

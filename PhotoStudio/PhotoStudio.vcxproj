@@ -63,6 +63,9 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>..\Library</AdditionalLibraryDirectories>
     </Link>
+    <Manifest>
+      <AdditionalManifestFiles>PhotoStudio.exe.manifest</AdditionalManifestFiles>
+    </Manifest>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -82,6 +85,9 @@
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalLibraryDirectories>..\Library</AdditionalLibraryDirectories>
     </Link>
+    <Manifest>
+      <AdditionalManifestFiles>PhotoStudio.exe.manifest</AdditionalManifestFiles>
+    </Manifest>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ImageData.cpp" />
@@ -90,6 +96,7 @@
     <ClCompile Include="ImageRenderer.cpp" />
     <ClCompile Include="ImageWriter.cpp" />
     <ClCompile Include="MainWindow.cpp" />
+    <ClCompile Include="NewDlg.cpp" />
     <ClCompile Include="Sessoin.cpp" />
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
@@ -100,6 +107,7 @@
     <ClInclude Include="ImageReader.h" />
     <ClInclude Include="ImageRenderer.h" />
     <ClInclude Include="ImageWriter.h" />
+    <ClInclude Include="NewDlg.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Session.h" />
   </ItemGroup>
