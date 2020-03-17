@@ -1,5 +1,7 @@
 #include <windows.h>
 
+#include "ImageProc.h"
+
 #include "NewDlg.h"
 
 #include "resource.h"
@@ -17,12 +19,12 @@ bool NewDlg::DoModal(HINSTANCE hInstance, HWND hWindow, IImageData* pImageData)
 
 static INT_PTR CALLBACK DialogProcedure(HWND hDialog, UINT unMessage, WPARAM wParam, LPARAM lParam)
 {
-	static IImageData* s_ImageData;
+	static IImageData* s_pImageData;
 
 	switch(unMessage)
 	{
 	case WM_INITDIALOG:
-		s_ImageData = (IImageData*)lParam; // DialogBoxParam の dwInitParam で渡したものが来る
+		s_pImageData = (IImageData*)lParam; // DialogBoxParam の dwInitParam で渡したものが来る
 
 		SetDlgItemText(hDialog, IDC_EDIT_NAME, TEXT("Untitled"));
 
@@ -55,9 +57,12 @@ static INT_PTR CALLBACK DialogProcedure(HWND hDialog, UINT unMessage, WPARAM wPa
 				UINT Channels = GetDlgItemInt(hDialog, IDC_EDIT_CHANNELS, nullptr, FALSE);
 				UINT Depth = GetDlgItemInt(hDialog, IDC_EDIT_DEPTH, nullptr, FALSE);
 
-				Result = s_ImageData->Create(szImageName, Width, Height, Channels, Depth);
+				Result = s_pImageData->Create(szImageName, Width, Height, Channels, Depth);
 
-				// TODO 背景色を指定できるようにする
+				UINT MaxValue = (1 << Depth) - 1;
+
+				// 白色にする（画素値を最大値にする）
+				ImageProc::Fill(s_pImageData, MaxValue, MaxValue, MaxValue);
 
 				// 成功した場合は 1 を返す
 				EndDialog(hDialog, Result ? 1 : 0);
