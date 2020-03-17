@@ -56,12 +56,12 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\Include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Common\Generic\Include;..\ThirdParty\Windows\Include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>..\Library</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\ThirdParty\Windows\Library</AdditionalLibraryDirectories>
     </Link>
     <Manifest>
       <AdditionalManifestFiles>PhotoStudio.exe.manifest</AdditionalManifestFiles>
@@ -76,37 +76,37 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\Include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Common\Generic\Include;..\ThirdParty\Windows\Include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>..\Library</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\ThirdParty\Windows\Library</AdditionalLibraryDirectories>
     </Link>
     <Manifest>
       <AdditionalManifestFiles>PhotoStudio.exe.manifest</AdditionalManifestFiles>
     </Manifest>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ImageData.cpp" />
-    <ClCompile Include="ImageProc.cpp" />
-    <ClCompile Include="ImageReader.cpp" />
-    <ClCompile Include="ImageRenderer.cpp" />
-    <ClCompile Include="ImageWriter.cpp" />
+    <ClCompile Include="..\Common\Generic\Source\ImageData.cpp" />
+    <ClCompile Include="..\Common\Generic\Source\ImageProc.cpp" />
+    <ClCompile Include="..\Common\Generic\Source\ImageReader.cpp" />
+    <ClCompile Include="..\Common\Generic\Source\ImageRenderer.cpp" />
+    <ClCompile Include="..\Common\Generic\Source\ImageWriter.cpp" />
     <ClCompile Include="MainWindow.cpp" />
     <ClCompile Include="NewDlg.cpp" />
     <ClCompile Include="Sessoin.cpp" />
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="IImageData.h" />
-    <ClInclude Include="ImageData.h" />
-    <ClInclude Include="ImageProc.h" />
-    <ClInclude Include="ImageReader.h" />
-    <ClInclude Include="ImageRenderer.h" />
-    <ClInclude Include="ImageWriter.h" />
+    <ClInclude Include="..\Common\Generic\Include\IImageData.h" />
+    <ClInclude Include="..\Common\Generic\Include\ImageData.h" />
+    <ClInclude Include="..\Common\Generic\Include\ImageProc.h" />
+    <ClInclude Include="..\Common\Generic\Include\ImageReader.h" />
+    <ClInclude Include="..\Common\Generic\Include\ImageRenderer.h" />
+    <ClInclude Include="..\Common\Generic\Include\ImageWriter.h" />
     <ClInclude Include="NewDlg.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Session.h" />
