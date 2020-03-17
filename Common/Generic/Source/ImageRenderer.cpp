@@ -1,4 +1,4 @@
-#include <windows.h>
+ï»¿#include <windows.h>
 
 #include "ImageRenderer.h"
 
@@ -55,7 +55,7 @@ bool ImageRenderer::Render(HDC hDC, SIZE ClientSize, const IImageData* pImageDat
 #if 0
 	BitBlt(hDC, 0, 0, ImageInfo.Width, ImageInfo.Height, hMemDC, 0, 0, SRCCOPY);
 #else
-	// ‰æ–Ê’†‰›‚ÉƒEƒBƒ“ƒhƒE‚É”[‚Ü‚é‚æ‚¤‚ÉƒXƒP[ƒ‹‚µ‚Ä•\¦
+	// ç”»é¢ä¸­å¤®ã«ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã«ç´ã¾ã‚‹ã‚ˆã†ã«ã‚¹ã‚±ãƒ¼ãƒ«ã—ã¦è¡¨ç¤º
 	float ScaleH, ScaleV, Scale;
 	ScaleH = (float)ClientSize.cx / ImageInfo.Width;
 	ScaleV = (float)ClientSize.cy / ImageInfo.Height;

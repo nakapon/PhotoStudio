@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include <vector>
 
@@ -30,7 +30,7 @@ public:
 	virtual BYTE* GetDataPtr() override;
 
 private:
-	// TODO •¶š—ñƒNƒ‰ƒX‚ğì‚ë‚¤ (std::basic_string ‚Í‚¿‚å‚Á‚Æ‚Ëc)
+	// TODO æ–‡å­—åˆ—ã‚¯ãƒ©ã‚¹ã‚’ä½œã‚ã† (std::basic_string ã¯ã¡ã‚‡ã£ã¨ã­â€¦)
 	TCHAR m_szImageName[MAX_PATH];
 
 	IMAGEINFO m_ImageInfo;

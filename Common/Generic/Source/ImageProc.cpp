@@ -1,4 +1,4 @@
-#include <windows.h>
+﻿#include <windows.h>
 
 #include "ImageProc.h"
 
@@ -17,7 +17,7 @@ static void Fill(IImageData* pImage, UINT ValueCh1, UINT ValueCh2, UINT ValueCh3
 
 	pbyBits = pImage->GetDataPtr();
 
-	// �ő�l�N���b�v
+	// 最大値クリップ
 	MaxValue = (1 << ImageInfo.BitsPerChannel) - 1;
 
 	ValueCh1 = min(MaxValue, ValueCh1);
@@ -100,14 +100,14 @@ void ImageProc::GrayScale(IImageData* pDstImage, const IImageData* pSrcImage)
 
 	SrcInfo = pSrcImage->GetImageInfo();
 
-	// �摜�������ʗp�摜�f�[�^���쐬
+	// 画像処理結果用画像データを作成
 	pDstImage->Create(nullptr, SrcInfo);
 	DstInfo = pDstImage->GetImageInfo();
 
 	pSrcBits = pSrcImage->GetDataPtr();
 	pDstBits = pDstImage->GetDataPtr();
 
-	// 1��f�����[�v�񂵂ď�������
+	// 1画素ずつループ回して処理する
 
 	for(UINT y = 0; y < SrcInfo.Height; y++)
 	{
@@ -122,12 +122,12 @@ void ImageProc::GrayScale(IImageData* pDstImage, const IImageData* pSrcImage)
 			UINT R, G, B;
 			UINT Y;
 
-			// ���W (x, y) �̉�f�l RGB
+			// 座標 (x, y) の画素値 RGB
 			R = pSrcPixel[0];
 			G = pSrcPixel[1];
 			B = pSrcPixel[2];
 
-			// RGB -> Y �ɕϊ�
+			// RGB -> Y に変換
 			Y = (UINT)(0.299f * R + 0.587f * G + 0.114f * B + 0.5f);
 
 			pDstPixel[0] = Y;
