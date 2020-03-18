@@ -1,1 +1,4 @@
-//#include <platform/unix/WindowsTchar.h>
+#pragma once
+
+#include <WindowsTchar.h>
+
