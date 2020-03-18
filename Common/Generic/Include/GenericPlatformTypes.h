@@ -23,4 +23,7 @@ struct GenericPlatformTypes
 
 	typedef TConditional<sizeof(void*) == 8, UInt64, UInt32>::Type UIntPtr;
 	typedef TConditional<sizeof(void*) == 8,  Int64,  Int32>::Type  IntPtr;
+
+	typedef UIntPtr SIZE_T;
+	typedef IntPtr SSIZE_T;
 };
