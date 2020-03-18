@@ -14,7 +14,7 @@ public:
 
 	virtual bool Create(LPCTSTR pszImageName, const IMAGEINFO& ImageInfo) override;
 
-	virtual bool Create(LPCTSTR pszImageName, UINT Width, UINT Height, UINT ChannelCount, UINT BitsPerChannel) override;
+	virtual bool Create(LPCTSTR pszImageName, UInt32 Width, UInt32 Height, UInt32 ChannelCount, UInt32 BitsPerChannel) override;
 
 	virtual void Destroy() override;
 

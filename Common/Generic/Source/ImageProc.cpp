@@ -1,9 +1,11 @@
-﻿#include <windows.h>
+﻿#include <Platform.h>
 
-#include "ImageProc.h"
+#include <algorithm>
+
+#include <ImageProc.h>
 
 template <typename T>
-static void Fill(IImageData* pImage, UINT ValueCh1, UINT ValueCh2, UINT ValueCh3)
+static void Fill(IImageData* pImage, UInt32 ValueCh1, UInt32 ValueCh2, UInt32 ValueCh3)
 {
 	IImageData::IMAGEINFO ImageInfo;
 
@@ -11,7 +13,7 @@ static void Fill(IImageData* pImage, UINT ValueCh1, UINT ValueCh2, UINT ValueCh3
 
 	T* pLine;
 
-	UINT MaxValue;
+	UInt32 MaxValue;
 
 	ImageInfo = pImage->GetImageInfo();
 
@@ -20,18 +22,18 @@ static void Fill(IImageData* pImage, UINT ValueCh1, UINT ValueCh2, UINT ValueCh3
 	// 最大値クリップ
 	MaxValue = (1 << ImageInfo.BitsPerChannel) - 1;
 
-	ValueCh1 = min(MaxValue, ValueCh1);
-	ValueCh2 = min(MaxValue, ValueCh2);
-	ValueCh3 = min(MaxValue, ValueCh3);
+	ValueCh1 = std::min(MaxValue, ValueCh1);
+	ValueCh2 = std::min(MaxValue, ValueCh2);
+	ValueCh3 = std::min(MaxValue, ValueCh3);
 
 	switch(ImageInfo.ChannelCount)
 	{
 	case 1:
-		for(UINT y = 0; y < ImageInfo.Height; y++)
+		for(UInt32 y = 0; y < ImageInfo.Height; y++)
 		{
 			pLine = (T*)&pbyBits[y * ImageInfo.BytesPerLine];
 
-			for(UINT x = 0; x < ImageInfo.Width; x++)
+			for(UInt32 x = 0; x < ImageInfo.Width; x++)
 			{
 				pLine[x] = (T)ValueCh1;
 			}
@@ -39,11 +41,11 @@ static void Fill(IImageData* pImage, UINT ValueCh1, UINT ValueCh2, UINT ValueCh3
 		break;
 
 	case 2:
-		for(UINT y = 0; y < ImageInfo.Height; y++)
+		for(UInt32 y = 0; y < ImageInfo.Height; y++)
 		{
 			pLine = (T*)&pbyBits[y * ImageInfo.BytesPerLine];
 
-			for(UINT x = 0; x < ImageInfo.Width; x++)
+			for(UInt32 x = 0; x < ImageInfo.Width; x++)
 			{
 				pLine[2 * x + 0] = (T)ValueCh1;
 				pLine[2 * x + 1] = (T)ValueCh2;
@@ -53,11 +55,11 @@ static void Fill(IImageData* pImage, UINT ValueCh1, UINT ValueCh2, UINT ValueCh3
 
 	case 3:
 	case 4:
-		for(UINT y = 0; y < ImageInfo.Height; y++)
+		for(UInt32 y = 0; y < ImageInfo.Height; y++)
 		{
 			pLine = (T*)&pbyBits[y * ImageInfo.BytesPerLine];
 
-			for(UINT x = 0; x < ImageInfo.Width; x++)
+			for(UInt32 x = 0; x < ImageInfo.Width; x++)
 			{
 				pLine[ImageInfo.ChannelCount * x + 0] = (T)ValueCh1;
 				pLine[ImageInfo.ChannelCount * x + 1] = (T)ValueCh2;
@@ -68,7 +70,7 @@ static void Fill(IImageData* pImage, UINT ValueCh1, UINT ValueCh2, UINT ValueCh3
 	}
 }
 
-void ImageProc::Fill(IImageData* pImage, UINT ValueCh1, UINT ValueCh2, UINT ValueCh3)
+void ImageProc::Fill(IImageData* pImage, UInt32 ValueCh1, UInt32 ValueCh2, UInt32 ValueCh3)
 {
 	IImageData::IMAGEINFO ImageInfo;
 
@@ -77,7 +79,7 @@ void ImageProc::Fill(IImageData* pImage, UINT ValueCh1, UINT ValueCh2, UINT Valu
 
 	ImageInfo = pImage->GetImageInfo();
 
-	UINT BytesPerChannel = (ImageInfo.BitsPerChannel + 7) >> 3;
+	UInt32 BytesPerChannel = (ImageInfo.BitsPerChannel + 7) >> 3;
 
 	switch(BytesPerChannel)
 	{
@@ -109,18 +111,18 @@ void ImageProc::GrayScale(IImageData* pDstImage, const IImageData* pSrcImage)
 
 	// 1画素ずつループ回して処理する
 
-	for(UINT y = 0; y < SrcInfo.Height; y++)
+	for(UInt32 y = 0; y < SrcInfo.Height; y++)
 	{
 		pSrcLine = &pSrcBits[y * SrcInfo.BytesPerLine];
 		pDstLine = &pDstBits[y * DstInfo.BytesPerLine];
 
-		for(UINT x = 0; x < SrcInfo.Width; x++)
+		for(UInt32 x = 0; x < SrcInfo.Width; x++)
 		{
 			pSrcPixel = &pSrcLine[x * SrcInfo.ChannelCount];
 			pDstPixel = &pDstLine[x * DstInfo.ChannelCount];
 
-			UINT R, G, B;
-			UINT Y;
+			UInt32 R, G, B;
+			UInt32 Y;
 
 			// 座標 (x, y) の画素値 RGB
 			R = pSrcPixel[0];
@@ -128,7 +130,7 @@ void ImageProc::GrayScale(IImageData* pDstImage, const IImageData* pSrcImage)
 			B = pSrcPixel[2];
 
 			// RGB -> Y に変換
-			Y = (UINT)(0.299f * R + 0.587f * G + 0.114f * B + 0.5f);
+			Y = (UInt32)(0.299f * R + 0.587f * G + 0.114f * B + 0.5f);
 
 			pDstPixel[0] = Y;
 			pDstPixel[1] = Y;

@@ -1,9 +1,14 @@
-﻿#include <windows.h>
+﻿#include <Platform.h>
 
+#if PLATFORM_WINDOWS
 #include <freeimage/FreeImage.h>
 #pragma comment (lib, "FreeImage.lib")
+#else
+#define _LIBRAW_TYPES_H
+#include <FreeImage.h>
+#endif
 
-#include "ImageWriter.h"
+#include <ImageWriter.h>
 
 static FREE_IMAGE_FORMAT GetFileType(LPCTSTR pszFilePath);
 
@@ -27,7 +32,7 @@ bool ImageWriter::WriteImage(LPCTSTR pszFilePath, const IImageData* pImageData)
 
 	if(8 < ImageInfo.BitsPerChannel)
 	{
-		UINT BytesPerLine;
+		UInt32 BytesPerLine;
 
 		const BYTE* pbySrcBits;
 		const WORD *pwSrcLine, *pwSrcPixel;
@@ -35,8 +40,8 @@ bool ImageWriter::WriteImage(LPCTSTR pszFilePath, const IImageData* pImageData)
 		PBYTE pbyDstBits;
 		PWORD pwDstLine, pwDstPixel;
 
-		UINT SrcMax = (1 << ImageInfo.BitsPerChannel) - 1;
-		UINT DstMax = (1 << 16) - 1;
+		UInt32 SrcMax = (1 << ImageInfo.BitsPerChannel) - 1;
+		UInt32 DstMax = (1 << 16) - 1;
 
 		FREE_IMAGE_TYPE ImageType;
 		switch(ImageInfo.ChannelCount)
@@ -56,17 +61,17 @@ bool ImageWriter::WriteImage(LPCTSTR pszFilePath, const IImageData* pImageData)
 		BytesPerLine = FreeImage_GetPitch(dib);
 		pbyDstBits = FreeImage_GetBits(dib);
 
-		for(UINT i = 0; i < ImageInfo.Height; i++)
+		for(UInt32 i = 0; i < ImageInfo.Height; i++)
 		{
 			pwSrcLine = (WORD *)&pbySrcBits[ImageInfo.BytesPerLine * (ImageInfo.Height - 1 - i)];
 			pwDstLine = (WORD *)&pbyDstBits[BytesPerLine * i];
 
-			for(UINT j = 0; j < ImageInfo.Width; j++)
+			for(UInt32 j = 0; j < ImageInfo.Width; j++)
 			{
 				pwSrcPixel = &pwSrcLine[ImageInfo.ChannelCount * j];
 				pwDstPixel = &pwDstLine[ImageInfo.ChannelCount * j];
 
-				for(UINT k = 0; k < ImageInfo.ChannelCount; k++)
+				for(UInt32 k = 0; k < ImageInfo.ChannelCount; k++)
 				{
 					pwDstPixel[k] = (DstMax * pwSrcPixel[k]) / SrcMax;
 				}
@@ -75,9 +80,9 @@ bool ImageWriter::WriteImage(LPCTSTR pszFilePath, const IImageData* pImageData)
 	}
 	else
 	{
-		static const UINT CHANNEL_INDEX_TBL[4] = {2, 1, 0, 3};
+		static const UInt32 CHANNEL_INDEX_TBL[4] = {2, 1, 0, 3};
 
-		UINT BytesPerLine;
+		UInt32 BytesPerLine;
 
 		const BYTE *pbySrcBits, *pbySrcLine, *pbySrcPixel;
 		PBYTE pbyDstBits, pbyDstLine, pbyDstPixel;
@@ -91,17 +96,17 @@ bool ImageWriter::WriteImage(LPCTSTR pszFilePath, const IImageData* pImageData)
 		BytesPerLine = FreeImage_GetPitch(dib);
 		pbyDstBits = FreeImage_GetBits(dib);
 
-		for(UINT i = 0; i < ImageInfo.Height; i++)
+		for(UInt32 i = 0; i < ImageInfo.Height; i++)
 		{
 			pbySrcLine = &pbySrcBits[ImageInfo.BytesPerLine * (ImageInfo.Height - 1 - i)];
 			pbyDstLine = &pbyDstBits[BytesPerLine * i];
 
-			for(UINT j = 0; j < ImageInfo.Width; j++)
+			for(UInt32 j = 0; j < ImageInfo.Width; j++)
 			{
 				pbySrcPixel = &pbySrcLine[ImageInfo.ChannelCount * j];
 				pbyDstPixel = &pbyDstLine[ImageInfo.ChannelCount * j];
 
-				for(UINT k = 0; k < ImageInfo.ChannelCount; k++)
+				for(UInt32 k = 0; k < ImageInfo.ChannelCount; k++)
 				{
 					pbyDstPixel[k] = pbySrcPixel[CHANNEL_INDEX_TBL[k]];
 				}
@@ -111,11 +116,11 @@ bool ImageWriter::WriteImage(LPCTSTR pszFilePath, const IImageData* pImageData)
 
 	// Resolution
 	{
-//		FreeImage_SetDotsPerMeterX(dib, (UINT)((dwHRes >> 16) / 0.0254));
-//		FreeImage_SetDotsPerMeterY(dib, (UINT)((dwVRes >> 16) / 0.0254));
+//		FreeImage_SetDotsPerMeterX(dib, (UInt32)((dwHRes >> 16) / 0.0254));
+//		FreeImage_SetDotsPerMeterY(dib, (UInt32)((dwVRes >> 16) / 0.0254));
 	}
 
-#if UNICODE
+#if BUILD_IS_UNICODE
 	bReturn = FreeImage_SaveU(fif, dib, pszFilePath, 0) ? true : false;
 #else
 	bReturn = FreeImage_Save(fif, dib, pszFilePath, 0) ? true : false;
@@ -133,7 +138,7 @@ static FREE_IMAGE_FORMAT GetFileType(LPCTSTR pszFilePath)
 	if(pszFilePath == nullptr)
 		return FIF_UNKNOWN;
 
-#if UNICODE
+#if BUILD_IS_UNICODE
 	fif = FreeImage_GetFIFFromFilenameU(pszFilePath);
 #else
 	fif = FreeImage_GetFIFFromFilename(pszFilePath);

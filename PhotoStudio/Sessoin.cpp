@@ -1,11 +1,11 @@
-#include <windows.h>
+#include <Platform.h>
 
 #include <stdio.h>
 #include <tchar.h>
 
 #include "Session.h"
 
-static void GetFilePath(LPTSTR pszFilePath, UINT MaxLength);
+static void GetFilePath(LPTSTR pszFilePath, UInt32 MaxLength);
 
 bool Session::StoreSession(LPCTSTR pszFilePath)
 {
@@ -32,7 +32,7 @@ bool Session::StoreSession(LPCTSTR pszFilePath)
 	return true;
 }
 
-bool Session::RestoreSession(LPTSTR pszFilePath, UINT MaxLength)
+bool Session::RestoreSession(LPTSTR pszFilePath, UInt32 MaxLength)
 {
 	TCHAR szSessionPath[MAX_PATH] = { 0 };
 
@@ -58,7 +58,7 @@ bool Session::RestoreSession(LPTSTR pszFilePath, UINT MaxLength)
 	return true;
 }
 
-static void GetFilePath(LPTSTR pszFilePath, UINT MaxLength)
+static void GetFilePath(LPTSTR pszFilePath, UInt32 MaxLength)
 {
 	TCHAR szFilePath[MAX_PATH] = { 0 };
 

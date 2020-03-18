@@ -1,6 +1,6 @@
-﻿#pragma once
+#pragma once
 
-#include "IImageData.h"
+#include <IImageData.h>
 
 class ImageRenderer
 {

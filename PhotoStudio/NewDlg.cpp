@@ -1,6 +1,6 @@
-#include <windows.h>
+#include <Platform.h>
 
-#include "ImageProc.h"
+#include <ImageProc.h>
 
 #include "NewDlg.h"
 
