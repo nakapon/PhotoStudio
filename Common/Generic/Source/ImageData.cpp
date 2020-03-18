@@ -1,5 +1,7 @@
 ﻿#include <Platform.h>
 
+#include <algorithm>
+
 #include <stdio.h>
 #include <tchar.h>
 

@@ -1,4 +1,6 @@
-ï»¿#include <Platform.h>
+#include <Platform.h>
+
+#include <algorithm>
 
 #include "ImageRenderer.h"
 
@@ -55,15 +57,15 @@ bool ImageRenderer::Render(HDC hDC, SIZE ClientSize, const IImageData* pImageDat
 #if 0
 	BitBlt(hDC, 0, 0, ImageInfo.Width, ImageInfo.Height, hMemDC, 0, 0, SRCCOPY);
 #else
-	// ï¿½ï¿½Ê’ï¿½ï¿½ï¿½ï¿½ÉƒEï¿½Bï¿½ï¿½ï¿½hï¿½Eï¿½É”[ï¿½Ü‚ï¿½æ‚¤ï¿½ÉƒXï¿½Pï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½Ä•\ï¿½ï¿½
+	// ‰æ–Ê’†‰›‚ÉƒEƒBƒ“ƒhƒE‚É”[‚Ü‚é‚æ‚¤‚ÉƒXƒP[ƒ‹‚µ‚Ä•\¦
 	float ScaleH, ScaleV, Scale;
 	ScaleH = (float)ClientSize.cx / ImageInfo.Width;
 	ScaleV = (float)ClientSize.cy / ImageInfo.Height;
-	Scale = min(ScaleH, ScaleV);
+	Scale = std::min(ScaleH, ScaleV);
 
 	UInt32 ScaledImageWidth, ScaledImageHeight;
-	ScaledImageWidth = min(ClientSize.cx, (LONG)(Scale * ImageInfo.Width + 0.5f));
-	ScaledImageHeight = min(ClientSize.cy, (LONG)(Scale * ImageInfo.Height + 0.5f));
+	ScaledImageWidth = std::min(ClientSize.cx, (LONG)(Scale * ImageInfo.Width + 0.5f));
+	ScaledImageHeight = std::min(ClientSize.cy, (LONG)(Scale * ImageInfo.Height + 0.5f));
 
 	SetStretchBltMode(hDC, COLORONCOLOR);
 
