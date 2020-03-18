@@ -75,6 +75,8 @@ CONFIG(debug, debug|release){
 win32:LIBS += -lgdi32
 #!win32:LIBS += -ldl -ltiff -lz -lopencv_core -lopencv_imgproc
 
+unix:!macx:LIBS += -lfreeimage
+
 # Destination Path
 CONFIG(debug, debug|release){
 	win32:DESTDIR = $$PWD/../Bin/Debug
@@ -100,12 +102,21 @@ win32 {
 
 # Project Items
 SOURCES += \
+	../Common/Generic/Source/ImageData.cpp \
+	../Common/Generic/Source/ImageProc.cpp \
+	../Common/Generic/Source/ImageReader.cpp \
+	../Common/Generic/Source/ImageWriter.cpp \
 	main.cpp \
     MainWindow.cpp
 
 
 
 HEADERS += \
+    ../Common/Generic/Include/IImageData.h \
+    ../Common/Generic/Include/ImageData.h \
+    ../Common/Generic/Include/ImageProc.h \
+    ../Common/Generic/Include/ImageReader.h \
+    ../Common/Generic/Include/ImageWriter.h \
     MainWindow.h
 
 

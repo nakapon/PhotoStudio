@@ -3,41 +3,45 @@
 #include <string.h>
 #include <ctype.h>
 
+#define strcpy_s(d, s) strcpy((d), (s))
 #define strcpy_s(d, n, s) strcpy((d), (s))
+#define strcat_s(d, s) strcat((d), (s))
 #define strcat_s(d, n, s) strcat((d), (s))
 
+#define wcscpy_s(d, s) wcscpy((d), (s))
 #define wcscpy_s(d, n, s) wcscpy((d), (s))
+#define wcscat_s(d, s) wcscat((d), (s))
 #define wcscat_s(d, n, s) wcscat((d), (s))
 
 #if BUILD_IS_UNICODE
-	#define _tcscpy(d, s) wcscpy((d), (s))
-	#define _tcscat(d, s) wcscat((d), (s))
-	#define _tcscpy_s(d, n, s) wcscpy((d), (s))
-	#define _tcscat_s(d, n, s) wcscat((d), (s))
-	#define _tcscmp(s1, s2) wcscmp((s1), (s2))
-	#define _tcsclen(s) wcslen((s))
-	#define _tcslen(s) wcslen((s))
-	#define _tcschr(s, c) wcschr((s), (c))
-	#define _tcsrchr(s, c) wcsrchr((s), (c))
-	#define _tcsstr(s1, s2) wcsstr((s1), (s2))
-	#define _totlower(s) towlower((s))
+	#define _tcscpy wcscpy
+	#define _tcscat wcscat
+	#define _tcscpy_s wcscpy
+	#define _tcscat_s wcscat
+	#define _tcscmp wcscmp
+	#define _tcsclen wcslen
+	#define _tcslen wcslen
+	#define _tcschr wcschr
+	#define _tcsrchr wcsrchr
+	#define _tcsstr wcsstr
+	#define _totlower towlower
 
 	#define _stscanf swscanf
 	#define _stprintf swprintf
 
 	#define wsprintf swprintf
 #else
-	#define _tcscpy(d, s) strcpy((d), (s))
-	#define _tcscat(d, s) strcat((d), (s))
-	#define _tcscpy_s(d, n, s) strcpy((d), (s))
-	#define _tcscat_s(d, n, s) strcat((d), (s))
-	#define _tcscmp(s1, s2) strcmp((s1), (s2))
-	#define _tcsclen(s) strlen((s))
-	#define _tcslen(s) strlen((s))
-	#define _tcschr(s, c) strchr((s), (c))
-	#define _tcsrchr(s, c) strrchr((s), (c))
-	#define _tcsstr(s1, s2) strstr((s1), (s2))
-	#define _totlower(s) tolower((s))
+	#define _tcscpy strcpy
+	#define _tcscat strcat
+	#define _tcscpy_s strcpy
+	#define _tcscat_s strcat
+	#define _tcscmp strcmp
+	#define _tcsclen strlen
+	#define _tcslen strlen
+	#define _tcschr strchr
+	#define _tcsrchr strrchr
+	#define _tcsstr strstr
+	#define _totlower tolower
 
 	#define _stscanf sscanf
 	#define _stprintf sprintf

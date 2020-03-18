@@ -1,5 +1,7 @@
 ﻿#include <Platform.h>
 
+#include <algorithm>
+
 #include <ImageProc.h>
 
 template <typename T>
@@ -20,9 +22,9 @@ static void Fill(IImageData* pImage, UInt32 ValueCh1, UInt32 ValueCh2, UInt32 Va
 	// 最大値クリップ
 	MaxValue = (1 << ImageInfo.BitsPerChannel) - 1;
 
-	ValueCh1 = min(MaxValue, ValueCh1);
-	ValueCh2 = min(MaxValue, ValueCh2);
-	ValueCh3 = min(MaxValue, ValueCh3);
+	ValueCh1 = std::min(MaxValue, ValueCh1);
+	ValueCh2 = std::min(MaxValue, ValueCh2);
+	ValueCh3 = std::min(MaxValue, ValueCh3);
 
 	switch(ImageInfo.ChannelCount)
 	{

@@ -1,8 +1,11 @@
 ﻿#include <Platform.h>
 
-#include <freeimage/FreeImage.h>
 #if PLATFORM_WINDOWS
+#include <freeimage/FreeImage.h>
 #pragma comment (lib, "FreeImage.lib")
+#else
+#define _LIBRAW_TYPES_H
+#include <FreeImage.h>
 #endif
 
 #include <ImageReader.h>
