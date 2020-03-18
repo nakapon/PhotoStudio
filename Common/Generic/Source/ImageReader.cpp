@@ -1,9 +1,11 @@
-﻿#include <windows.h>
+﻿#include <Platform.h>
 
 #include <freeimage/FreeImage.h>
+#if PLATFORM_WINDOWS
 #pragma comment (lib, "FreeImage.lib")
+#endif
 
-#include "ImageReader.h"
+#include <ImageReader.h>
 
 static FREE_IMAGE_FORMAT GetFileType(LPCTSTR pszFilePath);
 
@@ -26,7 +28,7 @@ bool ImageReader::ReadImage(LPCTSTR pszFilePath, IImageData* pImageData)
 	if(fif == FIF_UNKNOWN)
 		return false;
 
-#if UNICODE
+#if BUILD_IS_UNICODE
 	dib = FreeImage_LoadU(fif, pszFilePath, 0);
 #else
 	dib = FreeImage_Load(fif, pszFilePath, 0);
@@ -68,9 +70,9 @@ bool ImageReader::ReadImage(LPCTSTR pszFilePath, IImageData* pImageData)
 
 	if(ImageInfo.BitsPerChannel == 8)
 	{
-		static const UINT CHANNEL_INDEX_TBL[4] = {2, 1, 0, 3};
+		static const UInt32 CHANNEL_INDEX_TBL[4] = {2, 1, 0, 3};
 
-		UINT uiBytesPerLine = FreeImage_GetPitch(dib);
+		UInt32 uiBytesPerLine = FreeImage_GetPitch(dib);
 
 		PBYTE pbySrcBits, pbySrcLine;
 		PBYTE pbyDstBits, pbyDstLine;
@@ -79,17 +81,17 @@ bool ImageReader::ReadImage(LPCTSTR pszFilePath, IImageData* pImageData)
 		pbySrcBits = FreeImage_GetBits(dib);
 		pbyDstBits = pImageData->GetDataPtr();
 
-		for(UINT i = 0; i < ImageInfo.Height; i++)
+		for(UInt32 i = 0; i < ImageInfo.Height; i++)
 		{
 			pbySrcLine = &pbySrcBits[uiBytesPerLine * i];
 			pbyDstLine = &pbyDstBits[ImageInfo.BytesPerLine * (ImageInfo.Height - 1 - i)];
 
-			for(UINT j = 0; j < ImageInfo.Width; j++)
+			for(UInt32 j = 0; j < ImageInfo.Width; j++)
 			{
 				pbySrcPixel = &pbySrcLine[ImageInfo.ChannelCount * j];
 				pbyDstPixel = &pbyDstLine[ImageInfo.ChannelCount * j];
 
-				for(UINT k = 0; k < ImageInfo.ChannelCount; k++)
+				for(UInt32 k = 0; k < ImageInfo.ChannelCount; k++)
 				{
 					pbyDstPixel[k] = pbySrcPixel[CHANNEL_INDEX_TBL[k]];
 				}
@@ -98,7 +100,7 @@ bool ImageReader::ReadImage(LPCTSTR pszFilePath, IImageData* pImageData)
 	}
 	else if(ImageInfo.BitsPerChannel == 16)
 	{
-		UINT uiBytesPerLine = FreeImage_GetPitch(dib);
+		UInt32 uiBytesPerLine = FreeImage_GetPitch(dib);
 
 		PBYTE pbySrcBits, pbyDstBits;
 		PWORD pwSrcLine, pwDstLine;
@@ -107,17 +109,17 @@ bool ImageReader::ReadImage(LPCTSTR pszFilePath, IImageData* pImageData)
 		pbySrcBits = FreeImage_GetBits(dib);
 		pbyDstBits = pImageData->GetDataPtr();
 
-		for(UINT i = 0; i < ImageInfo.Height; i++)
+		for(UInt32 i = 0; i < ImageInfo.Height; i++)
 		{
 			pwSrcLine = (WORD *)&pbySrcBits[uiBytesPerLine * i];
 			pwDstLine = (WORD *)&pbyDstBits[ImageInfo.BytesPerLine * (ImageInfo.Height - 1 - i)];
 
-			for(UINT j = 0; j < ImageInfo.Width; j++)
+			for(UInt32 j = 0; j < ImageInfo.Width; j++)
 			{
 				pwSrcPixel = &pwSrcLine[ImageInfo.ChannelCount * j];
 				pwDstPixel = &pwDstLine[ImageInfo.ChannelCount * j];
 
-				for(UINT k = 0; k < ImageInfo.ChannelCount; k++)
+				for(UInt32 k = 0; k < ImageInfo.ChannelCount; k++)
 				{
 					pwDstPixel[k] = pwSrcPixel[k];
 				}
@@ -126,7 +128,7 @@ bool ImageReader::ReadImage(LPCTSTR pszFilePath, IImageData* pImageData)
 	}
 	else if(ImageInfo.BitsPerChannel == 32)
 	{
-		UINT uiBytesPerLine = FreeImage_GetPitch(dib);
+		UInt32 uiBytesPerLine = FreeImage_GetPitch(dib);
 
 		PBYTE pbySrcBits, pbyDstBits;
 		PFLOAT pfSrcLine, pfDstLine;
@@ -135,17 +137,17 @@ bool ImageReader::ReadImage(LPCTSTR pszFilePath, IImageData* pImageData)
 		pbySrcBits = FreeImage_GetBits(dib);
 		pbyDstBits = pImageData->GetDataPtr();
 
-		for(UINT i = 0; i < ImageInfo.Height; i++)
+		for(UInt32 i = 0; i < ImageInfo.Height; i++)
 		{
 			pfSrcLine = (FLOAT *)&pbySrcBits[uiBytesPerLine * i];
 			pfDstLine = (FLOAT *)&pbyDstBits[ImageInfo.BytesPerLine * (ImageInfo.Height - 1 - i)];
 
-			for(UINT j = 0; j < ImageInfo.Width; j++)
+			for(UInt32 j = 0; j < ImageInfo.Width; j++)
 			{
 				pfSrcPixel = &pfSrcLine[ImageInfo.ChannelCount * j];
 				pfDstPixel = &pfDstLine[ImageInfo.ChannelCount * j];
 
-				for(UINT k = 0; k < ImageInfo.ChannelCount; k++)
+				for(UInt32 k = 0; k < ImageInfo.ChannelCount; k++)
 				{
 					pfDstPixel[k] = pfSrcPixel[k];
 				}
@@ -169,7 +171,7 @@ static FREE_IMAGE_FORMAT GetFileType(LPCTSTR pszFilePath)
 	if(pszFilePath == nullptr)
 		return FIF_UNKNOWN;
 
-#if UNICODE
+#if BUILD_IS_UNICODE
 	fif = FreeImage_GetFileTypeU(pszFilePath);
 #else
 	fif = FreeImage_GetFileType(pszFilePath);
@@ -178,7 +180,7 @@ static FREE_IMAGE_FORMAT GetFileType(LPCTSTR pszFilePath)
 	{
 		// no signature ?
 		// try to guess the file format from the file extension
-#if UNICODE
+#if BUILD_IS_UNICODE
 		fif = FreeImage_GetFIFFromFilenameU(pszFilePath);
 #else
 		fif = FreeImage_GetFIFFromFilename(pszFilePath);

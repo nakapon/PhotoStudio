@@ -56,7 +56,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\Common\Generic\Include;..\ThirdParty\Windows\Include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Common\Generic\Include;..\Common\Windows\Include;..\ThirdParty\Windows\Include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -76,7 +76,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\Common\Generic\Include;..\ThirdParty\Windows\Include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Common\Generic\Include;..\Common\Windows\Include;..\ThirdParty\Windows\Include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -93,8 +93,8 @@
     <ClCompile Include="..\Common\Generic\Source\ImageData.cpp" />
     <ClCompile Include="..\Common\Generic\Source\ImageProc.cpp" />
     <ClCompile Include="..\Common\Generic\Source\ImageReader.cpp" />
-    <ClCompile Include="..\Common\Generic\Source\ImageRenderer.cpp" />
     <ClCompile Include="..\Common\Generic\Source\ImageWriter.cpp" />
+    <ClCompile Include="ImageRenderer.cpp" />
     <ClCompile Include="MainWindow.cpp" />
     <ClCompile Include="NewDlg.cpp" />
     <ClCompile Include="Sessoin.cpp" />
@@ -105,8 +105,8 @@
     <ClInclude Include="..\Common\Generic\Include\ImageData.h" />
     <ClInclude Include="..\Common\Generic\Include\ImageProc.h" />
     <ClInclude Include="..\Common\Generic\Include\ImageReader.h" />
-    <ClInclude Include="..\Common\Generic\Include\ImageRenderer.h" />
     <ClInclude Include="..\Common\Generic\Include\ImageWriter.h" />
+    <ClInclude Include="ImageRenderer.h" />
     <ClInclude Include="NewDlg.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Session.h" />

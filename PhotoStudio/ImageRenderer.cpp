@@ -1,4 +1,4 @@
-﻿#include <windows.h>
+﻿#include <Platform.h>
 
 #include "ImageRenderer.h"
 
@@ -13,7 +13,7 @@ bool ImageRenderer::Render(HDC hDC, SIZE ClientSize, const IImageData* pImageDat
 	const BYTE* pbySrcBits, *pbySrcBitsLine;
 
 	BYTE* pbyDIBits, *pbyDIBitsLine;
-	UINT DIBBytesPerLine;
+	UInt32 DIBBytesPerLine;
 
 	if(pImageData == nullptr || !pImageData->IsCreated())
 		return false;
@@ -39,12 +39,12 @@ bool ImageRenderer::Render(HDC hDC, SIZE ClientSize, const IImageData* pImageDat
 
 	SelectObject(hMemDC, hBitmap);
 
-	for(UINT i = 0; i < ImageInfo.Height; i++)
+	for(UInt32 i = 0; i < ImageInfo.Height; i++)
 	{
 		pbySrcBitsLine = &pbySrcBits[i * ImageInfo.BytesPerLine];
 		pbyDIBitsLine = &pbyDIBits[i * DIBBytesPerLine];
 
-		for(UINT j = 0; j < ImageInfo.Width; j++)
+		for(UInt32 j = 0; j < ImageInfo.Width; j++)
 		{
 			pbyDIBitsLine[4 * j + 0] = pbySrcBitsLine[ImageInfo.ChannelCount * j + 2];
 			pbyDIBitsLine[4 * j + 1] = pbySrcBitsLine[ImageInfo.ChannelCount * j + 1];
@@ -55,13 +55,13 @@ bool ImageRenderer::Render(HDC hDC, SIZE ClientSize, const IImageData* pImageDat
 #if 0
 	BitBlt(hDC, 0, 0, ImageInfo.Width, ImageInfo.Height, hMemDC, 0, 0, SRCCOPY);
 #else
-	// 画面中央にウィンドウに納まるようにスケールして表示
+	// ��ʒ����ɃE�B���h�E�ɔ[�܂�悤�ɃX�P�[�����ĕ\��
 	float ScaleH, ScaleV, Scale;
 	ScaleH = (float)ClientSize.cx / ImageInfo.Width;
 	ScaleV = (float)ClientSize.cy / ImageInfo.Height;
 	Scale = min(ScaleH, ScaleV);
 
-	UINT ScaledImageWidth, ScaledImageHeight;
+	UInt32 ScaledImageWidth, ScaledImageHeight;
 	ScaledImageWidth = min(ClientSize.cx, (LONG)(Scale * ImageInfo.Width + 0.5f));
 	ScaledImageHeight = min(ClientSize.cy, (LONG)(Scale * ImageInfo.Height + 0.5f));
 

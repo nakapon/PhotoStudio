@@ -1,4 +1,4 @@
-#include <windows.h>
+#include <Platform.h>
 
 // メモリリーク検知有効
 #define __DETECT_MEMORY_LEAKS__

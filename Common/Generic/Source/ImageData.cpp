@@ -1,9 +1,9 @@
-﻿#include <windows.h>
+﻿#include <Platform.h>
 
 #include <stdio.h>
 #include <tchar.h>
 
-#include "ImageData.h"
+#include <ImageData.h>
 
 CImageData::CImageData()
 {
@@ -30,9 +30,9 @@ CImageData& CImageData::operator=(const CImageData& ImageData)
 
 	IMAGEINFO SrcInfo = ImageData.GetImageInfo();
 
-	UINT LineSize = min(this->m_ImageInfo.BytesPerLine, SrcInfo.BytesPerLine);
+	UInt32 LineSize = min(this->m_ImageInfo.BytesPerLine, SrcInfo.BytesPerLine);
 
-	for(UINT i = 0; i < LineSize; i++)
+	for(UInt32 i = 0; i < LineSize; i++)
 	{
 		memcpy(&this->m_ImageData[i * this->m_ImageInfo.BytesPerLine], &ImageData.GetDataPtr()[i * SrcInfo.BytesPerLine], LineSize);
 	}
@@ -45,13 +45,13 @@ bool CImageData::Create(LPCTSTR pszImageName, const IMAGEINFO& ImageInfo)
 	return this->Create(pszImageName, ImageInfo.Width, ImageInfo.Height, ImageInfo.ChannelCount, ImageInfo.BitsPerChannel);
 }
 
-bool CImageData::Create(LPCTSTR pszImageName, UINT Width, UINT Height, UINT ChannelCount, UINT BitsPerChannel)
+bool CImageData::Create(LPCTSTR pszImageName, UInt32 Width, UInt32 Height, UInt32 ChannelCount, UInt32 BitsPerChannel)
 {
 	this->Destroy();
 
-	UINT BytesPerLine = Width * ChannelCount * ((BitsPerChannel + 7) / 8);
+	UInt32 BytesPerLine = Width * ChannelCount * ((BitsPerChannel + 7) / 8);
 
-	UINT ImageDataSize = Height * BytesPerLine;
+	UInt32 ImageDataSize = Height * BytesPerLine;
 
 	if(ImageDataSize == 0)
 		return false;

@@ -6,7 +6,7 @@ public:
 
 	static bool StoreSession(LPCTSTR pszFilePath);
 
-	static bool RestoreSession(LPTSTR pszFilePath, UINT MaxLength);
+	static bool RestoreSession(LPTSTR pszFilePath, UInt32 MaxLength);
 
 private:
 	Session() = delete;

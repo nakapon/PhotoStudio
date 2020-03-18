@@ -5,11 +5,11 @@ class IImageData
 public:
 	typedef struct
 	{
-		UINT Width;			/* 幅 pix */
-		UINT Height;		/* 高さ pix */
-		UINT ChannelCount;	/* チャンネル数 */
-		UINT BitsPerChannel;/* 1チャンネル当たりのビット数 */
-		UINT BytesPerLine;	/* メモリ上の横1ラインのバイト数 */
+		UInt32 Width;			/* 幅 [pix] */
+		UInt32 Height;			/* 高さ [pix] */
+		UInt32 ChannelCount;	/* チャンネル数 */
+		UInt32 BitsPerChannel;	/* 1チャンネル当たりのビット数 */
+		UInt32 BytesPerLine;	/* メモリ上の横1ラインのバイト数 */
 	} IMAGEINFO;
 
 public:
@@ -20,7 +20,7 @@ public:
 	virtual bool Create(LPCTSTR pszImageName, const IMAGEINFO& ImageInfo) = 0;
 
 	// 画像データ作成
-	virtual bool Create(LPCTSTR pszImageName, UINT Width, UINT Height, UINT ChannelCount, UINT BitsPerChannel) = 0;
+	virtual bool Create(LPCTSTR pszImageName, UInt32 Width, UInt32 Height, UInt32 ChannelCount, UInt32 BitsPerChannel) = 0;
 
 	// 画像データ破棄
 	virtual void Destroy() = 0;

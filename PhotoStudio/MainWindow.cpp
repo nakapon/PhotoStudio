@@ -1,13 +1,14 @@
-#include <windows.h>
+#include <Platform.h>
 
 #include <tchar.h>
 
-#include "ImageData.h"
-#include "ImageReader.h"
-#include "ImageWriter.h"
+#include <ImageData.h>
+#include <ImageReader.h>
+#include <ImageWriter.h>
+
 #include "ImageRenderer.h"
 
-#include "ImageProc.h"
+#include <ImageProc.h>
 
 #include "Session.h"
 
