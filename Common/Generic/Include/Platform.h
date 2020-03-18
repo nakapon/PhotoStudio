@@ -17,3 +17,5 @@
 #else
 	#error Unknown Platform
 #endif
+
+#include <ComplieTimeCheck.h>
