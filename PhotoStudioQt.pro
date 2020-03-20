@@ -1,3 +1,3 @@
 TEMPLATE = subdirs
 
-SUBDIRS += Project\PhotoStudioQt
+SUBDIRS += Project/PhotoStudioQt
