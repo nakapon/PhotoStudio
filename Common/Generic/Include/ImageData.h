@@ -2,7 +2,7 @@
 
 #include <vector>
 
-#include "IImageData.h"
+#include <IImageData.h>
 
 class CImageData : public IImageData
 {
