@@ -1,6 +1,5 @@
 # QT
-QT += core gui
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+QT += core gui widgets
 
 TEMPLATE = app
 
@@ -57,8 +56,8 @@ macx:INCLUDEPATH += $$PWD/../Common/Mac/Include
 macx:INCLUDEPATH += $$PWD/../ThirdParty/Mac/Include
 
 # Library Path
-win32:LIBS += -L$$PWD/../Common/Windows/Library
-win32:LIBS += -L$$PWD/../ThirdParty/Windows/Library
+win32:LIBS += -L$$PWD/../Common/Windows/Library.x64
+win32:LIBS += -L$$PWD/../ThirdParty/Windows/Library.x64
 unix:!macx:LIBS += -L$$PWD/../Common/Linux/Library
 unix:!macx:LIBS += -L$$PWD/../ThirdParty/Linux/Library
 macx:LIBS += -L/usr/local/lib
@@ -79,11 +78,11 @@ unix:!macx:LIBS += -lfreeimage
 
 # Destination Path
 CONFIG(debug, debug|release){
-	win32:DESTDIR = $$PWD/../Bin/Debug
+	win32:DESTDIR = $$PWD/../Bin/Debug.x64
 	unix:!macx:DESTDIR = $$PWD/../Bin/Debug
 	macx:DESTDIR = $$PWD/../Bin/Debug
 } else {
-	win32:DESTDIR = $$PWD/../Bin/Release
+	win32:DESTDIR = $$PWD/../Bin/Release.x64
 	unix:!macx:DESTDIR = $$PWD/../Bin/Release
 	macx:DESTDIR = $$PWD/../Bin/Release
 }

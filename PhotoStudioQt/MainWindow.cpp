@@ -1,7 +1,9 @@
-﻿//#include <PlatformQt.h>
-#include <Platform.h>
+﻿#include <Platform.h>
 
 #include <QtWidgets>
+
+#include <ImageReader.h>
+#include <ImageWriter.h>
 
 #include "MainWindow.h"
 #include "ui_MainWindow.h"
@@ -16,7 +18,7 @@ MainWindow::MainWindow(QWidget *parent)
 	ui->setupUi(this);
 
 	// create main menu
-//	this->createFileMenu();
+	this->createFileMenu();
 
 //	this->showMaximized();
 }
@@ -37,7 +39,7 @@ bool MainWindow::eventFilter(QObject *widget, QEvent *event)
 	{
 		// キーボードショートカットが使用できるように
 		// aboutToShow に接続しているスロットを呼び出す
-//		this->fileToShow();
+		this->fileToShow();
 	}
 
 	return false;
@@ -61,4 +63,106 @@ void MainWindow::moveEvent(QMoveEvent * event)
 
 void MainWindow::resizeEvent(QResizeEvent *event)
 {
+}
+
+void MainWindow::paintEvent(QPaintEvent *)
+{
+	QPainter painter(this);
+
+	// background
+	{
+		QSize viewSize = this->size();
+
+		QColor backColor(0, 0, 0);
+
+		painter.fillRect(0, 0, viewSize.width(), viewSize.height(), backColor);
+	}
+
+	// image
+	if(this->imageData.IsCreated() || this->procImage.IsCreated())
+	{
+		IImageData* image = this->procImage.IsCreated() ? &this->procImage : &this->imageData;
+
+
+
+	}
+}
+
+void MainWindow::createFileMenu()
+{
+	connect(ui->menuFile, SIGNAL(aboutToShow()), this, SLOT(fileToShow()));
+
+	connect(ui->actFileNew, SIGNAL(triggered()), this, SLOT(fileNew()));
+	connect(ui->actFileOpen, SIGNAL(triggered()), this, SLOT(fileOpen()));
+	connect(ui->actFileClose, SIGNAL(triggered()), this, SLOT(fileClose()));
+	connect(ui->actFileSave, SIGNAL(triggered()), this, SLOT(fileSave()));
+
+}
+
+void MainWindow::fileToShow()
+{
+	ui->actFileClose->setEnabled(this->imageData.IsCreated());
+	ui->actFileSave->setEnabled(this->imageData.IsCreated());
+}
+
+void MainWindow::fileNew()
+{
+}
+
+void MainWindow::fileOpen()
+{
+	QStringList filters;
+
+	filters.append("All Files (*.*)");
+
+	const QStringList picturesLocations = QStandardPaths::standardLocations(QStandardPaths::PicturesLocation);
+	QFileDialog dialog(this, tr("Open File"), picturesLocations.isEmpty() ? QDir::currentPath() : picturesLocations.last());
+	dialog.setAcceptMode(QFileDialog::AcceptOpen);
+	dialog.setFileMode(QFileDialog::ExistingFiles);
+	dialog.setNameFilters(filters);
+	dialog.selectNameFilter(filters[filters.size() - 1]);
+
+	if(dialog.exec() == QDialog::Accepted)
+	{
+		QString filePath = dialog.selectedFiles()[0];
+		WCHAR szFilePath[MAX_PATH] = { 0 };
+
+		this->procImage.Destroy();
+
+		filePath.toWCharArray(szFilePath);
+		if(ImageReader::ReadImage(szFilePath, &this->imageData))
+		{
+			this->update();
+		}
+	}
+}
+
+void MainWindow::fileClose()
+{
+	this->imageData.Destroy();
+	this->procImage.Destroy();
+}
+
+void MainWindow::fileSave()
+{
+	QStringList filters;
+
+	filters.append("All Files (*.*)");
+
+	const QStringList picturesLocations = QStandardPaths::standardLocations(QStandardPaths::PicturesLocation);
+	QFileDialog dialog(this, tr("Save File"), picturesLocations.isEmpty() ? QDir::currentPath() : picturesLocations.last());
+	dialog.setAcceptMode(QFileDialog::AcceptSave);
+	dialog.setNameFilters(filters);
+//    dialog.selectNameFilter(filters[filters.size() - 1]);
+
+	if(dialog.exec() == QDialog::Accepted)
+	{
+		IImageData* image = this->procImage.IsCreated() ? &this->procImage : &this->imageData;
+
+		QString filePath = dialog.selectedFiles()[0];
+		WCHAR szFilePath[MAX_PATH] = { 0 };
+
+		filePath.toWCharArray(szFilePath);
+		ImageWriter::WriteImage(szFilePath, image);
+	}
 }
