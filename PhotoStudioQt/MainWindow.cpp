@@ -1,4 +1,4 @@
-﻿#include <Platform.h>
+﻿#include <PlatformQt.h>
 
 #include <QtWidgets>
 
@@ -124,13 +124,13 @@ void MainWindow::fileOpen()
 
 	if(dialog.exec() == QDialog::Accepted)
 	{
-		QString filePath = dialog.selectedFiles()[0];
-		WCHAR szFilePath[MAX_PATH] = { 0 };
+		QString file = dialog.selectedFiles()[0];
+		TCHAR filePath[MAX_PATH] = { 0 };
 
 		this->procImage.Destroy();
 
-		filePath.toWCharArray(szFilePath);
-		if(ImageReader::ReadImage(szFilePath, &this->imageData))
+		PFQT_COPY_QSTR_TO_TSTR(filePath, sizeof(filePath) / sizeof(filePath[0]), file);
+		if(ImageReader::ReadImage(filePath, &this->imageData))
 		{
 			this->update();
 		}
@@ -159,10 +159,10 @@ void MainWindow::fileSave()
 	{
 		IImageData* image = this->procImage.IsCreated() ? &this->procImage : &this->imageData;
 
-		QString filePath = dialog.selectedFiles()[0];
-		WCHAR szFilePath[MAX_PATH] = { 0 };
+		QString file = dialog.selectedFiles()[0];
+		TCHAR filePath[MAX_PATH] = { 0 };
 
-		filePath.toWCharArray(szFilePath);
-		ImageWriter::WriteImage(szFilePath, image);
+		PFQT_COPY_QSTR_TO_TSTR(filePath, sizeof(filePath) / sizeof(filePath[0]), file);
+		ImageWriter::WriteImage(filePath, image);
 	}
 }
