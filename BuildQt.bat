@@ -152,7 +152,7 @@ REM	call :_MAKE
 :_BUILD_APP
 	echo.
 	echo Application PhotoStudioQt -------------------------------------------
-	set PROJECT_PATH=
+	set PROJECT_PATH=Project\
 
 	set PORJECT_NAME=PhotoStudioQt
 	call :_MAKE
