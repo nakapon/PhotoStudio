@@ -1,7 +1,8 @@
 ﻿#pragma once
 
-// #include <PlatformMinimal.h>
 #include <Platform.h>
+
+#include <ImageData.h>
 
 #include <QMainWindow>
 
@@ -20,6 +21,11 @@ public:
 private:
 	Ui::MainWindow *ui;
 
+	QImage* viewImage;
+
+	CImageData imageData;
+	CImageData procImage;
+
 protected:
 	void closeEvent(QCloseEvent* event);
 
@@ -31,21 +37,16 @@ protected:
 	void moveEvent(QMoveEvent * event);
 	void resizeEvent(QResizeEvent *event);
 
+	void paintEvent(QPaintEvent *event);
+
 protected slots:
 
 	// File
-/*
 	void createFileMenu();
 	void fileToShow();
-	void fileToShow(int event, void* param);
 
 	void fileNew();
 	void fileOpen();
 	void fileClose();
-	void fileCloseAll();
 	void fileSave();
-	void fileSaveAs();
-
-	void fileExit();
-*/
 };
