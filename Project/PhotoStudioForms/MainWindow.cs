@@ -160,7 +160,11 @@ namespace PhotoStudioForms
 
 		private void OnImageGray(object sender, EventArgs e)
 		{
-			// TODO
+			if(ImageProc.Grayscale(this._ProcImage, this._ImageData))
+			{
+				this.UpdateViewImage(this._ProcImage);
+				this.UpdateView();
+			}
 		}
 
 	}
