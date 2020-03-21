@@ -41,6 +41,8 @@ protected:
 
 protected slots:
 
+	void updateViewImage(const IImageData* image);
+
 	// File
 	void createFileMenu();
 	void fileToShow();

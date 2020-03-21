@@ -106,7 +106,8 @@ SOURCES += \
 	../../Common/Generic/Source/ImageReader.cpp \
 	../../Common/Generic/Source/ImageWriter.cpp \
 	main.cpp \
-    MainWindow.cpp
+    MainWindow.cpp \
+    ImageLibraryQt.cpp
 
 
 HEADERS += \
@@ -115,7 +116,8 @@ HEADERS += \
 	../../Common/Generic/Include/ImageProc.h \
 	../../Common/Generic/Include/ImageReader.h \
 	../../Common/Generic/Include/ImageWriter.h \
-    MainWindow.h
+    MainWindow.h \
+    ImageLibraryQt.h
 
 
 FORMS += \
