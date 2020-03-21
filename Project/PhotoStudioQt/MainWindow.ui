@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Photo Studio</string>
   </property>
   <widget class="QWidget" name="centralwidget"/>
   <widget class="QMenuBar" name="menubar">
@@ -33,7 +33,14 @@
     <addaction name="actFileClose"/>
     <addaction name="actFileSave"/>
    </widget>
+   <widget class="QMenu" name="menuImage">
+    <property name="title">
+     <string>&amp;Image</string>
+    </property>
+    <addaction name="actImageGray"/>
+   </widget>
    <addaction name="menuFile"/>
+   <addaction name="menuImage"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actFileOpen">
@@ -66,6 +73,11 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+S</string>
+   </property>
+  </action>
+  <action name="actImageGray">
+   <property name="text">
+    <string>&amp;Monochrome</string>
    </property>
   </action>
  </widget>

@@ -5,6 +5,8 @@
 #include <ImageReader.h>
 #include <ImageWriter.h>
 
+#include <ImageProc.h>
+
 #include "ImageLibraryQt.h"
 
 #include "MainWindow.h"
@@ -22,6 +24,7 @@ MainWindow::MainWindow(QWidget *parent)
 
 	// create main menu
 	this->createFileMenu();
+	this->createImageMenu();
 
 //	this->showMaximized();
 }
@@ -204,4 +207,24 @@ void MainWindow::fileSave()
 		PFQT_COPY_QSTR_TO_TSTR(filePath, sizeof(filePath) / sizeof(filePath[0]), file);
 		ImageWriter::WriteImage(filePath, image);
 	}
+}
+
+void MainWindow::createImageMenu()
+{
+	connect(ui->menuImage, SIGNAL(aboutToShow()), this, SLOT(imageToShow()));
+
+	connect(ui->actImageGray, SIGNAL(triggered()), this, SLOT(imageGray()));
+
+}
+
+void MainWindow::imageToShow()
+{
+	ui->actImageGray->setEnabled(this->imageData.IsCreated());
+}
+
+void MainWindow::imageGray()
+{
+	ImageProc::GrayScale(&this->procImage, &this->imageData);
+
+	this->updateViewImage(&this->procImage);
 }
