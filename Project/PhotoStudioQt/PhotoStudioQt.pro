@@ -10,31 +10,31 @@ TARGET = PhotoStudioQt
 
 # Obj
 CONFIG(debug, debug|release){
-	win32:OBJECTS_DIR = $$PWD/../..\Obj/Win32/Debug/PhotoStudioQt
-	win32:MOC_DIR = $$PWD/../..\Obj/Win32/Debug/PhotoStudioQt
-	win32:UI_DIR = $$PWD/../..\Obj/Win32/Debug/PhotoStudioQt
-	win32:RCC_DIR = $$PWD/../..\Obj/Win32/Debug/PhotoStudioQt
-	unix:!macx:OBJECTS_DIR = $$PWD/../..\Obj/Linux/Debug/PhotoStudioQt
-	unix:!macx:MOC_DIR = $$PWD/../..\Obj/Linux/Debug/PhotoStudioQt
-	unix:!macx:UI_DIR = $$PWD/../..\Obj/Linux/Debug/PhotoStudioQt
-	unix:!macx:RCC_DIR = $$PWD/../..\Obj/Linux/Debug/PhotoStudioQt
-	macx:OBJECTS_DIR = $$PWD/../..\Obj/Mac/Debug/PhotoStudioQt
-	macx:MOC_DIR = $$PWD/../..\Obj/Mac/Debug/PhotoStudioQt
-	macx:UI_DIR = $$PWD/../..\Obj/Mac/Debug/PhotoStudioQt
-	macx:RCC_DIR = $$PWD/../..\Obj/Mac/Debug/PhotoStudioQt
+	win32:OBJECTS_DIR = $$PWD/../../Obj/Win32/Debug/PhotoStudioQt
+	win32:MOC_DIR = $$PWD/../../Obj/Win32/Debug/PhotoStudioQt
+	win32:UI_DIR = $$PWD/../../Obj/Win32/Debug/PhotoStudioQt
+	win32:RCC_DIR = $$PWD/../../Obj/Win32/Debug/PhotoStudioQt
+	unix:!macx:OBJECTS_DIR = $$PWD/../../Obj/Linux/Debug/PhotoStudioQt
+	unix:!macx:MOC_DIR = $$PWD/../../Obj/Linux/Debug/PhotoStudioQt
+	unix:!macx:UI_DIR = $$PWD/../../Obj/Linux/Debug/PhotoStudioQt
+	unix:!macx:RCC_DIR = $$PWD/../../Obj/Linux/Debug/PhotoStudioQt
+	macx:OBJECTS_DIR = $$PWD/../../Obj/Mac/Debug/PhotoStudioQt
+	macx:MOC_DIR = $$PWD/../../Obj/Mac/Debug/PhotoStudioQt
+	macx:UI_DIR = $$PWD/../../Obj/Mac/Debug/PhotoStudioQt
+	macx:RCC_DIR = $$PWD/../../Obj/Mac/Debug/PhotoStudioQt
 } else {
-	win32:OBJECTS_DIR = $$PWD/../..\Obj/Win32/Release/PhotoStudioQt
-	win32:MOC_DIR = $$PWD/../..\Obj/Win32/Release/PhotoStudioQt
-	win32:UI_DIR = $$PWD/../..\Obj/Win32/Release/PhotoStudioQt
-	win32:RCC_DIR = $$PWD/../..\Obj/Win32/Release/PhotoStudioQt
-	unix:!macx:OBJECTS_DIR = $$PWD/../..\Obj/Linux/Release/PhotoStudioQt
-	unix:!macx:MOC_DIR = $$PWD/../..\Obj/Linux/Release/PhotoStudioQt
-	unix:!macx:UI_DIR = $$PWD/../..\Obj/Linux/Release/PhotoStudioQt
-	unix:!macx:RCC_DIR = $$PWD/../..\Obj/Linux/Release/PhotoStudioQt
-	macx:OBJECTS_DIR = $$PWD/../..\Obj/Mac/Release/PhotoStudioQt
-	macx:MOC_DIR = $$PWD/../..\Obj/Mac/Release/PhotoStudioQt
-	macx:UI_DIR = $$PWD/../..\Obj/Mac/Release/PhotoStudioQt
-	macx:RCC_DIR = $$PWD/../..\Obj/Mac/Release/PhotoStudioQt
+	win32:OBJECTS_DIR = $$PWD/../../Obj/Win32/Release/PhotoStudioQt
+	win32:MOC_DIR = $$PWD/../../Obj/Win32/Release/PhotoStudioQt
+	win32:UI_DIR = $$PWD/../../Obj/Win32/Release/PhotoStudioQt
+	win32:RCC_DIR = $$PWD/../../Obj/Win32/Release/PhotoStudioQt
+	unix:!macx:OBJECTS_DIR = $$PWD/../../Obj/Linux/Release/PhotoStudioQt
+	unix:!macx:MOC_DIR = $$PWD/../../Obj/Linux/Release/PhotoStudioQt
+	unix:!macx:UI_DIR = $$PWD/../../Obj/Linux/Release/PhotoStudioQt
+	unix:!macx:RCC_DIR = $$PWD/../../Obj/Linux/Release/PhotoStudioQt
+	macx:OBJECTS_DIR = $$PWD/../../Obj/Mac/Release/PhotoStudioQt
+	macx:MOC_DIR = $$PWD/../../Obj/Mac/Release/PhotoStudioQt
+	macx:UI_DIR = $$PWD/../../Obj/Mac/Release/PhotoStudioQt
+	macx:RCC_DIR = $$PWD/../../Obj/Mac/Release/PhotoStudioQt
 }
 
 # Define
@@ -106,7 +106,8 @@ SOURCES += \
 	../../Common/Generic/Source/ImageReader.cpp \
 	../../Common/Generic/Source/ImageWriter.cpp \
 	main.cpp \
-    MainWindow.cpp
+    MainWindow.cpp \
+    ImageLibraryQt.cpp
 
 
 HEADERS += \
@@ -115,7 +116,8 @@ HEADERS += \
 	../../Common/Generic/Include/ImageProc.h \
 	../../Common/Generic/Include/ImageReader.h \
 	../../Common/Generic/Include/ImageWriter.h \
-    MainWindow.h
+    MainWindow.h \
+    ImageLibraryQt.h
 
 
 FORMS += \
