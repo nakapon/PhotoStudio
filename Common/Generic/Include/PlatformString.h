@@ -9,3 +9,5 @@
 #else
 	#error Unknown Platform
 #endif
+
+#include <StringConv.h>

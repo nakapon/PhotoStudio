@@ -105,6 +105,7 @@ SOURCES += \
 	../../Common/Generic/Source/ImageProc.cpp \
 	../../Common/Generic/Source/ImageReader.cpp \
 	../../Common/Generic/Source/ImageWriter.cpp \
+	../../Common/Generic/Source/StringConv.cpp \
 	main.cpp \
     MainWindow.cpp \
     ImageLibraryQt.cpp
@@ -116,6 +117,7 @@ HEADERS += \
 	../../Common/Generic/Include/ImageProc.h \
 	../../Common/Generic/Include/ImageReader.h \
 	../../Common/Generic/Include/ImageWriter.h \
+	../../Common/Generic/Include/StringConv.h \
     MainWindow.h \
     ImageLibraryQt.h
 
