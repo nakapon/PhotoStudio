@@ -11,7 +11,7 @@ bool Session::StoreSession(LPCTSTR pszFilePath)
 {
 	TCHAR szSessionPath[MAX_PATH] = { 0 };
 
-	GetFilePath(szSessionPath, sizeof(szSessionPath) / sizeof(szSessionPath[0]));
+	GetFilePath(szSessionPath, PF_ARRAY_LENGTH(szSessionPath));
 
 	{
 		FILE* fp;
@@ -22,7 +22,7 @@ bool Session::StoreSession(LPCTSTR pszFilePath)
 
 		// TODO TSTR_TO_ASTR() É}ÉNÉçÇì±ì¸
 		CHAR szFilePathA[MAX_PATH] = { 0 };
-		WideCharToMultiByte(CP_ACP, 0, pszFilePath, -1, szFilePathA, sizeof(szFilePathA) / sizeof(szFilePathA[0]), nullptr, nullptr);
+		WideCharToMultiByte(CP_ACP, 0, pszFilePath, -1, szFilePathA, PF_ARRAY_LENGTH(szFilePathA), nullptr, nullptr);
 
 		fprintf(fp, szFilePathA);
 
@@ -38,7 +38,7 @@ bool Session::RestoreSession(LPTSTR pszFilePath, UInt32 MaxLength)
 
 	CHAR szFilePathA[MAX_PATH] = { 0 };
 
-	GetFilePath(szSessionPath, sizeof(szSessionPath) / sizeof(szSessionPath[0]));
+	GetFilePath(szSessionPath, PF_ARRAY_LENGTH(szSessionPath));
 
 	{
 		FILE* fp;
@@ -47,7 +47,7 @@ bool Session::RestoreSession(LPTSTR pszFilePath, UInt32 MaxLength)
 		if(fp == nullptr)
 			return false;
 
-		fread(&szFilePathA[0], sizeof(szFilePathA[0]), sizeof(szFilePathA) / sizeof(szFilePathA[0]), fp);
+		fread(&szFilePathA[0], sizeof(szFilePathA[0]), PF_ARRAY_LENGTH(szFilePathA), fp);
 
 		fclose(fp);
 	}
@@ -62,7 +62,7 @@ static void GetFilePath(LPTSTR pszFilePath, UInt32 MaxLength)
 {
 	TCHAR szFilePath[MAX_PATH] = { 0 };
 
-	GetModuleFileName(nullptr, szFilePath, sizeof(szFilePath) / sizeof(szFilePath[0]));
+	GetModuleFileName(nullptr, szFilePath, PF_ARRAY_LENGTH(szFilePath));
 
 	LPTSTR pszExtension = _tcsrchr(szFilePath, _T('\\'));
 	if(pszExtension != nullptr)
