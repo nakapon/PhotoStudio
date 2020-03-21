@@ -20,4 +20,6 @@
 	#error Unknown Platform
 #endif
 
+#include <PlatformString.h>
+
 #include <ComplieTimeCheck.h>

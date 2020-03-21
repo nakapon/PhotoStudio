@@ -84,11 +84,13 @@
     <ClInclude Include="..\..\Common\Generic\Include\ImageData.h" />
     <ClInclude Include="..\..\Common\Generic\Include\ImageReader.h" />
     <ClInclude Include="..\..\Common\Generic\Include\ImageWriter.h" />
+    <ClInclude Include="..\..\Common\Generic\Include\StringConv.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Common\Generic\Source\ImageData.cpp" />
     <ClCompile Include="..\..\Common\Generic\Source\ImageReader.cpp" />
     <ClCompile Include="..\..\Common\Generic\Source\ImageWriter.cpp" />
+    <ClCompile Include="..\..\Common\Generic\Source\StringConv.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
