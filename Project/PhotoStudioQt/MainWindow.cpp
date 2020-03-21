@@ -169,7 +169,7 @@ void MainWindow::fileOpen()
 
 		this->procImage.Destroy();
 
-		PFQT_COPY_QSTR_TO_TSTR(filePath, sizeof(filePath) / sizeof(filePath[0]), file);
+		PFQT_COPY_QSTR_TO_TSTR(filePath, PF_ARRAY_LENGTH(filePath), file);
 		if(ImageReader::ReadImage(filePath, &this->imageData))
 		{
 			this->updateViewImage(&this->imageData);
@@ -204,7 +204,7 @@ void MainWindow::fileSave()
 		QString file = dialog.selectedFiles()[0];
 		TCHAR filePath[MAX_PATH] = { 0 };
 
-		PFQT_COPY_QSTR_TO_TSTR(filePath, sizeof(filePath) / sizeof(filePath[0]), file);
+		PFQT_COPY_QSTR_TO_TSTR(filePath, PF_ARRAY_LENGTH(filePath), file);
 		ImageWriter::WriteImage(filePath, image);
 	}
 }
