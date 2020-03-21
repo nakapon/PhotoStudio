@@ -2,7 +2,7 @@
 
 using namespace System;
 
-namespace CommonCli {
+namespace BaseLibraryCli {
 
 	public ref class Class1
 	{

@@ -11,11 +11,11 @@ using namespace System::Security::Permissions;
 // アセンブリに関連付けられている情報を変更するには、
 // これらの属性値を変更してください。
 //
-[assembly:AssemblyTitleAttribute(L"CommonCli")];
+[assembly:AssemblyTitleAttribute(L"BaseLibraryCli")];
 [assembly:AssemblyDescriptionAttribute(L"")];
 [assembly:AssemblyConfigurationAttribute(L"")];
 [assembly:AssemblyCompanyAttribute(L"")];
-[assembly:AssemblyProductAttribute(L"CommonCli")];
+[assembly:AssemblyProductAttribute(L"BaseLibraryCli")];
 [assembly:AssemblyCopyrightAttribute(L"Copyright (c)  2020")];
 [assembly:AssemblyTrademarkAttribute(L"")];
 [assembly:AssemblyCultureAttribute(L"")];

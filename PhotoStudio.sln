@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PhotoStudio", "Project\PhotoStudio\PhotoStudio.vcxproj", "{3E952423-DE97-4E89-99A5-915CF51AA371}"
+	ProjectSection(ProjectDependencies) = postProject
+		{2A921716-CC74-4C25-806F-C920B311C102} = {2A921716-CC74-4C25-806F-C920B311C102}
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PhotoStudio", "PhotoStudio", "{C27CFAA1-96EC-413A-BC9D-85C098EDBE74}"
 EndProject
@@ -14,11 +17,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhotoStudioForms", "Project
 		{C1AB56CC-1088-4D70-B988-2A105BC0D42E} = {C1AB56CC-1088-4D70-B988-2A105BC0D42E}
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Library", "Library", "{C9D2A0D7-4402-41B1-AAF6-56189D83960C}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CommonCli", "Project\CommonCli\CommonCli.vcxproj", "{C1AB56CC-1088-4D70-B988-2A105BC0D42E}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BaseLibrary", "Project\BaseLibrary\BaseLibrary.vcxproj", "{2A921716-CC74-4C25-806F-C920B311C102}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BaseLibraryCli", "Project\BaseLibraryCli\BaseLibraryCli.vcxproj", "{C1AB56CC-1088-4D70-B988-2A105BC0D42E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{2A921716-CC74-4C25-806F-C920B311C102} = {2A921716-CC74-4C25-806F-C920B311C102}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -50,16 +54,6 @@ Global
 		{EB4CDC67-14B5-44E4-B828-998C8AC03612}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{EB4CDC67-14B5-44E4-B828-998C8AC03612}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{EB4CDC67-14B5-44E4-B828-998C8AC03612}.Release|Win32.ActiveCfg = Release|Any CPU
-		{C1AB56CC-1088-4D70-B988-2A105BC0D42E}.Debug|Any CPU.ActiveCfg = Debug|Win32
-		{C1AB56CC-1088-4D70-B988-2A105BC0D42E}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
-		{C1AB56CC-1088-4D70-B988-2A105BC0D42E}.Debug|Mixed Platforms.Build.0 = Debug|Win32
-		{C1AB56CC-1088-4D70-B988-2A105BC0D42E}.Debug|Win32.ActiveCfg = Debug|Win32
-		{C1AB56CC-1088-4D70-B988-2A105BC0D42E}.Debug|Win32.Build.0 = Debug|Win32
-		{C1AB56CC-1088-4D70-B988-2A105BC0D42E}.Release|Any CPU.ActiveCfg = Release|Win32
-		{C1AB56CC-1088-4D70-B988-2A105BC0D42E}.Release|Mixed Platforms.ActiveCfg = Release|Win32
-		{C1AB56CC-1088-4D70-B988-2A105BC0D42E}.Release|Mixed Platforms.Build.0 = Release|Win32
-		{C1AB56CC-1088-4D70-B988-2A105BC0D42E}.Release|Win32.ActiveCfg = Release|Win32
-		{C1AB56CC-1088-4D70-B988-2A105BC0D42E}.Release|Win32.Build.0 = Release|Win32
 		{2A921716-CC74-4C25-806F-C920B311C102}.Debug|Any CPU.ActiveCfg = Debug|Win32
 		{2A921716-CC74-4C25-806F-C920B311C102}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
 		{2A921716-CC74-4C25-806F-C920B311C102}.Debug|Mixed Platforms.Build.0 = Debug|Win32
@@ -70,6 +64,16 @@ Global
 		{2A921716-CC74-4C25-806F-C920B311C102}.Release|Mixed Platforms.Build.0 = Release|Win32
 		{2A921716-CC74-4C25-806F-C920B311C102}.Release|Win32.ActiveCfg = Release|Win32
 		{2A921716-CC74-4C25-806F-C920B311C102}.Release|Win32.Build.0 = Release|Win32
+		{C1AB56CC-1088-4D70-B988-2A105BC0D42E}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{C1AB56CC-1088-4D70-B988-2A105BC0D42E}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{C1AB56CC-1088-4D70-B988-2A105BC0D42E}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{C1AB56CC-1088-4D70-B988-2A105BC0D42E}.Debug|Win32.ActiveCfg = Debug|Win32
+		{C1AB56CC-1088-4D70-B988-2A105BC0D42E}.Debug|Win32.Build.0 = Debug|Win32
+		{C1AB56CC-1088-4D70-B988-2A105BC0D42E}.Release|Any CPU.ActiveCfg = Release|Win32
+		{C1AB56CC-1088-4D70-B988-2A105BC0D42E}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{C1AB56CC-1088-4D70-B988-2A105BC0D42E}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{C1AB56CC-1088-4D70-B988-2A105BC0D42E}.Release|Win32.ActiveCfg = Release|Win32
+		{C1AB56CC-1088-4D70-B988-2A105BC0D42E}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -77,7 +81,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{3E952423-DE97-4E89-99A5-915CF51AA371} = {C27CFAA1-96EC-413A-BC9D-85C098EDBE74}
 		{EB4CDC67-14B5-44E4-B828-998C8AC03612} = {383E5969-C5A6-401D-B98E-FD0C6C8E6D11}
-		{C1AB56CC-1088-4D70-B988-2A105BC0D42E} = {C9D2A0D7-4402-41B1-AAF6-56189D83960C}
 		{2A921716-CC74-4C25-806F-C920B311C102} = {C27CFAA1-96EC-413A-BC9D-85C098EDBE74}
+		{C1AB56CC-1088-4D70-B988-2A105BC0D42E} = {383E5969-C5A6-401D-B98E-FD0C6C8E6D11}
 	EndGlobalSection
 EndGlobal
