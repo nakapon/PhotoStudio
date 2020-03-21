@@ -11,7 +11,7 @@ bool Session::StoreSession(LPCTSTR pszFilePath)
 {
 	TCHAR szSessionPath[MAX_PATH] = { 0 };
 
-	GetFilePath(szSessionPath, PF_ARRAY_LENGTH(szSessionPath));
+	::GetFilePath(szSessionPath, PF_ARRAY_LENGTH(szSessionPath));
 
 	{
 		FILE* fp;
@@ -20,11 +20,7 @@ bool Session::StoreSession(LPCTSTR pszFilePath)
 		if(fp == nullptr)
 			return false;
 
-		// TODO TSTR_TO_ASTR() マクロを導入
-		CHAR szFilePathA[MAX_PATH] = { 0 };
-		WideCharToMultiByte(CP_ACP, 0, pszFilePath, -1, szFilePathA, PF_ARRAY_LENGTH(szFilePathA), nullptr, nullptr);
-
-		fprintf(fp, szFilePathA);
+		fprintf(fp, TSTR_TO_ASTR(pszFilePath));
 
 		fclose(fp);
 	}
@@ -38,7 +34,7 @@ bool Session::RestoreSession(LPTSTR pszFilePath, UInt32 MaxLength)
 
 	CHAR szFilePathA[MAX_PATH] = { 0 };
 
-	GetFilePath(szSessionPath, PF_ARRAY_LENGTH(szSessionPath));
+	::GetFilePath(szSessionPath, PF_ARRAY_LENGTH(szSessionPath));
 
 	{
 		FILE* fp;
@@ -52,8 +48,7 @@ bool Session::RestoreSession(LPTSTR pszFilePath, UInt32 MaxLength)
 		fclose(fp);
 	}
 
-	// TODO ASTR_TO_TSTR() マクロを導入
-	MultiByteToWideChar(CP_ACP, MB_PRECOMPOSED, szFilePathA, sizeof(szFilePathA), pszFilePath, MaxLength);
+	_tcscpy_s(pszFilePath, MaxLength, ASTR_TO_TSTR(szFilePathA));
 
 	return true;
 }
