@@ -12,5 +12,4 @@
 #include <limits.h>
 #include <wchar.h>
 
-#include <WindowsString.h>
 #include <WindowsTchar.h>

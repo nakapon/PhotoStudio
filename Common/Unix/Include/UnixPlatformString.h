@@ -1,9 +1,5 @@
 ﻿#pragma once
 
-#include <stdlib.h>
-
-#include <tchar.h>
-
 #include <locale.h>
 
 template <typename T>
