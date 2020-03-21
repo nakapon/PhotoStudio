@@ -4,17 +4,18 @@ Welcome to the PhotoStudio project!
 
 This project is for beginners who would like to learn followings;
 
-- C / C++ /C# Programming
+- C / C++ / C++CLI / C# / Java Programming
 - Windows Programming (Platform SDK / WIN32 API) - `PhotoStudio` project
 - Windows Programming (C# Windows Forms) - `PhotoStudioForms` project
 - Qt5 GUI Programming and Multi-Platform (Windows / Linux / Mac) - `PhotoStudioQt` project
+- Java Swing Programming - `PhotoStudioJava` project
 - Image Processing
 
 Enjoy engineer life!
 
 ## Building
 
-### PhotoStudio (Windows Platform SDK)
+### PhotoStudio (C++, Windows Platform SDK)
 
 In order to build this project, you will need to install:
 
@@ -22,7 +23,7 @@ In order to build this project, you will need to install:
 
 To build this project, open the `PhotoStudio.sln` with Visual Studio and build `PhotoStudio` project
 
-### PhotoStudioForms (Windows C# Forms)
+### PhotoStudioForms (C# / C++CLI, .Net Framework, Windows Forms)
 
 In order to build this project, you will need to install:
 
@@ -30,7 +31,7 @@ In order to build this project, you will need to install:
 
 To build this project, open the `PhotoStudio.sln` with Visual Studio and build `PhotoStudioForms` project
 
-### PhotoStudioQt (Qt5 Multi-Platform)
+### PhotoStudioQt (C++, Qt5 Multi-Platform)
 
 In order to build this project, you will need to install:
 
@@ -46,3 +47,13 @@ In order to build this project, you will need to install:
 - Qt5
 
 To build this project, open the `PhotoStudioQt.pro` with QtCreator and build `PhotoStudioQt` project
+
+### PhotoStudioJava (Java, AWT / Swing)
+
+In order to build this project, you will need to install:
+
+- Visual Studio 2013 or later
+- Java 8
+- Eclipse
+
+To build this project, open the `Project/PhotoStudioJava/.project` with Eclipse
