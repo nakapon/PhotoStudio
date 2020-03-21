@@ -43,7 +43,7 @@ INT OnCreate(HWND hWindow, CREATESTRUCT* pCreateStruct)
 	{
 		TCHAR szFilePath[MAX_PATH] = { 0 };
 
-		if(Session::RestoreSession(szFilePath, sizeof(szFilePath) / sizeof(szFilePath[0])))
+		if(Session::RestoreSession(szFilePath, PF_ARRAY_LENGTH(szFilePath)))
 		{
 			LoadImage(hWindow, szFilePath, false);
 		}
@@ -254,7 +254,7 @@ INT OnDropFiles(HWND hWindow, WPARAM wParam, LPARAM lParam)
 
 	UINT ItemCount = DragQueryFile(hDrop, (UINT)-1, nullptr, 0);
 
-	DragQueryFile(hDrop, 0, szFilePath, sizeof(szFilePath) / sizeof(szFilePath[0]));
+	DragQueryFile(hDrop, 0, szFilePath, PF_ARRAY_LENGTH(szFilePath));
 
 	LoadImage(hWindow, szFilePath, true);
 

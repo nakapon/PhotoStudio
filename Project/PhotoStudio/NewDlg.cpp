@@ -50,7 +50,7 @@ static INT_PTR CALLBACK DialogProcedure(HWND hDialog, UINT unMessage, WPARAM wPa
 
 				TCHAR szImageName[256] = { 0 };
 
-				GetDlgItemText(hDialog, IDC_EDIT_NAME, szImageName, sizeof(szImageName) / sizeof(szImageName[0]));
+				GetDlgItemText(hDialog, IDC_EDIT_NAME, szImageName, PF_ARRAY_LENGTH(szImageName));
 
 				UINT Width = GetDlgItemInt(hDialog, IDC_EDIT_WIDTH, nullptr, FALSE);
 				UINT Height = GetDlgItemInt(hDialog, IDC_EDIT_HEIGHT, nullptr, FALSE);
