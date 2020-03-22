@@ -1,5 +1,7 @@
 ﻿#pragma once
 
+#include <GenericPlatformString.h>
+
 #if PLATFORM_WINDOWS
 	#include <WindowsPlatformString.h>
 #elif PLATFORM_LINUX

@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 template <typename T>
-struct TWindowsPlatformString /* : public TGenericPlatformString<T> */
+struct TWindowsPlatformString : public TGenericPlatformString<T>
 {
 	// MultiByteToWideChar
 	static Int32 GetWideCharLength(LPCSTR pszSrc)
@@ -36,8 +36,6 @@ struct TWindowsPlatformString /* : public TGenericPlatformString<T> */
 
 		return ::WideCharToMultiByte(CP_ACP, 0, pszSrc, -1, pszDst, uiMaxLength, nullptr, nullptr);
 	}
-
-	static inline T* Strtok(T* pszString, const T* pszDelim, T** ppszContext);
 };
 
 template <typename T>
