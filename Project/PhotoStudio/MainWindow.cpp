@@ -100,16 +100,10 @@ INT OnPaint(HWND hWindow)
 
 	if(gs_ImageData.IsCreated() || gs_ProcImage.IsCreated())
 	{
-		if(gs_ProcImage.IsCreated())
-		{
-			// 処理結果を表示
-			ImageRenderer::Render(hDC, ClientSize, &gs_ProcImage);
-		}
-		else
-		{
-			// オリジナルを表示
-			ImageRenderer::Render(hDC, ClientSize, &gs_ImageData);
-		}
+		// 処理結果を優先して表示
+		IImageData* pImageData = gs_ProcImage.IsCreated() ? &gs_ProcImage : &gs_ImageData;
+
+		ImageRenderer::Render(hDC, ClientSize, pImageData);
 	}
 
 	EndPaint(hWindow, &PaintStruct);
@@ -194,14 +188,9 @@ INT OnCommand(HWND hWindow, WPARAM wParam, LPARAM lParam)
 
 			if(GetSaveFileName(&SaveFileName))
 			{
-				if(gs_ProcImage.IsCreated())
-				{
-					ImageWriter::WriteImage(szFilePath, &gs_ProcImage);
-				}
-				else
-				{
-					ImageWriter::WriteImage(szFilePath, &gs_ImageData);
-				}
+				IImageData* pImageData = gs_ProcImage.IsCreated() ? &gs_ProcImage : &gs_ImageData;
+
+				ImageWriter::WriteImage(szFilePath, pImageData);
 			}
 		}
 		break;
