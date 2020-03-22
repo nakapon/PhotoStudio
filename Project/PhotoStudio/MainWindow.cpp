@@ -1,7 +1,5 @@
 #include <Platform.h>
 
-#include <tchar.h>
-
 #include <ImageData.h>
 #include <ImageReader.h>
 #include <ImageWriter.h>
@@ -281,17 +279,17 @@ static void UpdateAppTitle(HWND hWindow)
 {
 	TCHAR szTitle[256] = { 0 };
 
-	_tcscpy_s(szTitle, TEXT("Photo Studio"));
+	PFString::Copy(szTitle, TEXT("Photo Studio"));
 
 	if(gs_ImageData.IsCreated())
 	{
-		_tcscat_s(szTitle, TEXT(" - "));
+		PFString::Append(szTitle, TEXT(" - "));
 
 		// 画像名 (ファイルパスの場合はファイル名部分だけを表示）
 		{
 			LPCTSTR pszImageName;
 
-			pszImageName = _tcsrchr(gs_ImageData.GetImageName(), _T('\\'));
+			pszImageName = PFString::Strrchr(gs_ImageData.GetImageName(), _T('\\'));
 			if(pszImageName != nullptr)
 			{
 				pszImageName++;
@@ -301,7 +299,7 @@ static void UpdateAppTitle(HWND hWindow)
 				pszImageName =gs_ImageData.GetImageName();
 			}
 
-			_tcscat_s(szTitle, pszImageName);
+			PFString::Append(szTitle, pszImageName);
 		}
 
 		// 画像情報
@@ -311,7 +309,7 @@ static void UpdateAppTitle(HWND hWindow)
 			IImageData::IMAGEINFO ImageInfo = gs_ImageData.GetImageInfo();
 
 			_stprintf_s(szInfo, TEXT(" [%dx%d %dch %dbit]"), ImageInfo.Width, ImageInfo.Height, ImageInfo.ChannelCount, ImageInfo.BitsPerChannel);
-			_tcscat_s(szTitle, szInfo);
+			PFString::Append(szTitle, szInfo);
 		}
 	}
 

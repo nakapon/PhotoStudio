@@ -1,8 +1,5 @@
 #include <Platform.h>
 
-#include <stdio.h>
-#include <tchar.h>
-
 #include "Session.h"
 
 #define SESSION_FILE_NAME	TEXT("PhotoStudio.ssn")
@@ -50,7 +47,7 @@ bool Session::RestoreSession(LPTSTR pszFilePath, UInt32 MaxLength)
 		fclose(fp);
 	}
 
-	_tcscpy_s(pszFilePath, MaxLength, ASTR_TO_TSTR(szFilePathA));
+	PFString::Copy(pszFilePath, MaxLength, ASTR_TO_TSTR(szFilePathA));
 
 	return true;
 }
@@ -61,13 +58,13 @@ static void GetFilePath(LPTSTR pszFilePath, UInt32 MaxLength)
 
 	PFPath::GetModuleFilePath(nullptr, szFilePath);
 
-	LPTSTR pszExtension = _tcsrchr(szFilePath, _T('\\'));
+	LPTSTR pszExtension = PFString::Strrchr(szFilePath, _T('\\'));
 	if(pszExtension != nullptr)
 	{
 		pszExtension[1] = _T('\0');
 	}
 
-	_tcscat_s(szFilePath, SESSION_FILE_NAME);
+	PFString::Append(szFilePath, SESSION_FILE_NAME);
 
-	_tcscpy_s(pszFilePath, MaxLength, szFilePath);
+	PFString::Copy(pszFilePath, MaxLength, szFilePath);
 }

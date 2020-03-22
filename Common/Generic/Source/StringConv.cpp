@@ -119,10 +119,10 @@ FStringConv& FStringConv::operator=(LPCWSTR pwszString)
 
 	if(pwszString != nullptr)
 	{
-		DWORD dwLength = (DWORD)wcslen(pwszString) + 1;
+		DWORD dwLength = (DWORD)PFStringW::Length(pwszString) + 1;
 
 		this->m_pwszString = new WCHAR[dwLength];
-		wcscpy_s(this->m_pwszString, dwLength, pwszString);
+		PFStringW::Copy(this->m_pwszString, dwLength, pwszString);
 
 		this->m_dwLength = dwLength;
 	}
