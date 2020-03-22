@@ -43,6 +43,7 @@ inline bool TLinuxPlatfornPath<CHAR>::GetModuleFilePath(HMODULE hModule, LPSTR p
 
 	return true;
 }
+
 template <>
 inline bool TLinuxPlatfornPath<WCHAR>::GetModuleFilePath(HMODULE hModule, LPWSTR pszPath, UInt32 MaxLength)
 {
