@@ -114,7 +114,7 @@ void MainWindow::paintEvent(QPaintEvent *)
 
 		scaleH = (float)viewSize.width() / srcWidth;
 		scaleV = (float)viewSize.height() / srcHeight;
-		scale = std::min(scaleH, scaleV);
+		scale = PFMath::Min(scaleH, scaleV);
 
 		dstWidth = (UInt32)(scale * srcWidth + 0.5f);
 		dstHeight = (UInt32)(scale * srcHeight + 0.5f);

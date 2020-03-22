@@ -1,7 +1,5 @@
 ﻿#include <Platform.h>
 
-#include <algorithm>
-
 #include <ImageData.h>
 
 CImageData::CImageData()
@@ -29,7 +27,7 @@ CImageData& CImageData::operator=(const CImageData& ImageData)
 
 	IMAGEINFO SrcInfo = ImageData.GetImageInfo();
 
-	UInt32 LineSize = std::min(this->m_ImageInfo.BytesPerLine, SrcInfo.BytesPerLine);
+	UInt32 LineSize = PFMath::Min(this->m_ImageInfo.BytesPerLine, SrcInfo.BytesPerLine);
 
 	for(UInt32 i = 0; i < LineSize; i++)
 	{
