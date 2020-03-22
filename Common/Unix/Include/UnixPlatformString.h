@@ -25,7 +25,7 @@ struct TUnixPlatformString : public TGenericPlatformString<T>
 		return (Int32)Length + 1;
 	}
 
-	static Int32 MultiByteToWideChar(LPWSTR pszDst, UInt32 uiMaxLength, LPCSTR pszSrc)
+	static Int32 MultiByteToWideChar(LPWSTR pszDst, UInt32 MaxLength, LPCSTR pszSrc)
 	{
 		if(pszSrc == nullptr)
 			return 0;
@@ -64,7 +64,7 @@ struct TUnixPlatformString : public TGenericPlatformString<T>
 		return (Int32)Length + 1;
 	}
 
-	static Int32 WideCharToMultiByte(LPSTR pszDst, UInt32 uiMaxLength, LPCWSTR pszSrc)
+	static Int32 WideCharToMultiByte(LPSTR pszDst, UInt32 MaxLength, LPCWSTR pszSrc)
 	{
 		if(pszSrc == nullptr)
 			return 0;
@@ -73,7 +73,7 @@ struct TUnixPlatformString : public TGenericPlatformString<T>
 		strcpy_s(szPrevLocale, sizeof(szPrevLocale) / sizeof(szPrevLocale[0]), ::setlocale(LC_CTYPE, nullptr));
 		::setlocale(LC_CTYPE, "");
 
-		SIZE_T Length = ::wcstombs(pszDst, pszSrc, uiMaxLength);
+		SIZE_T Length = ::wcstombs(pszDst, pszSrc, MaxLength);
 
 		::setlocale(LC_CTYPE, szPrevLocale);
 

@@ -3,15 +3,49 @@
 #include <string.h>
 #include <ctype.h>
 
-#define strcpy_s(d, s) strcpy((d), (s))
-#define strcpy_s(d, n, s) strcpy((d), (s))
-#define strcat_s(d, s) strcat((d), (s))
-#define strcat_s(d, n, s) strcat((d), (s))
+inline char* strcpy_s(char* pszDst, UInt32 MaxLength, const char* pszSrc)
+{
+	return strcpy(pszDst, pszSrc);
+}
 
-#define wcscpy_s(d, s) wcscpy((d), (s))
-#define wcscpy_s(d, n, s) wcscpy((d), (s))
-#define wcscat_s(d, s) wcscat((d), (s))
-#define wcscat_s(d, n, s) wcscat((d), (s))
+template <UInt32 MaxLength>
+inline char* strcpy_s(char (&pszDst)[MaxLength], const char* pszSrc)
+{
+	return strcpy(pszDst, pszSrc);
+}
+
+inline char* strcat_s(char* pszDst, UInt32 MaxLength, const char* pszSrc)
+{
+	return strcat(pszDst, pszSrc);
+}
+
+template <UInt32 MaxLength>
+inline char* strcat_s(char (&pszDst)[MaxLength], const char* pszSrc)
+{
+	return strcat(pszDst, pszSrc);
+}
+
+inline wchar_t* wcscpy_s(wchar_t* pszDst, UInt32 MaxLength, const wchar_t* pszSrc)
+{
+	return wcscpy(pszDst, pszSrc);
+}
+
+template <UInt32 MaxLength>
+inline wchar_t* wcscpy_s(wchar_t (&pszDst)[MaxLength], const wchar_t* pszSrc)
+{
+	return wcscpy(pszDst, pszSrc);
+}
+
+inline wchar_t* wcscat_s(wchar_t* pszDst, UInt32 MaxLength, const wchar_t* pszSrc)
+{
+	return wcscat(pszDst, pszSrc);
+}
+
+template <UInt32 MaxLength>
+inline wchar_t* wcscat_s(wchar_t (&pszDst)[MaxLength], const wchar_t* pszSrc)
+{
+	return wcscat_s(pszDst, pszSrc);
+}
 
 #if BUILD_IS_UNICODE
 	#define _tcscpy wcscpy
