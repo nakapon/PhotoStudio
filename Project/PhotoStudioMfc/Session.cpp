@@ -5,6 +5,8 @@
 
 #include "Session.h"
 
+#define SESSION_FILE_NAME	TEXT("PhotoStudioMfc.ssn")
+
 static void GetFilePath(LPTSTR pszFilePath, UInt32 MaxLength);
 
 bool Session::StoreSession(LPCTSTR pszFilePath)
@@ -57,7 +59,7 @@ static void GetFilePath(LPTSTR pszFilePath, UInt32 MaxLength)
 {
 	TCHAR szFilePath[MAX_PATH] = { 0 };
 
-	GetModuleFileName(nullptr, szFilePath, PF_ARRAY_LENGTH(szFilePath));
+	PFPath::GetModuleFilePath(nullptr, szFilePath);
 
 	LPTSTR pszExtension = _tcsrchr(szFilePath, _T('\\'));
 	if(pszExtension != nullptr)
@@ -65,7 +67,7 @@ static void GetFilePath(LPTSTR pszFilePath, UInt32 MaxLength)
 		pszExtension[1] = _T('\0');
 	}
 
-	_tcscat_s(szFilePath, TEXT("PhotoStudio.ssn"));
+	_tcscat_s(szFilePath, SESSION_FILE_NAME);
 
 	_tcscpy_s(pszFilePath, MaxLength, szFilePath);
 }

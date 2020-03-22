@@ -53,14 +53,14 @@
     <ClCompile Include="PhotoStudioApp.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Sessoin.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="ImageRenderer.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Common\Generic\Source\ImageProc.cpp">
       <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Session.cpp">
+      <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

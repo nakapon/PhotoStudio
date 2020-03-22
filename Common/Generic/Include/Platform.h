@@ -24,4 +24,6 @@
 
 #include <PlatformString.h>
 
+#include <PlatformPath.h>
+
 #include <ComplieTimeCheck.h>
