@@ -21,7 +21,10 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="test_macro.cpp">
+    <ClCompile Include="test_platform_string.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="test_platform_macro.cpp">
       <Filter>Tests</Filter>
     </ClCompile>
   </ItemGroup>
