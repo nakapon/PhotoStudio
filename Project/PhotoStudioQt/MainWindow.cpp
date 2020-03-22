@@ -7,6 +7,8 @@
 
 #include <ImageProc.h>
 
+#include "Session.h"
+
 #include "ImageLibraryQt.h"
 
 #include "MainWindow.h"
@@ -27,6 +29,15 @@ MainWindow::MainWindow(QWidget *parent)
 	this->createImageMenu();
 
 //	this->showMaximized();
+
+	{
+		TCHAR filePath[MAX_PATH] = { 0 };
+
+		if(Session::RestoreSession(filePath, PF_ARRAY_LENGTH(filePath)))
+		{
+			this->loadImage(filePath);
+		}
+	}
 }
 
 MainWindow::~MainWindow()
@@ -37,6 +48,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::closeEvent(QCloseEvent *event)
 {
+	Session::StoreSession(this->imageData.GetImageName());
 }
 
 bool MainWindow::eventFilter(QObject *widget, QEvent *event)
@@ -167,13 +179,19 @@ void MainWindow::fileOpen()
 		QString file = dialog.selectedFiles()[0];
 		TCHAR filePath[MAX_PATH] = { 0 };
 
-		this->procImage.Destroy();
-
 		PFQT_COPY_QSTR_TO_TSTR(filePath, PF_ARRAY_LENGTH(filePath), file);
-		if(ImageReader::ReadImage(filePath, &this->imageData))
-		{
-			this->updateViewImage(&this->imageData);
-		}
+
+		this->loadImage(filePath);
+	}
+}
+
+void MainWindow::loadImage(LPCTSTR filePath)
+{
+	this->procImage.Destroy();
+
+	if(ImageReader::ReadImage(filePath, &this->imageData))
+	{
+		this->updateViewImage(&this->imageData);
 	}
 }
 

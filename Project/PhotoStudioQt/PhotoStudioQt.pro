@@ -107,8 +107,9 @@ SOURCES += \
 	../../Common/Generic/Source/ImageWriter.cpp \
 	../../Common/Generic/Source/StringConv.cpp \
 	main.cpp \
-    MainWindow.cpp \
-    ImageLibraryQt.cpp
+	MainWindow.cpp \
+	ImageLibraryQt.cpp \
+	Session.cpp
 
 
 HEADERS += \
@@ -118,8 +119,9 @@ HEADERS += \
 	../../Common/Generic/Include/ImageReader.h \
 	../../Common/Generic/Include/ImageWriter.h \
 	../../Common/Generic/Include/StringConv.h \
-    MainWindow.h \
-    ImageLibraryQt.h
+	MainWindow.h \
+	ImageLibraryQt.h \
+	Session.h
 
 
 FORMS += \
@@ -129,4 +131,4 @@ FORMS += \
 #	PhotoStudioQt.qrc
 
 DISTFILES += \
-    resource.rc
+	resource.rc
