@@ -1,10 +1,5 @@
 ﻿#include <Platform.h>
 
-#include <algorithm>
-
-#include <stdio.h>
-#include <tchar.h>
-
 #include <ImageData.h>
 
 CImageData::CImageData()
@@ -32,7 +27,7 @@ CImageData& CImageData::operator=(const CImageData& ImageData)
 
 	IMAGEINFO SrcInfo = ImageData.GetImageInfo();
 
-	UInt32 LineSize = std::min(this->m_ImageInfo.BytesPerLine, SrcInfo.BytesPerLine);
+	UInt32 LineSize = PFMath::Min(this->m_ImageInfo.BytesPerLine, SrcInfo.BytesPerLine);
 
 	for(UInt32 i = 0; i < LineSize; i++)
 	{
@@ -60,7 +55,7 @@ bool CImageData::Create(LPCTSTR pszImageName, UInt32 Width, UInt32 Height, UInt3
 
 	if(pszImageName != nullptr && pszImageName[0] != _T('\0'))
 	{
-		_tcscpy_s(this->m_szImageName, pszImageName);
+		PFString::Copy(this->m_szImageName, pszImageName);
 	}
 
 	this->m_ImageData.resize(ImageDataSize);
@@ -98,7 +93,7 @@ void CImageData::SetImageName(LPCTSTR pszImageName)
 {
 	if(pszImageName != nullptr && pszImageName[0] != _T('\0'))
 	{
-		_tcscpy_s(this->m_szImageName, pszImageName);
+		PFString::Copy(this->m_szImageName, pszImageName);
 	}
 	else
 	{

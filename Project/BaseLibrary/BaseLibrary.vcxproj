@@ -41,11 +41,11 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>..\..\Common\Windows\Library\$(Configuration)\</OutDir>
-    <IntDir>..\..\Obj\$(Configuration)\</IntDir>
+    <IntDir>..\..\Obj\$(Configuration)\$(ProjectName)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>..\..\Common\Windows\Library\$(Configuration)\</OutDir>
-    <IntDir>..\..\Obj\$(Configuration)\</IntDir>
+    <IntDir>..\..\Obj\$(Configuration)\$(ProjectName)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -84,11 +84,13 @@
     <ClInclude Include="..\..\Common\Generic\Include\ImageData.h" />
     <ClInclude Include="..\..\Common\Generic\Include\ImageReader.h" />
     <ClInclude Include="..\..\Common\Generic\Include\ImageWriter.h" />
+    <ClInclude Include="..\..\Common\Generic\Include\StringConv.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Common\Generic\Source\ImageData.cpp" />
     <ClCompile Include="..\..\Common\Generic\Source\ImageReader.cpp" />
     <ClCompile Include="..\..\Common\Generic\Source\ImageWriter.cpp" />
+    <ClCompile Include="..\..\Common\Generic\Source\StringConv.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

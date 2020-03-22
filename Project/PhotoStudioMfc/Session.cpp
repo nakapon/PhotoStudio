@@ -1,9 +1,8 @@
 #include <Platform.h>
 
-#include <stdio.h>
-#include <tchar.h>
-
 #include "Session.h"
+
+#define SESSION_FILE_NAME	TEXT("PhotoStudioMfc.ssn")
 
 static void GetFilePath(LPTSTR pszFilePath, UInt32 MaxLength);
 
@@ -11,7 +10,7 @@ bool Session::StoreSession(LPCTSTR pszFilePath)
 {
 	TCHAR szSessionPath[MAX_PATH] = { 0 };
 
-	GetFilePath(szSessionPath, PF_ARRAY_LENGTH(szSessionPath));
+	::GetFilePath(szSessionPath, PF_ARRAY_LENGTH(szSessionPath));
 
 	{
 		FILE* fp;
@@ -20,11 +19,7 @@ bool Session::StoreSession(LPCTSTR pszFilePath)
 		if(fp == nullptr)
 			return false;
 
-		// TODO TSTR_TO_ASTR() マクロを導入
-		CHAR szFilePathA[MAX_PATH] = { 0 };
-		WideCharToMultiByte(CP_ACP, 0, pszFilePath, -1, szFilePathA, PF_ARRAY_LENGTH(szFilePathA), nullptr, nullptr);
-
-		fprintf(fp, szFilePathA);
+		fprintf(fp, TSTR_TO_ASTR(pszFilePath));
 
 		fclose(fp);
 	}
@@ -38,7 +33,7 @@ bool Session::RestoreSession(LPTSTR pszFilePath, UInt32 MaxLength)
 
 	CHAR szFilePathA[MAX_PATH] = { 0 };
 
-	GetFilePath(szSessionPath, PF_ARRAY_LENGTH(szSessionPath));
+	::GetFilePath(szSessionPath, PF_ARRAY_LENGTH(szSessionPath));
 
 	{
 		FILE* fp;
@@ -52,8 +47,7 @@ bool Session::RestoreSession(LPTSTR pszFilePath, UInt32 MaxLength)
 		fclose(fp);
 	}
 
-	// TODO ASTR_TO_TSTR() マクロを導入
-	MultiByteToWideChar(CP_ACP, MB_PRECOMPOSED, szFilePathA, sizeof(szFilePathA), pszFilePath, MaxLength);
+	PFString::Copy(pszFilePath, MaxLength, ASTR_TO_TSTR(szFilePathA));
 
 	return true;
 }
@@ -62,15 +56,15 @@ static void GetFilePath(LPTSTR pszFilePath, UInt32 MaxLength)
 {
 	TCHAR szFilePath[MAX_PATH] = { 0 };
 
-	GetModuleFileName(nullptr, szFilePath, PF_ARRAY_LENGTH(szFilePath));
+	PFPath::GetModuleFilePath(nullptr, szFilePath);
 
-	LPTSTR pszExtension = _tcsrchr(szFilePath, _T('\\'));
+	LPTSTR pszExtension = PFString::Strrchr(szFilePath, PF_DIR_SEP_CHAR);
 	if(pszExtension != nullptr)
 	{
 		pszExtension[1] = _T('\0');
 	}
 
-	_tcscat_s(szFilePath, TEXT("PhotoStudio.ssn"));
+	PFString::Append(szFilePath, SESSION_FILE_NAME);
 
-	_tcscpy_s(pszFilePath, MaxLength, szFilePath);
+	PFString::Copy(pszFilePath, MaxLength, szFilePath);
 }

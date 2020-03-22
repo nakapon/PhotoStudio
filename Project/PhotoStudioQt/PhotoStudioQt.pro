@@ -75,6 +75,7 @@ win32:LIBS += -lgdi32
 #!win32:LIBS += -ldl -ltiff -lz -lopencv_core -lopencv_imgproc
 
 unix:!macx:LIBS += -lfreeimage
+macx:LIBS += -lfreeimage
 
 # Destination Path
 CONFIG(debug, debug|release){
@@ -105,9 +106,11 @@ SOURCES += \
 	../../Common/Generic/Source/ImageProc.cpp \
 	../../Common/Generic/Source/ImageReader.cpp \
 	../../Common/Generic/Source/ImageWriter.cpp \
+	../../Common/Generic/Source/StringConv.cpp \
 	main.cpp \
-    MainWindow.cpp \
-    ImageLibraryQt.cpp
+	MainWindow.cpp \
+	ImageLibraryQt.cpp \
+	Session.cpp
 
 
 HEADERS += \
@@ -116,8 +119,10 @@ HEADERS += \
 	../../Common/Generic/Include/ImageProc.h \
 	../../Common/Generic/Include/ImageReader.h \
 	../../Common/Generic/Include/ImageWriter.h \
-    MainWindow.h \
-    ImageLibraryQt.h
+	../../Common/Generic/Include/StringConv.h \
+	MainWindow.h \
+	ImageLibraryQt.h \
+	Session.h
 
 
 FORMS += \
@@ -127,4 +132,4 @@ FORMS += \
 #	PhotoStudioQt.qrc
 
 DISTFILES += \
-    resource.rc
+	resource.rc

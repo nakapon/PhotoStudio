@@ -27,6 +27,9 @@
     <ClInclude Include="..\..\Common\Generic\Include\ImageWriter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Common\Generic\Include\StringConv.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Common\Generic\Source\ImageData.cpp">
@@ -36,6 +39,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Common\Generic\Source\ImageWriter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\Generic\Source\StringConv.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

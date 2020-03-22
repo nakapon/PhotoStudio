@@ -12,10 +12,10 @@
 #endif
 
 // from QString
-#define PFQT_COPY_QSTR_TO_ASTR(dst, maxLen, src)	strcpy(dst, (LPCSTR)src.toLocal8Bit().data())
+#define PFQT_COPY_QSTR_TO_ASTR(dst, maxLen, src)	PFStringA::Copy(dst, (LPCSTR)src.toLocal8Bit().data())
 #define PFQT_COPY_QSTR_TO_WSTR(dst, maxLen, src)	src.toWCharArray(dst)
 #if BUILD_IS_UNICODE
 #define PFQT_COPY_QSTR_TO_TSTR(dst, maxLen, src)	src.toWCharArray(dst)
 #else
-#define PFQT_COPY_QSTR_TO_TSTR(dst, maxLen, src)	strcpy(dst, (LPCSTR)src.toLocal8Bit().data())
+#define PFQT_COPY_QSTR_TO_TSTR(dst, maxLen, src)	PFStringA::Copy(dst, (LPCSTR)src.toLocal8Bit().data())
 #endif

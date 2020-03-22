@@ -41,6 +41,8 @@ protected:
 
 protected slots:
 
+	void loadImage(LPCTSTR filePath);
+
 	void updateViewImage(const IImageData* image);
 
 	// File
