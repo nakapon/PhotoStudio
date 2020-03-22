@@ -6,6 +6,8 @@
 
 #include <PlatformMacro.h>
 
+#include <PlatformMath.h>
+
 #if PLATFORM_WINDOWS
 	#ifdef PLATFORM_WINDOWS_AFX
 		#include <WindowsPlatformAfx.h>

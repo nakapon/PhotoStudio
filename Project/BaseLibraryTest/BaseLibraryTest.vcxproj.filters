@@ -27,5 +27,8 @@
     <ClCompile Include="test_platform_macro.cpp">
       <Filter>Tests</Filter>
     </ClCompile>
+    <ClCompile Include="test_platform_math.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
