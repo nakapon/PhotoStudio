@@ -50,8 +50,8 @@ inline wchar_t* wcscat_s(wchar_t (&pszDst)[MaxLength], const wchar_t* pszSrc)
 #if BUILD_IS_UNICODE
 	#define _tcscpy wcscpy
 	#define _tcscat wcscat
-	#define _tcscpy_s wcscpy
-	#define _tcscat_s wcscat
+	#define _tcscpy_s wcscpy_s
+	#define _tcscat_s wcscat_s
 	#define _tcscmp wcscmp
 	#define _tcsclen wcslen
 	#define _tcslen wcslen
@@ -67,8 +67,8 @@ inline wchar_t* wcscat_s(wchar_t (&pszDst)[MaxLength], const wchar_t* pszSrc)
 #else
 	#define _tcscpy strcpy
 	#define _tcscat strcat
-	#define _tcscpy_s strcpy
-	#define _tcscat_s strcat
+	#define _tcscpy_s strcpy_s
+	#define _tcscat_s strcat_s
 	#define _tcscmp strcmp
 	#define _tcsclen strlen
 	#define _tcslen strlen
