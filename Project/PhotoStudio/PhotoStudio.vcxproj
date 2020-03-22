@@ -96,7 +96,7 @@
     <ClCompile Include="ImageRenderer.cpp" />
     <ClCompile Include="MainWindow.cpp" />
     <ClCompile Include="NewDlg.cpp" />
-    <ClCompile Include="Sessoin.cpp" />
+    <ClCompile Include="Session.cpp" />
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
   <ItemGroup>
