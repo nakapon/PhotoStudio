@@ -75,6 +75,7 @@ win32:LIBS += -lgdi32
 #!win32:LIBS += -ldl -ltiff -lz -lopencv_core -lopencv_imgproc
 
 unix:!macx:LIBS += -lfreeimage
+macx:LIBS += -lfreeimage
 
 # Destination Path
 CONFIG(debug, debug|release){

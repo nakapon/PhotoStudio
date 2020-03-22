@@ -1,11 +1,11 @@
 #pragma once
 
-#include <unistd.h>
+#include <mach-o/dyld.h>
 
 #include <GenericPlatformPath.h>
 
 template <typename T>
-struct TLinuxPlatfornPath : public TGenericPlatformPath<T>
+struct TMacPlatfornPath : public TGenericPlatformPath<T>
 {
 	static inline bool GetModuleFilePath(HMODULE hModule, T* pszPath, UInt32 MaxLength);
 
@@ -26,7 +26,7 @@ struct TLinuxPlatfornPath : public TGenericPlatformPath<T>
 
 // GetModuleFilePath
 template <>
-inline bool TLinuxPlatfornPath<CHAR>::GetModuleFilePath(HMODULE hModule, LPSTR pszPath, UInt32 MaxLength)
+inline bool TMacPlatfornPath<CHAR>::GetModuleFilePath(HMODULE hModule, LPSTR pszPath, UInt32 MaxLength)
 {
 	INT nReturn;
 
@@ -35,9 +35,20 @@ inline bool TLinuxPlatfornPath<CHAR>::GetModuleFilePath(HMODULE hModule, LPSTR p
 	if(pszPath == nullptr || MaxLength == 0)
 		return false;
 
-	nReturn = readlink("/proc/self/exe", szPath, sizeof(szPath) / sizeof(szPath[0]) - 1);
-	if(nReturn < 0)
+	uint32_t Size = (uint32_t)sizeof(szPath);
+	nReturn = _NSGetExecutablePath(szPath, &Size);
+	if(nReturn != 0)
 		return false;
+
+	LPSTR pszApp = PFStringA::Strstr(szPath, ".app");
+	if(pszApp == nullptr)
+		return false;
+
+	LPSTR psz = PFStringA::Strchr(pszApp, '/');
+	if(psz != nullptr)
+	{
+		*psz = '\0';
+	}
 
 	PFStringA::Copy(pszPath, MaxLength, szPath);
 
@@ -45,7 +56,7 @@ inline bool TLinuxPlatfornPath<CHAR>::GetModuleFilePath(HMODULE hModule, LPSTR p
 }
 
 template <>
-inline bool TLinuxPlatfornPath<WCHAR>::GetModuleFilePath(HMODULE hModule, LPWSTR pszPath, UInt32 MaxLength)
+inline bool TMacPlatfornPath<WCHAR>::GetModuleFilePath(HMODULE hModule, LPWSTR pszPath, UInt32 MaxLength)
 {
 	INT nReturn;
 
@@ -54,9 +65,20 @@ inline bool TLinuxPlatfornPath<WCHAR>::GetModuleFilePath(HMODULE hModule, LPWSTR
 	if(pszPath == nullptr || MaxLength == 0)
 		return false;
 
-	nReturn = readlink("/proc/self/exe", szPath, sizeof(szPath) / sizeof(szPath[0]) - 1);
-	if(nReturn < 0)
+	uint32_t Size = (uint32_t)sizeof(szPath);
+	nReturn = _NSGetExecutablePath(szPath, &Size);
+	if(nReturn != 0)
 		return false;
+
+	LPSTR pszApp = PFStringA::Strstr(szPath, ".app");
+	if(pszApp == nullptr)
+		return false;
+
+	LPSTR psz = PFStringA::Strchr(pszApp, '/');
+	if(psz != nullptr)
+	{
+		*psz = '\0';
+	}
 
 	PFStringW::Copy(pszPath, MaxLength, ASTR_TO_WSTR(szPath));
 
@@ -65,7 +87,7 @@ inline bool TLinuxPlatfornPath<WCHAR>::GetModuleFilePath(HMODULE hModule, LPWSTR
 
 // GetModuleDirPath
 template <>
-inline bool TLinuxPlatfornPath<CHAR>::GetModuleDirPath(HMODULE hModule, LPSTR pszPath, UInt32 MaxLength)
+inline bool TMacPlatfornPath<CHAR>::GetModuleDirPath(HMODULE hModule, LPSTR pszPath, UInt32 MaxLength)
 {
 	LPSTR pszPointer = nullptr;
 
@@ -74,7 +96,7 @@ inline bool TLinuxPlatfornPath<CHAR>::GetModuleDirPath(HMODULE hModule, LPSTR ps
 
 	pszPath[0] = '\0';
 
-	if(TLinuxPlatfornPath<CHAR>::GetModuleFilePath(hModule, pszPath, MaxLength) == 0)
+	if(TMacPlatfornPath<CHAR>::GetModuleFilePath(hModule, pszPath, MaxLength) == 0)
 		return false;
 
 	pszPointer = PFStringA::Strrchr(pszPath, '/');
@@ -87,7 +109,7 @@ inline bool TLinuxPlatfornPath<CHAR>::GetModuleDirPath(HMODULE hModule, LPSTR ps
 }
 
 template <>
-inline bool TLinuxPlatfornPath<WCHAR>::GetModuleDirPath(HMODULE hModule, LPWSTR pszPath, UInt32 MaxLength)
+inline bool TMacPlatfornPath<WCHAR>::GetModuleDirPath(HMODULE hModule, LPWSTR pszPath, UInt32 MaxLength)
 {
 	LPWSTR pszPointer = nullptr;
 
@@ -96,7 +118,7 @@ inline bool TLinuxPlatfornPath<WCHAR>::GetModuleDirPath(HMODULE hModule, LPWSTR 
 
 	pszPath[0] = L'\0';
 
-	if(TLinuxPlatfornPath<WCHAR>::GetModuleFilePath(hModule, pszPath, MaxLength) == 0)
+	if(TMacPlatfornPath<WCHAR>::GetModuleFilePath(hModule, pszPath, MaxLength) == 0)
 		return false;
 
 	pszPointer = PFStringW::Strrchr(pszPath, L'/');
@@ -109,8 +131,8 @@ inline bool TLinuxPlatfornPath<WCHAR>::GetModuleDirPath(HMODULE hModule, LPWSTR 
 }
 
 template <typename T>
-using PFPathT = TLinuxPlatfornPath<T>;
+using PFPathT = TMacPlatfornPath<T>;
 
-typedef TLinuxPlatfornPath< CHAR> PFPathA;
-typedef TLinuxPlatfornPath<WCHAR> PFPathW;
-typedef TLinuxPlatfornPath<TCHAR> PFPath;
+typedef TMacPlatfornPath< CHAR> PFPathA;
+typedef TMacPlatfornPath<WCHAR> PFPathW;
+typedef TMacPlatfornPath<TCHAR> PFPath;

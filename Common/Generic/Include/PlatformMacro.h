@@ -30,3 +30,13 @@
 	#define __W(s) L##s
 	#define _W(s) __W(s)
 #endif
+
+#if PLATFORM_WINDOWS
+	#include <WindowsPlatformMacro.h>
+#elif PLATFORM_LINUX
+	#include <LinuxPlatformMacro.h>
+#elif PLATFORM_MAC
+	#include <MacPlatformMacro.h>
+#else
+	#error Unknown Platform
+#endif
