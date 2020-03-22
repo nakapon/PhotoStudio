@@ -54,6 +54,7 @@ In order to build this project, you will need to install:
 
 #### Mac
 - Qt5
+- FreeImage (see `ThirdParty.Mac.txt`)
 
 To build this project, open the `PhotoStudioQt.pro` with QtCreator and build `PhotoStudioQt` project
 
