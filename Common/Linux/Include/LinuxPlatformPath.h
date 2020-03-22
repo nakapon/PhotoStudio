@@ -39,7 +39,7 @@ inline bool TLinuxPlatfornPath<CHAR>::GetModuleFilePath(HMODULE hModule, LPSTR p
 	if(nReturn < 0)
 		return false;
 
-	strcpy_s(pszPath, MaxLength, szPath);
+	PFStringA::Copy(pszPath, MaxLength, szPath);
 
 	return true;
 }
@@ -57,7 +57,7 @@ inline bool TLinuxPlatfornPath<WCHAR>::GetModuleFilePath(HMODULE hModule, LPWSTR
 	if(nReturn < 0)
 		return false;
 
-	wcscpy_s(pszPath, MaxLength, ASTR_TO_WSTR(szPath));
+	PFStringW::Copy(pszPath, MaxLength, ASTR_TO_WSTR(szPath));
 
 	return true;
 }
@@ -76,7 +76,7 @@ inline bool TLinuxPlatfornPath<CHAR>::GetModuleDirPath(HMODULE hModule, LPSTR ps
 	if(TLinuxPlatfornPath<CHAR>::GetModuleFilePath(hModule, pszPath, MaxLength) == 0)
 		return false;
 
-	pszPointer = strrchr(pszPath, '\\');
+	pszPointer = PFStringA::Strrchr(pszPath, '\\');
 	if(pszPointer == nullptr)
 		return false;
 
@@ -98,7 +98,7 @@ inline bool TLinuxPlatfornPath<WCHAR>::GetModuleDirPath(HMODULE hModule, LPWSTR 
 	if(TLinuxPlatfornPath<WCHAR>::GetModuleFilePath(hModule, pszPath, MaxLength) == 0)
 		return false;
 
-	pszPointer = wcsrchr(pszPath, L'\\');
+	pszPointer = PFStringW::Strrchr(pszPath, L'\\');
 	if(pszPointer == nullptr)
 		return false;
 

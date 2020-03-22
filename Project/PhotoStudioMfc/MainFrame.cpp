@@ -198,17 +198,17 @@ void CMainFrame::UpdateAppTitle()
 {
 	TCHAR szTitle[256] = { 0 };
 
-	_tcscpy_s(szTitle, TEXT("Photo Studio"));
+	PFString::Copy(szTitle, TEXT("Photo Studio"));
 
 	if(this->m_ImageData.IsCreated())
 	{
-		_tcscat_s(szTitle, TEXT(" - "));
+		PFString::Append(szTitle, TEXT(" - "));
 
 		// 画像名 (ファイルパスの場合はファイル名部分だけを表示）
 		{
 			LPCTSTR pszImageName;
 
-			pszImageName = _tcsrchr(this->m_ImageData.GetImageName(), _T('\\'));
+			pszImageName = PFString::Strrchr(this->m_ImageData.GetImageName(), _T('\\'));
 			if(pszImageName != nullptr)
 			{
 				pszImageName++;
@@ -218,7 +218,7 @@ void CMainFrame::UpdateAppTitle()
 				pszImageName =this->m_ImageData.GetImageName();
 			}
 
-			_tcscat_s(szTitle, pszImageName);
+			PFString::Append(szTitle, pszImageName);
 		}
 
 		// 画像情報
@@ -228,7 +228,7 @@ void CMainFrame::UpdateAppTitle()
 			IImageData::IMAGEINFO ImageInfo = this->m_ImageData.GetImageInfo();
 
 			_stprintf_s(szInfo, TEXT(" [%dx%d %dch %dbit]"), ImageInfo.Width, ImageInfo.Height, ImageInfo.ChannelCount, ImageInfo.BitsPerChannel);
-			_tcscat_s(szTitle, szInfo);
+			PFString::Append(szTitle, szInfo);
 		}
 	}
 

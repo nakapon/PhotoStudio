@@ -67,7 +67,7 @@ inline bool TWindowsPlatformPath<CHAR>::GetModuleDirPath(HMODULE hModule, LPSTR 
 	if(TWindowsPlatformPath<CHAR>::GetModuleFilePath(hModule, pszPath, MaxLength) == 0)
 		return false;
 
-	pszPointer = strrchr(pszPath, '\\');
+	pszPointer = PFStringA::Strrchr(pszPath, '\\');
 	if(pszPointer == nullptr)
 		return false;
 
@@ -89,7 +89,7 @@ inline bool TWindowsPlatformPath<WCHAR>::GetModuleDirPath(HMODULE hModule, LPWST
 	if(TWindowsPlatformPath<WCHAR>::GetModuleFilePath(hModule, pszPath, MaxLength) == 0)
 		return false;
 
-	pszPointer = wcsrchr(pszPath, L'\\');
+	pszPointer = PFStringW::Strrchr(pszPath, L'\\');
 	if(pszPointer == nullptr)
 		return false;
 

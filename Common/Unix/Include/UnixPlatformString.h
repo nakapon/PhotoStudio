@@ -34,7 +34,7 @@ struct TUnixPlatformString : public TGenericPlatformString<T>
 		strcpy_s(szPrevLocale, sizeof(szPrevLocale) / sizeof(szPrevLocale[0]), ::setlocale(LC_CTYPE, nullptr));
 		::setlocale(LC_CTYPE, "");
 
-		SIZE_T Length = ::mbstowcs(pszDst, pszSrc, ::strlen(pszSrc) + 1);
+		SIZE_T Length = ::mbstowcs(pszDst, pszSrc, strlen(pszSrc) + 1);
 
 		::setlocale(LC_CTYPE, szPrevLocale);
 

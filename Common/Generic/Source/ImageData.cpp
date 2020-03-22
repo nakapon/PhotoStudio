@@ -2,9 +2,6 @@
 
 #include <algorithm>
 
-#include <stdio.h>
-#include <tchar.h>
-
 #include <ImageData.h>
 
 CImageData::CImageData()
@@ -60,7 +57,7 @@ bool CImageData::Create(LPCTSTR pszImageName, UInt32 Width, UInt32 Height, UInt3
 
 	if(pszImageName != nullptr && pszImageName[0] != _T('\0'))
 	{
-		_tcscpy_s(this->m_szImageName, pszImageName);
+		PFString::Copy(this->m_szImageName, pszImageName);
 	}
 
 	this->m_ImageData.resize(ImageDataSize);
@@ -98,7 +95,7 @@ void CImageData::SetImageName(LPCTSTR pszImageName)
 {
 	if(pszImageName != nullptr && pszImageName[0] != _T('\0'))
 	{
-		_tcscpy_s(this->m_szImageName, pszImageName);
+		PFString::Copy(this->m_szImageName, pszImageName);
 	}
 	else
 	{

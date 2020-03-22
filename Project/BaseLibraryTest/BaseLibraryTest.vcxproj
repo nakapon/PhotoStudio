@@ -87,7 +87,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="test_macro.cpp" />
+    <ClCompile Include="test_platform_macro.cpp" />
+    <ClCompile Include="test_platform_string.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
