@@ -12,7 +12,7 @@ struct TUnixPlatformString : public TGenericPlatformString<T>
 			return 0;
 
 		CHAR szPrevLocale[128] = { 0 };
-		PFStringA::Copy(szPrevLocale, sizeof(szPrevLocale) / sizeof(szPrevLocale[0]), ::setlocale(LC_CTYPE, nullptr));
+		strcpy_s(szPrevLocale, sizeof(szPrevLocale) / sizeof(szPrevLocale[0]), ::setlocale(LC_CTYPE, nullptr));
 		::setlocale(LC_CTYPE, "");
 
 		SIZE_T Length = ::mbstowcs(nullptr, pszSrc, 0);
@@ -31,10 +31,10 @@ struct TUnixPlatformString : public TGenericPlatformString<T>
 			return 0;
 
 		CHAR szPrevLocale[128] = { 0 };
-		PFStringA::Copy(szPrevLocale, sizeof(szPrevLocale) / sizeof(szPrevLocale[0]), ::setlocale(LC_CTYPE, nullptr));
+		strcpy_s(szPrevLocale, sizeof(szPrevLocale) / sizeof(szPrevLocale[0]), ::setlocale(LC_CTYPE, nullptr));
 		::setlocale(LC_CTYPE, "");
 
-		SIZE_T Length = ::mbstowcs(pszDst, pszSrc, PFStringA::Length(pszSrc) + 1);
+		SIZE_T Length = ::mbstowcs(pszDst, pszSrc, strlen(pszSrc) + 1);
 
 		::setlocale(LC_CTYPE, szPrevLocale);
 
@@ -51,7 +51,7 @@ struct TUnixPlatformString : public TGenericPlatformString<T>
 			return 0;
 
 		CHAR szPrevLocale[128] = { 0 };
-		PFStringA::Copy(szPrevLocale, sizeof(szPrevLocale) / sizeof(szPrevLocale[0]), ::setlocale(LC_CTYPE, nullptr));
+		strcpy_s(szPrevLocale, sizeof(szPrevLocale) / sizeof(szPrevLocale[0]), ::setlocale(LC_CTYPE, nullptr));
 		::setlocale(LC_CTYPE, "");
 
 		SIZE_T Length = ::wcstombs(nullptr, pszSrc, 0);
@@ -70,7 +70,7 @@ struct TUnixPlatformString : public TGenericPlatformString<T>
 			return 0;
 
 		CHAR szPrevLocale[128] = { 0 };
-		PFStringA::Copy(szPrevLocale, sizeof(szPrevLocale) / sizeof(szPrevLocale[0]), ::setlocale(LC_CTYPE, nullptr));
+		strcpy_s(szPrevLocale, sizeof(szPrevLocale) / sizeof(szPrevLocale[0]), ::setlocale(LC_CTYPE, nullptr));
 		::setlocale(LC_CTYPE, "");
 
 		SIZE_T Length = ::wcstombs(pszDst, pszSrc, MaxLength);
