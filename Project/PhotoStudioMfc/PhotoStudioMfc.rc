@@ -92,7 +92,21 @@ END
 
 IDR_MAINFRAME MENU
 BEGIN
-    MENUITEM "&File",                       65535
+    POPUP "&File"
+    BEGIN
+        MENUITEM "&New...\tCtrl+N",             ID_FILE_NEW
+        MENUITEM "&Open...\tCtrl+O",            ID_FILE_OPEN
+        MENUITEM SEPARATOR
+        MENUITEM "&Close\tCtrl+W",              ID_FILE_CLOSE
+        MENUITEM SEPARATOR
+        MENUITEM "&Save...\tCtrl+S",            ID_FILE_SAVE
+        MENUITEM SEPARATOR
+        MENUITEM "E&xit\tAlt+F4",               ID_FILE_EXIT
+    END
+    POPUP "&Image"
+    BEGIN
+        MENUITEM "&Monochrome",                 ID_IMAGE_MONO
+    END
 END
 
 
