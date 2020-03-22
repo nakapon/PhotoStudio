@@ -1,0 +1,14 @@
+
+	Homebrew:
+	/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+
+	brew install freeimage
+
+	GoogleTest:
+	git clone https://github.com/google/googletest
+	cd googletest
+	mkdir build
+	cd build
+	cmake ..
+	make
+	make install
