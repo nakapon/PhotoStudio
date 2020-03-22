@@ -1,7 +1,5 @@
 #include <Platform.h>
 
-#include <algorithm>
-
 #include "ImageRenderer.h"
 
 bool ImageRenderer::Render(HDC hDC, SIZE ClientSize, const IImageData* pImageData)
@@ -61,11 +59,11 @@ bool ImageRenderer::Render(HDC hDC, SIZE ClientSize, const IImageData* pImageDat
 	float ScaleH, ScaleV, Scale;
 	ScaleH = (float)ClientSize.cx / ImageInfo.Width;
 	ScaleV = (float)ClientSize.cy / ImageInfo.Height;
-	Scale = std::min(ScaleH, ScaleV);
+	Scale = PFMath::Min(ScaleH, ScaleV);
 
 	UInt32 ScaledImageWidth, ScaledImageHeight;
-	ScaledImageWidth = std::min(ClientSize.cx, (LONG)(Scale * ImageInfo.Width + 0.5f));
-	ScaledImageHeight = std::min(ClientSize.cy, (LONG)(Scale * ImageInfo.Height + 0.5f));
+	ScaledImageWidth = PFMath::Min(ClientSize.cx, (LONG)(Scale * ImageInfo.Width + 0.5f));
+	ScaledImageHeight = PFMath::Min(ClientSize.cy, (LONG)(Scale * ImageInfo.Height + 0.5f));
 
 	SetStretchBltMode(hDC, COLORONCOLOR);
 
