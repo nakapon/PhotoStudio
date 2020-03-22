@@ -289,7 +289,7 @@ static void UpdateAppTitle(HWND hWindow)
 		{
 			LPCTSTR pszImageName;
 
-			pszImageName = PFString::Strrchr(gs_ImageData.GetImageName(), _T('\\'));
+			pszImageName = PFString::Strrchr(gs_ImageData.GetImageName(), PF_DIR_SEP_CHAR);
 			if(pszImageName != nullptr)
 			{
 				pszImageName++;

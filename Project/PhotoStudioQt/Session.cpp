@@ -58,7 +58,7 @@ static void GetFilePath(LPTSTR pszFilePath, UInt32 MaxLength)
 
 	PFPath::GetModuleFilePath(nullptr, szFilePath);
 
-	LPTSTR pszExtension = PFString::Strrchr(szFilePath, _T('\\'));
+	LPTSTR pszExtension = PFString::Strrchr(szFilePath, PF_DIR_SEP_CHAR);
 	if(pszExtension != nullptr)
 	{
 		pszExtension[1] = _T('\0');

@@ -77,7 +77,7 @@ inline bool TLinuxPlatfornPath<CHAR>::GetModuleDirPath(HMODULE hModule, LPSTR ps
 	if(TLinuxPlatfornPath<CHAR>::GetModuleFilePath(hModule, pszPath, MaxLength) == 0)
 		return false;
 
-	pszPointer = PFStringA::Strrchr(pszPath, '\\');
+	pszPointer = PFStringA::Strrchr(pszPath, '/');
 	if(pszPointer == nullptr)
 		return false;
 
@@ -99,7 +99,7 @@ inline bool TLinuxPlatfornPath<WCHAR>::GetModuleDirPath(HMODULE hModule, LPWSTR 
 	if(TLinuxPlatfornPath<WCHAR>::GetModuleFilePath(hModule, pszPath, MaxLength) == 0)
 		return false;
 
-	pszPointer = PFStringW::Strrchr(pszPath, L'\\');
+	pszPointer = PFStringW::Strrchr(pszPath, L'/');
 	if(pszPointer == nullptr)
 		return false;
 

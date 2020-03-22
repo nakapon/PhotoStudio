@@ -208,7 +208,7 @@ void CMainFrame::UpdateAppTitle()
 		{
 			LPCTSTR pszImageName;
 
-			pszImageName = PFString::Strrchr(this->m_ImageData.GetImageName(), _T('\\'));
+			pszImageName = PFString::Strrchr(this->m_ImageData.GetImageName(), PF_DIR_SEP_CHAR);
 			if(pszImageName != nullptr)
 			{
 				pszImageName++;

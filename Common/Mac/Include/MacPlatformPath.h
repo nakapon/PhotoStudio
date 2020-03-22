@@ -40,8 +40,6 @@ inline bool TMacPlatfornPath<CHAR>::GetModuleFilePath(HMODULE hModule, LPSTR psz
 	if(nReturn != 0)
 		return false;
 
-	PFStringA::Copy(pszPath, MaxLength, szPath);
-
 	LPSTR pszApp = PFStringA::Strstr(szPath, ".app");
 	if(pszApp == nullptr)
 		return false;
@@ -49,7 +47,7 @@ inline bool TMacPlatfornPath<CHAR>::GetModuleFilePath(HMODULE hModule, LPSTR psz
 	LPSTR psz = PFStringA::Strchr(pszApp, '/');
 	if(psz != nullptr)
 	{
-		*psz = 0;
+		*psz = '\0';
 	}
 
 	PFStringA::Copy(pszPath, MaxLength, szPath);
@@ -67,9 +65,20 @@ inline bool TMacPlatfornPath<WCHAR>::GetModuleFilePath(HMODULE hModule, LPWSTR p
 	if(pszPath == nullptr || MaxLength == 0)
 		return false;
 
-//	nReturn = readlink("/proc/self/exe", szPath, sizeof(szPath) / sizeof(szPath[0]) - 1);
-//	if(nReturn < 0)
-//		return false;
+	uint32_t Size = (uint32_t)sizeof(szPath);
+	nReturn = _NSGetExecutablePath(szPath, &Size);
+	if(nReturn != 0)
+		return false;
+
+	LPSTR pszApp = PFStringA::Strstr(szPath, ".app");
+	if(pszApp == nullptr)
+		return false;
+
+	LPSTR psz = PFStringA::Strchr(pszApp, '/');
+	if(psz != nullptr)
+	{
+		*psz = '\0';
+	}
 
 	PFStringW::Copy(pszPath, MaxLength, ASTR_TO_WSTR(szPath));
 
@@ -90,7 +99,7 @@ inline bool TMacPlatfornPath<CHAR>::GetModuleDirPath(HMODULE hModule, LPSTR pszP
 	if(TMacPlatfornPath<CHAR>::GetModuleFilePath(hModule, pszPath, MaxLength) == 0)
 		return false;
 
-	pszPointer = PFStringA::Strrchr(pszPath, '\\');
+	pszPointer = PFStringA::Strrchr(pszPath, '/');
 	if(pszPointer == nullptr)
 		return false;
 
@@ -112,7 +121,7 @@ inline bool TMacPlatfornPath<WCHAR>::GetModuleDirPath(HMODULE hModule, LPWSTR ps
 	if(TMacPlatfornPath<WCHAR>::GetModuleFilePath(hModule, pszPath, MaxLength) == 0)
 		return false;
 
-	pszPointer = PFStringW::Strrchr(pszPath, L'\\');
+	pszPointer = PFStringW::Strrchr(pszPath, L'/');
 	if(pszPointer == nullptr)
 		return false;
 
