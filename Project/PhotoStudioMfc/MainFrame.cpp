@@ -158,7 +158,7 @@ void CMainFrame::OnDropFiles(HDROP hDropInfo)
 {
 	TCHAR szFilePath[MAX_PATH] = { 0 };
 
-	UINT ItemCount = DragQueryFile(hDropInfo, (UINT)-1, nullptr, 0);
+	UInt32 ItemCount = DragQueryFile(hDropInfo, (UInt32)-1, nullptr, 0);
 
 	DragQueryFile(hDropInfo, 0, szFilePath, PF_ARRAY_LENGTH(szFilePath));
 

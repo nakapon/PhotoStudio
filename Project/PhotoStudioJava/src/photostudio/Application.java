@@ -9,6 +9,11 @@ public class Application
 	@SuppressWarnings("unused")
 	private MainWindow _mainWindow;
 	
+	static
+	{
+		System.loadLibrary("PhotoStudioJni");
+	}
+	
 	public static void main(String[] args)
 	{
 		try

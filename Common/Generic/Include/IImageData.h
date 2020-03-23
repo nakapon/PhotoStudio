@@ -56,4 +56,6 @@ public:
 			※ [R(x,y)] は 座標(x,y) のR画素値(BitsPerChannel が8なら1バイトなので 0 - 255)
 
 	*/
+
+	virtual bool CopyTo(IImageData* pImageData) const = 0;
 };

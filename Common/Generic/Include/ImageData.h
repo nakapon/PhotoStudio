@@ -29,6 +29,8 @@ public:
 	virtual const BYTE* GetDataPtr() const override;
 	virtual BYTE* GetDataPtr() override;
 
+	virtual bool CopyTo(IImageData* pImageData) const override;
+
 private:
 	// TODO 文字列クラスを作ろう (std::basic_string はちょっとね…)
 	TCHAR m_szImageName[MAX_PATH];

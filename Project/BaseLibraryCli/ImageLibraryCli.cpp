@@ -54,7 +54,7 @@ System::Boolean PsImage::ImageLibrary::Convert(System::Drawing::Bitmap^ %DstImag
 		{
 			System::Drawing::Imaging::ColorPalette^ Palette = DstImage->Palette;
 
-			for(UINT i = 0; i < 256; i++)
+			for(UInt32 i = 0; i < 256; i++)
 			{
 				Palette->Entries[i] = System::Drawing::Color::FromArgb(i, i, i);
 			}
@@ -66,7 +66,7 @@ System::Boolean PsImage::ImageLibrary::Convert(System::Drawing::Bitmap^ %DstImag
 	{
 		static const Int32 CHANNEL_IDX_TBL[4] = {2, 1, 0, 3};
 
-		UINT x, y, p;
+		UInt32 x, y, p;
 
 		PBYTE pbySrcBits;
 		PBYTE pbyDstBits, pbyDstLine, pbyDstPixel;

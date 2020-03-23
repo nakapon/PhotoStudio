@@ -5,6 +5,7 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
 import java.net.URL;
 import java.util.EventObject;
 
@@ -12,17 +13,29 @@ import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.ImageIcon;
 import javax.swing.JCheckBoxMenuItem;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
+import photostudio.image.IImageData;
+import photostudio.image.ImageFactory;
+import photostudio.image.ImageReader;
+import photostudio.image.ImageWriter;
 
 public class MainWindow
 {
 	private JFrame _mainFrame;
 	
 	private JMenuBar _menuBar;
+	
+	private ImageView _imageView;
+	
+	private IImageData _imageData;
+	private IImageData _procImage;
 
 	public MainWindow()
 	{
@@ -40,6 +53,9 @@ public class MainWindow
 		this.createImageMenu();
 		
 		this._mainFrame.setVisible(true);
+		
+		this._imageData = ImageFactory.createInstance();
+		this._procImage = ImageFactory.createInstance();
 		
 		// icon
 /*
@@ -69,6 +85,8 @@ public class MainWindow
 			@Override
 			public void windowClosing(WindowEvent e)
 			{
+				ImageFactory.destroyInstance(_imageData);
+				ImageFactory.destroyInstance(_procImage);
 			}
 			
 			@Override
@@ -100,6 +118,9 @@ public class MainWindow
 			{
 			}
 		});
+		
+		this._imageView = new ImageView();
+		this._mainFrame.getContentPane().add(this._imageView);
 	}
 	
 	private JMenuItem addMenuItem(JMenu parent, boolean isCheckable, boolean isModal, String name, char mnemonic, Runnable runner)
@@ -160,7 +181,15 @@ public class MainWindow
 		
 		addMenuItem(Menu, false, true, "Open", 'O', ()->
 		{
-			JOptionPane.showMessageDialog(this._mainFrame, "Open");
+			JFileChooser fileChooser = new JFileChooser("");
+			
+			int result = fileChooser.showOpenDialog(null);
+			if(result == JFileChooser.APPROVE_OPTION)
+			{
+				File file = fileChooser.getSelectedFile();
+				
+				ImageReader.read(file.getAbsolutePath(), this._imageData);
+			}
 		});
 		
 		Menu.addSeparator();
@@ -174,7 +203,15 @@ public class MainWindow
 		
 		addMenuItem(Menu, false, true, "Save", 'S', ()->
 		{
-			JOptionPane.showMessageDialog(this._mainFrame, "Save");
+			JFileChooser fileChooser = new JFileChooser("");
+			
+			int result = fileChooser.showSaveDialog(null);
+			if(result == JFileChooser.APPROVE_OPTION)
+			{
+				File file = fileChooser.getSelectedFile();
+				
+				ImageWriter.write(file.getAbsolutePath(), this._imageData);
+			}
 		});
 		
 		this._menuBar.add(Menu);

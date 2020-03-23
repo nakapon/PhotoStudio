@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Jni">
+      <UniqueIdentifier>{d93465f7-18d4-46f6-beac-7f04d6da7edd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Library">
+      <UniqueIdentifier>{25d9af52-c1ff-4e8b-9ab4-3e1c255d83dd}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Jni\photostudio_image_ImageData.h">
+      <Filter>Jni</Filter>
+    </ClInclude>
+    <ClInclude Include="Jni\photostudio_image_ImageReader.h">
+      <Filter>Jni</Filter>
+    </ClInclude>
+    <ClInclude Include="Jni\photostudio_image_ImageWriter.h">
+      <Filter>Jni</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\Generic\Include\Jni.Image.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\Generic\Include\Jni.Base.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Jni\photostudio_image_ImageFactory.h">
+      <Filter>Jni</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="DllMain.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ImageDataJni.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ImageReaderJni.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ImageWriterJni.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\Generic\Source\Jni.Image.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\Generic\Source\Jni.Base.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="ImageFactoryJni.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
