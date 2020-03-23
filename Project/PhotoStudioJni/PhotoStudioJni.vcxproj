@@ -56,12 +56,12 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;PHOTOSTUDIOJNI_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\Common\Generic\Include;..\..\Common\Windows\Include;..\..\ThirdParty\Windows\Include;..\..\ThirdParty\Windows\Include\java;.\Jni</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\Common\Generic\Include;..\..\Common\Windows\Include;..\..\ThirdParty\Windows\Include;C:\Program Files (x86)\Java\jdk1.8.0_241\include;C:\Program Files (x86)\Java\jdk1.8.0_241\include\win32;.\Jni</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>..\..\Common\Windows\Library\$(Configuration)\;..\..\ThirdParty\Windows\Library</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\Common\Windows\Library\$(Configuration)\;..\..\ThirdParty\Windows\Library;C:\Program Files (x86)\Java\jdk1.8.0_241\lib</AdditionalLibraryDirectories>
       <AdditionalDependencies>BaseLibrary.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -74,14 +74,14 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;PHOTOSTUDIOJNI_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\Common\Generic\Include;..\..\Common\Windows\Include;..\..\ThirdParty\Windows\Include;..\..\ThirdParty\Windows\Include\java;.\Jni</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\Common\Generic\Include;..\..\Common\Windows\Include;..\..\ThirdParty\Windows\Include;C:\Program Files (x86)\Java\jdk1.8.0_241\include;C:\Program Files (x86)\Java\jdk1.8.0_241\include\win32;.\Jni</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>..\..\Common\Windows\Library\$(Configuration)\;..\..\ThirdParty\Windows\Library</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\Common\Windows\Library\$(Configuration)\;..\..\ThirdParty\Windows\Library;C:\Program Files (x86)\Java\jdk1.8.0_241\lib</AdditionalLibraryDirectories>
       <AdditionalDependencies>BaseLibrary.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
