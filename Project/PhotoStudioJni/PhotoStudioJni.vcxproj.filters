@@ -39,6 +39,9 @@
     <ClInclude Include="Jni\photostudio_image_ImageFactory.h">
       <Filter>Jni</Filter>
     </ClInclude>
+    <ClInclude Include="Jni\photostudio_image_ImageLibrary.h">
+      <Filter>Jni</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DllMain.cpp">
@@ -60,6 +63,9 @@
       <Filter>Library</Filter>
     </ClCompile>
     <ClCompile Include="ImageFactoryJni.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ImageLibraryJni.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

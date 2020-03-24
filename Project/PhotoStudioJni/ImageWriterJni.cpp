@@ -12,15 +12,15 @@ JNIEXPORT jboolean JNICALL Java_photostudio_image_ImageWriter_write(JNIEnv* pEnv
 {
 	bool bReturn;
 
-	IImageData *pImage;
+	IImageData* pImageData;
 
-	pImage = (IImageData *)Jni::Base::GetNativeHandle(pEnv, ImageData, HANDLE_NAME);
-	if(pImage == nullptr || !pImage->IsCreated())
+	pImageData = (IImageData *)Jni::Base::GetNativeHandle(pEnv, ImageData, HANDLE_NAME);
+	if(pImageData == nullptr || !pImageData->IsCreated())
 		return false;
 
 	LPCWSTR pszFilePath = (LPCWSTR)pEnv->GetStringChars(FilePath, nullptr);
 
-	bReturn = ImageWriter::WriteImage(pszFilePath, pImage);
+	bReturn = ImageWriter::WriteImage(pszFilePath, pImageData);
 
 	pEnv->ReleaseStringChars(FilePath, (const jchar*)pszFilePath);
 

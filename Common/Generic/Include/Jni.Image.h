@@ -14,7 +14,9 @@ namespace Jni
 		static jobject NewImageInfo(JNIEnv* pEnv, IImageData::IMAGEINFO ImageInfo);
 
 		static jobject NewImageObject(JNIEnv* pEnv);
-		static jobject NewImageObject(JNIEnv* pEnv, IImageData *pImageObject);
+		static jobject NewImageObject(JNIEnv* pEnv, IImageData *pImageData);
+
+		static bool ConvertToAwtDataBuffer(JNIEnv* pEnv, IImageData *pImageData, jbyteArray Pixels);
 
 	private:
 		Image() = delete;

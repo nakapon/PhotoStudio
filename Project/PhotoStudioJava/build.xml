@@ -15,6 +15,7 @@
 			<arg value="photostudio.image.ImageReader"/>
 			<arg value="photostudio.image.ImageWriter"/>
 			<arg value="photostudio.image.ImageFactory"/>
+			<arg value="photostudio.image.ImageLibrary"/>
 			
 		</exec>
 	</target>

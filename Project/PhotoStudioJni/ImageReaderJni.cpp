@@ -12,15 +12,15 @@ JNIEXPORT jboolean JNICALL Java_photostudio_image_ImageReader_read(JNIEnv* pEnv,
 {
 	bool bReturn;
 
-	IImageData *pImage;
+	IImageData* pImageData;
 
-	pImage = (IImageData *)Jni::Base::GetNativeHandle(pEnv, ImageData, HANDLE_NAME);
-	if(pImage == nullptr)
+	pImageData = (IImageData *)Jni::Base::GetNativeHandle(pEnv, ImageData, HANDLE_NAME);
+	if(pImageData == nullptr)
 		return false;
 
 	LPCWSTR pszFilePath = (LPCWSTR)pEnv->GetStringChars(FilePath, nullptr);
 
-	bReturn = ImageReader::ReadImage(pszFilePath, pImage);
+	bReturn = ImageReader::ReadImage(pszFilePath, pImageData);
 
 	pEnv->ReleaseStringChars(FilePath, (const jchar*)pszFilePath);
 

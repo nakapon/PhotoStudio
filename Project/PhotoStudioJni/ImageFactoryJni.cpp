@@ -14,22 +14,22 @@ JNIEXPORT jobject JNICALL Java_photostudio_image_ImageFactory_createInstance(JNI
 
 JNIEXPORT jobject JNICALL Java_photostudio_image_ImageFactory_duplicateInstance(JNIEnv* pEnv, jclass, jobject ImageData)
 {
-	IImageData *pImage;
+	IImageData* pImageData;
 
-	pImage = (IImageData *)Jni::Base::GetNativeHandle(pEnv, ImageData, HANDLE_NAME);
-	if(pImage == nullptr)
+	pImageData = (IImageData *)Jni::Base::GetNativeHandle(pEnv, ImageData, HANDLE_NAME);
+	if(pImageData == nullptr)
 		return nullptr;
 
-	return Jni::Image::NewImageObject(pEnv, pImage);
+	return Jni::Image::NewImageObject(pEnv, pImageData);
 }
 
 JNIEXPORT void JNICALL Java_photostudio_image_ImageFactory_destroyInstance(JNIEnv* pEnv, jclass, jobject ImageData)
 {
-	IImageData *pImage;
+	IImageData* pImageData;
 
-	pImage = (IImageData *)Jni::Base::GetNativeHandle(pEnv, ImageData, HANDLE_NAME);
-	if(pImage != nullptr)
+	pImageData = (IImageData *)Jni::Base::GetNativeHandle(pEnv, ImageData, HANDLE_NAME);
+	if(pImageData != nullptr)
 	{
-		delete pImage;
+		delete pImageData;
 	}
 }

@@ -11,8 +11,13 @@ import java.awt.image.BufferedImage;
 import javax.swing.JPanel;
 import javax.swing.event.MouseInputListener;
 
+import photostudio.image.IImageData;
+import photostudio.image.ImageLibrary;
+
 public class ImageView extends JPanel implements MouseInputListener, MouseWheelListener
 {
+	private static final long serialVersionUID = 1287664191053266421L;
+	
 	private Color _backColor = null;
 	
 	private BufferedImage _image = null;
@@ -28,6 +33,11 @@ public class ImageView extends JPanel implements MouseInputListener, MouseWheelL
 		this.addMouseListener(this);
 		this.addMouseMotionListener(this);
 		this.addMouseWheelListener(this);
+	}
+	
+	public void setImage(IImageData imageData)
+	{
+		this._image = ImageLibrary.getBufferedImage(imageData, this._image);
 	}
 	
 	@Override
@@ -48,50 +58,59 @@ public class ImageView extends JPanel implements MouseInputListener, MouseWheelL
 			int imageWidth = this._image.getWidth();
 			int imageHeight = this._image.getHeight();
 			
-			int viewWidth = (int)(1.0 * imageWidth);
-			int viewHeight = (int)(1.0 * imageHeight);
+			float scaleH, scaleV, scale;
 			
-			g.drawImage(this._image, 0, 0, viewWidth, viewHeight, 0, 0, imageWidth, imageHeight, this);
+			scaleH = (float)canvasWidth / imageWidth;
+			scaleV = (float)canvasHeight / imageHeight;
+			scale = Math.min(scaleH, scaleV);
+			
+			int viewWidth  = (int)(scale * imageWidth + 0.5f);
+			int viewHeight = (int)(scale * imageHeight + 0.5f);
+			
+			g.drawImage(this._image,
+						(canvasWidth - viewWidth) / 2, (canvasHeight - viewHeight) / 2,
+						(canvasWidth + viewWidth) / 2, (canvasHeight + viewHeight) / 2,
+						0, 0, imageWidth, imageHeight, this);
 		}
 	}
 	
 	@Override
-	public void mouseClicked(MouseEvent arg0)
+	public void mouseClicked(MouseEvent e)
 	{
 	}
 
 	@Override
-	public void mouseEntered(MouseEvent arg0)
+	public void mouseEntered(MouseEvent e)
 	{
 	}
 
 	@Override
-	public void mouseExited(MouseEvent arg0)
+	public void mouseExited(MouseEvent e)
 	{
 	}
 
 	@Override
-	public void mousePressed(MouseEvent arg0)
+	public void mousePressed(MouseEvent e)
 	{
 	}
 
 	@Override
-	public void mouseReleased(MouseEvent arg0)
+	public void mouseReleased(MouseEvent e)
 	{
 	}
 
 	@Override
-	public void mouseDragged(MouseEvent arg0)
+	public void mouseDragged(MouseEvent e)
 	{
 	}
 
 	@Override
-	public void mouseMoved(MouseEvent arg0)
+	public void mouseMoved(MouseEvent e)
 	{
 	}
 
 	@Override
-	public void mouseWheelMoved(MouseWheelEvent arg0)
+	public void mouseWheelMoved(MouseWheelEvent e)
 	{
 	}
 }

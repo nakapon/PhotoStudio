@@ -90,6 +90,7 @@
     <ClInclude Include="..\..\Common\Generic\Include\Jni.Image.h" />
     <ClInclude Include="Jni\photostudio_image_ImageData.h" />
     <ClInclude Include="Jni\photostudio_image_ImageFactory.h" />
+    <ClInclude Include="Jni\photostudio_image_ImageLibrary.h" />
     <ClInclude Include="Jni\photostudio_image_ImageReader.h" />
     <ClInclude Include="Jni\photostudio_image_ImageWriter.h" />
   </ItemGroup>
@@ -99,6 +100,7 @@
     <ClCompile Include="DllMain.cpp" />
     <ClCompile Include="ImageDataJni.cpp" />
     <ClCompile Include="ImageFactoryJni.cpp" />
+    <ClCompile Include="ImageLibraryJni.cpp" />
     <ClCompile Include="ImageReaderJni.cpp" />
     <ClCompile Include="ImageWriterJni.cpp" />
   </ItemGroup>

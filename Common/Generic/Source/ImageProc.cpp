@@ -3,7 +3,7 @@
 #include <ImageProc.h>
 
 template <typename T>
-static void Fill(IImageData* pImage, UInt32 ValueCh1, UInt32 ValueCh2, UInt32 ValueCh3)
+static void Fill(IImageData* pImageData, UInt32 ValueCh1, UInt32 ValueCh2, UInt32 ValueCh3)
 {
 	IImageData::IMAGEINFO ImageInfo;
 
@@ -13,9 +13,9 @@ static void Fill(IImageData* pImage, UInt32 ValueCh1, UInt32 ValueCh2, UInt32 Va
 
 	UInt32 MaxValue;
 
-	ImageInfo = pImage->GetImageInfo();
+	ImageInfo = pImageData->GetImageInfo();
 
-	pbyBits = pImage->GetDataPtr();
+	pbyBits = pImageData->GetDataPtr();
 
 	// 最大値クリップ
 	MaxValue = (1 << ImageInfo.BitsPerChannel) - 1;
@@ -68,21 +68,21 @@ static void Fill(IImageData* pImage, UInt32 ValueCh1, UInt32 ValueCh2, UInt32 Va
 	}
 }
 
-void ImageProc::Fill(IImageData* pImage, UInt32 ValueCh1, UInt32 ValueCh2, UInt32 ValueCh3)
+void ImageProc::Fill(IImageData* pImageData, UInt32 ValueCh1, UInt32 ValueCh2, UInt32 ValueCh3)
 {
 	IImageData::IMAGEINFO ImageInfo;
 
-	if(pImage == nullptr || !pImage->IsCreated())
+	if(pImageData == nullptr || !pImageData->IsCreated())
 		return;
 
-	ImageInfo = pImage->GetImageInfo();
+	ImageInfo = pImageData->GetImageInfo();
 
 	UInt32 BytesPerChannel = (ImageInfo.BitsPerChannel + 7) >> 3;
 
 	switch(BytesPerChannel)
 	{
-	case 1: ::Fill<BYTE>(pImage, ValueCh1, ValueCh2, ValueCh3); break;
-	case 2: ::Fill<WORD>(pImage, ValueCh1, ValueCh2, ValueCh3); break;
+	case 1: ::Fill<BYTE>(pImageData, ValueCh1, ValueCh2, ValueCh3); break;
+	case 2: ::Fill<WORD>(pImageData, ValueCh1, ValueCh2, ValueCh3); break;
 	default: break;
 	}
 }
