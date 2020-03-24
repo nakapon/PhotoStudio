@@ -121,3 +121,36 @@ BYTE* CImageData::GetDataPtr()
 
 	return &this->m_ImageData[0];
 }
+
+bool CImageData::CopyTo(IImageData* pImageData) const
+{
+	IImageData::IMAGEINFO SrcInfo, DstInfo;
+
+	const BYTE* pbySrcBits, *pbySrcLine;
+	BYTE* pbyDstBits, *pbyDstLine;
+
+	UInt32 CopyLineSize;
+
+	if(this->m_ImageData.empty() || pImageData == nullptr)
+		return false;
+
+	pImageData->Create(this->m_szImageName, this->m_ImageInfo);
+
+	SrcInfo = this->m_ImageInfo;
+	DstInfo = pImageData->GetImageInfo();
+
+	pbySrcBits = &this->m_ImageData[0];
+	pbyDstBits = pImageData->GetDataPtr();
+
+	CopyLineSize = PFMath::Min(SrcInfo.BytesPerLine, DstInfo.BytesPerLine);
+
+	for(UInt32 y = 0; y < SrcInfo.Height; y++)
+	{
+		pbySrcLine = &pbySrcBits[SrcInfo.BytesPerLine * y];
+		pbyDstLine = &pbyDstBits[DstInfo.BytesPerLine * y];
+
+		memcpy(pbyDstLine, pbySrcLine, CopyLineSize);
+	}
+
+	return true;
+}
