@@ -24,7 +24,7 @@ In order to build this project, you will need to install:
 
 To build this project, open the `PhotoStudio.sln` with Visual Studio and build `PhotoStudio` project
 
-### PhotoStudio (C++, MFC - Microsoft Foundation Class)
+### PhotoStudioMfc (C++, MFC - Microsoft Foundation Class)
 
 In order to build this project, you will need to install:
 
@@ -58,7 +58,7 @@ In order to build this project, you will need to install:
 
 To build this project, open the `PhotoStudioQt.pro` with QtCreator and build `PhotoStudioQt` project
 
-### PhotoStudioJava (Java, AWT / Swing)
+### PhotoStudioJava / PhotoStudioJni (Java, AWT / Swing, JNI)
 
 In order to build this project, you will need to install:
 
