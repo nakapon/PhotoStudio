@@ -6,8 +6,11 @@ import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.im.InputContext;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -24,6 +27,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.KeyStroke;
 import javax.swing.TransferHandler;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -177,7 +181,7 @@ public class MainWindow
 		}
 	}
 	
-	private JMenuItem addMenuItem(JMenu parent, boolean isCheckable, boolean isModal, String name, char mnemonic, Runnable runner)
+	private JMenuItem addMenuItem(JMenu parent, boolean isCheckable, boolean isModal, String name, char mnemonic, KeyStroke keyStroke, Runnable runner)
 	{
 		JMenuItem item;
 		
@@ -218,6 +222,11 @@ public class MainWindow
 			item.setMnemonic(mnemonic);
 		}
 		
+		if(keyStroke != null)
+		{
+			item.setAccelerator(keyStroke);
+		}
+		
 		parent.add(item);
 		
 		return item;
@@ -228,49 +237,49 @@ public class MainWindow
 		JMenu Menu = new JMenu("File");
 		Menu.setMnemonic('F');
 		
-		addMenuItem(Menu, false, true, "New", 'N', ()->
-		{
-			JOptionPane.showMessageDialog(this._mainFrame, "New");
-		});
+		addMenuItem(Menu, false, true, "New", 'N', KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.CTRL_DOWN_MASK),
+			()->{
+				JOptionPane.showMessageDialog(this._mainFrame, "New");
+			});
 		
-		addMenuItem(Menu, false, true, "Open", 'O', ()->
-		{
-			JFileChooser fileChooser = new JFileChooser();
-			
-			int result = fileChooser.showOpenDialog(null);
-			if(result == JFileChooser.APPROVE_OPTION)
-			{
-				File file = fileChooser.getSelectedFile();
+		addMenuItem(Menu, false, true, "Open", 'O', KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.CTRL_DOWN_MASK),
+			()->{
+				JFileChooser fileChooser = new JFileChooser();
 				
-				if(ImageReader.read(file.getAbsolutePath(), this._imageData))
+				int result = fileChooser.showOpenDialog(null);
+				if(result == JFileChooser.APPROVE_OPTION)
 				{
-					_imageView.setImage(this._imageData);
-					_imageView.repaint();
+					File file = fileChooser.getSelectedFile();
+					
+					if(ImageReader.read(file.getAbsolutePath(), this._imageData))
+					{
+						_imageView.setImage(this._imageData);
+						_imageView.repaint();
+					}
 				}
-			}
-		});
+			});
 		
 		Menu.addSeparator();
 		
-		addMenuItem(Menu, false, false, "Close", 'C', ()->
-		{
-			JOptionPane.showMessageDialog(this._mainFrame, "Close");
-		});
+		addMenuItem(Menu, false, false, "Close", 'C', KeyStroke.getKeyStroke(KeyEvent.VK_W, InputEvent.CTRL_DOWN_MASK),
+			()->{
+				JOptionPane.showMessageDialog(this._mainFrame, "Close");
+			});
 		
 		Menu.addSeparator();
 		
-		addMenuItem(Menu, false, true, "Save", 'S', ()->
-		{
-			JFileChooser fileChooser = new JFileChooser();
-			
-			int result = fileChooser.showSaveDialog(null);
-			if(result == JFileChooser.APPROVE_OPTION)
-			{
-				File file = fileChooser.getSelectedFile();
+		addMenuItem(Menu, false, true, "Save", 'S', KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_DOWN_MASK),
+			()->{
+				JFileChooser fileChooser = new JFileChooser();
 				
-				ImageWriter.write(file.getAbsolutePath(), this._imageData);
-			}
-		});
+				int result = fileChooser.showSaveDialog(null);
+				if(result == JFileChooser.APPROVE_OPTION)
+				{
+					File file = fileChooser.getSelectedFile();
+					
+					ImageWriter.write(file.getAbsolutePath(), this._imageData);
+				}
+			});
 		
 		this._menuBar.add(Menu);
 	}
@@ -280,7 +289,7 @@ public class MainWindow
 		JMenu Menu = new JMenu("Image");
 		Menu.setMnemonic('I');
 		
-		addMenuItem(Menu, false, true, "Monochrome", 'M', ()->
+		addMenuItem(Menu, false, true, "Monochrome", 'M', null, ()->
 		{
 			JOptionPane.showMessageDialog(this._mainFrame, "Monochrome");
 		});
