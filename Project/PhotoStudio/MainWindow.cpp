@@ -8,11 +8,16 @@
 
 #include <ImageProc.h>
 
+#include <MenuLibrary.h>
+
 #include "Session.h"
 
 #include "NewDlg.h"
 
 #include "resource.h"
+
+#define FILE_MENU_POS	0
+#define IMAGE_MENU_POS	1
 
 extern HINSTANCE g_hInstance;
 
@@ -23,6 +28,9 @@ static void UpdateImage(HWND hWindow);
 static void LoadImage(HWND hWindow, LPCTSTR pszFilePath, bool bShowErrorMsg);
 
 static void UpdateAppTitle(HWND hWindow);
+
+static void OnFileMenuPopup(HMENU hMenu);
+static void OnImageMenuPopup(HMENU hMenu);
 
 // メインウィンドウ作成時の処理
 INT OnCreate(HWND hWindow, CREATESTRUCT* pCreateStruct)
@@ -209,6 +217,17 @@ INT OnCommand(HWND hWindow, WPARAM wParam, LPARAM lParam)
 	return 0;
 }
 
+void OnFileMenuPopup(HMENU hMenu)
+{
+	MenuLibrary::Enable(hMenu, ID_FILE_CLOSE, false, gs_ImageData.IsCreated());
+	MenuLibrary::Enable(hMenu, ID_FILE_SAVE, false, gs_ImageData.IsCreated());
+}
+
+void OnImageMenuPopup(HMENU hMenu)
+{
+	MenuLibrary::Enable(hMenu, ID_IMAGE_MONO, false, gs_ImageData.IsCreated());
+}
+
 // メインウィンドウの通知処理
 INT OnNotify(HWND hWindow, WPARAM wParam, LPARAM lParam)
 {
@@ -233,6 +252,32 @@ INT OnKeyEvent(HWND hWindow, UINT Message, WPARAM wParam, LPARAM lParam)
 	return 0;
 }
 
+// メニューを展開するときの処理
+INT OnInitMenuPopup(HWND hWindow, WPARAM wParam, LPARAM lParam)
+{
+	HMENU hTargetMenu = (HMENU)wParam;
+
+	UInt32 Position = LOWORD(lParam);
+	BOOL bWindowMenu = (BOOL)HIWORD(lParam);
+
+	HMENU hParentMenu = ::GetMenu(hWindow);
+
+	HMENU hMenu = ::GetSubMenu(hParentMenu, FILE_MENU_POS);
+	if(hMenu == hTargetMenu)
+	{
+		OnFileMenuPopup(hMenu);
+	}
+
+	hMenu = ::GetSubMenu(hParentMenu, IMAGE_MENU_POS);
+	if(hMenu == hTargetMenu)
+	{
+		OnImageMenuPopup(hMenu);
+	}
+
+	return 0;
+}
+
+// ファイルをウィンドウにドロップしたときの処理
 INT OnDropFiles(HWND hWindow, WPARAM wParam, LPARAM lParam)
 {
 	HDROP hDrop = (HDROP)wParam;
