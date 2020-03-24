@@ -66,4 +66,6 @@ In order to build this project, you will need to install:
 - Java 8
 - Eclipse
 
-To build this project, open the `Project/PhotoStudioJava/.project` with Eclipse
+To build this project  
+ 1. open the `PhotoStudio.sln` with Visual Studio and build `PhotoStudioJni` project
+ 1. open the `Project/PhotoStudioJava/.project` with Eclipse and build
