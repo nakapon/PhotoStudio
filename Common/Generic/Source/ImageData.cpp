@@ -23,16 +23,7 @@ CImageData& CImageData::operator=(const CImageData& ImageData)
 {
 	this->Destroy();
 
-	this->Create(ImageData.GetImageName(), ImageData.GetImageInfo());
-
-	IMAGEINFO SrcInfo = ImageData.GetImageInfo();
-
-	UInt32 LineSize = PFMath::Min(this->m_ImageInfo.BytesPerLine, SrcInfo.BytesPerLine);
-
-	for(UInt32 i = 0; i < LineSize; i++)
-	{
-		memcpy(&this->m_ImageData[i * this->m_ImageInfo.BytesPerLine], &ImageData.GetDataPtr()[i * SrcInfo.BytesPerLine], LineSize);
-	}
+	ImageData.CopyTo(this);
 
 	return *this;
 }
@@ -82,7 +73,6 @@ bool CImageData::IsCreated() const
 {
 	return !this->m_ImageData.empty();
 }
-
 
 LPCTSTR CImageData::GetImageName() const
 {
