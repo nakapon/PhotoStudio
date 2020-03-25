@@ -11,19 +11,19 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{2A921716-CC74-4C25-806F-C920B311C102}</ProjectGuid>
+    <ProjectGuid>{82E5D896-019F-44A1-A6B1-251D324BBBF7}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>BaseLibrary</RootNamespace>
+    <RootNamespace>AudioStudio</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v120</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v120</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -40,11 +40,13 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>..\..\Common\Windows\Library\$(Configuration)\</OutDir>
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>..\..\Bin\$(Configuration)\</OutDir>
     <IntDir>..\..\Obj\$(Configuration)\$(ProjectName)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <OutDir>..\..\Common\Windows\Library\$(Configuration)\</OutDir>
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>..\..\Bin\$(Configuration)\</OutDir>
     <IntDir>..\..\Obj\$(Configuration)\$(ProjectName)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -53,12 +55,14 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\..\Common\Generic\Include;..\..\Common\Windows\Include;..\..\ThirdParty\Windows\Include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>..\..\Common\Windows\Library\$(Configuration)\;..\..\ThirdParty\Windows\Library</AdditionalLibraryDirectories>
+      <AdditionalDependencies>BaseLibrary.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -69,7 +73,7 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\..\Common\Generic\Include;..\..\Common\Windows\Include;..\..\ThirdParty\Windows\Include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
@@ -77,31 +81,24 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>..\..\Common\Windows\Library\$(Configuration)\;..\..\ThirdParty\Windows\Library</AdditionalLibraryDirectories>
+      <AdditionalDependencies>BaseLibrary.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Common\Generic\Include\AudioData.h" />
-    <ClInclude Include="..\..\Common\Generic\Include\IAudioData.h" />
-    <ClInclude Include="..\..\Common\Generic\Include\IImageData.h" />
-    <ClInclude Include="..\..\Common\Generic\Include\ImageData.h" />
-    <ClInclude Include="..\..\Common\Generic\Include\ImageReader.h" />
-    <ClInclude Include="..\..\Common\Generic\Include\ImageWriter.h" />
-    <ClInclude Include="..\..\Common\Generic\Include\RiffTypes.h" />
-    <ClInclude Include="..\..\Common\Generic\Include\StringConv.h" />
-    <ClInclude Include="..\..\Common\Generic\Include\WaveAudioReader.h" />
-    <ClInclude Include="..\..\Common\Generic\Include\WaveAudioWriter.h" />
-    <ClInclude Include="..\..\Common\Generic\Include\WaveFileTypes.h" />
-    <ClInclude Include="..\..\Common\Windows\Include\MenuLibrary.h" />
+    <ClCompile Include="MainWindow.cpp" />
+    <ClCompile Include="Session.cpp" />
+    <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Common\Generic\Source\AudioData.cpp" />
-    <ClCompile Include="..\..\Common\Generic\Source\ImageData.cpp" />
-    <ClCompile Include="..\..\Common\Generic\Source\ImageReader.cpp" />
-    <ClCompile Include="..\..\Common\Generic\Source\ImageWriter.cpp" />
-    <ClCompile Include="..\..\Common\Generic\Source\StringConv.cpp" />
-    <ClCompile Include="..\..\Common\Generic\Source\WaveAudioReader.cpp" />
-    <ClCompile Include="..\..\Common\Generic\Source\WaveAudioWriter.cpp" />
-    <ClCompile Include="..\..\Common\Windows\Source\MenuLibrary.cpp" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="Session.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resource.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Resource\AudioStudio.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
