@@ -8,9 +8,9 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PhotoStudio", "Project\Phot
 		{2A921716-CC74-4C25-806F-C920B311C102} = {2A921716-CC74-4C25-806F-C920B311C102}
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PhotoStudio", "PhotoStudio", "{C27CFAA1-96EC-413A-BC9D-85C098EDBE74}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Photo Studio", "Photo Studio", "{C27CFAA1-96EC-413A-BC9D-85C098EDBE74}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PhotoStudioForms", "PhotoStudioForms", "{383E5969-C5A6-401D-B98E-FD0C6C8E6D11}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Photo Studio Forms", "Photo Studio Forms", "{383E5969-C5A6-401D-B98E-FD0C6C8E6D11}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhotoStudioForms", "Project\PhotoStudioForms\PhotoStudioForms.csproj", "{EB4CDC67-14B5-44E4-B828-998C8AC03612}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -24,7 +24,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BaseLibraryCli", "Project\B
 		{2A921716-CC74-4C25-806F-C920B311C102} = {2A921716-CC74-4C25-806F-C920B311C102}
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PhotoStudioMfc", "PhotoStudioMfc", "{33F4BFED-D78F-4C94-B775-760462351B59}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Photo Studio MFC", "Photo Studio MFC", "{33F4BFED-D78F-4C94-B775-760462351B59}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PhotoStudioMfc", "Project\PhotoStudioMfc\PhotoStudioMfc.vcxproj", "{5AEA5743-F896-41F2-AD8A-ECD8FB6FD0BA}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -36,7 +36,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BaseLibraryTest", "Project\
 		{2A921716-CC74-4C25-806F-C920B311C102} = {2A921716-CC74-4C25-806F-C920B311C102}
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PhotoStudioJava", "PhotoStudioJava", "{89695CD1-94A4-40FA-BB5A-741D6BEA315D}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Photo Studio Java", "Photo Studio Java", "{89695CD1-94A4-40FA-BB5A-741D6BEA315D}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PhotoStudioJni", "Project\PhotoStudioJni\PhotoStudioJni.vcxproj", "{94DBFC32-CF27-47AA-8FE1-7967A486E722}"
 EndProject
