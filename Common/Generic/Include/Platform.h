@@ -6,6 +6,8 @@
 
 #include <PlatformMacro.h>
 
+#include <PlatformCompiler.h>
+
 #include <PlatformMath.h>
 
 #if PLATFORM_WINDOWS
