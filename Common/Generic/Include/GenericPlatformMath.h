@@ -54,4 +54,20 @@ struct GenericPlatformMath
 	{
 		return Max(min, Min(max, x));
 	}
+
+	static inline Int32 MulDiv(Int32 Number, Int32 Numerator, Int32 Denominator)
+	{
+		Int64 Result;
+
+		if(Denominator == 0)
+			return -1;
+
+		Result = Number;
+		Result *= Numerator;
+		Result += (Denominator >> 1);
+		Result /= Denominator;
+
+		return (Int32)Result;
+	}
+
 };

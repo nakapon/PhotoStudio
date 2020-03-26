@@ -1,4 +1,4 @@
-#include <Platform.h>
+﻿#include <Platform.h>
 
 #include <MenuLibrary.h>
 
@@ -73,4 +73,39 @@ bool MenuLibrary::Check(HMENU hMenu, UInt32 Item, bool ByPosition, bool Check)
 	}
 
 	return MenuLibrary::SetState(hMenu, Item, ByPosition, State);
+}
+
+bool MenuLibrary::GetString(HMENU hMenu, UInt32 Item, bool ByPosition, LPTSTR pszString, UInt32 MaxLength)
+{
+	MENUITEMINFO MenuItemInfo = { 0 };
+
+	if(hMenu == nullptr || pszString == nullptr || MaxLength == 0)
+		return false;
+
+	MenuItemInfo.cbSize = sizeof(MENUITEMINFO);
+	MenuItemInfo.fMask = MIIM_TYPE;
+	MenuItemInfo.dwTypeData = pszString;
+	MenuItemInfo.cch = MaxLength;
+
+	if(!::GetMenuItemInfo(hMenu, Item, ByPosition, &MenuItemInfo))
+		return false;
+
+	return true;
+}
+
+bool MenuLibrary::SetString(HMENU hMenu, UInt32 Item, bool ByPosition, LPCTSTR pszString)
+{
+	MENUITEMINFO MenuItemInfo = { 0 };
+
+	if(hMenu == nullptr || pszString == nullptr)
+		return false;
+
+	MenuItemInfo.cbSize = sizeof(MENUITEMINFO);
+	MenuItemInfo.fMask = MIIM_STRING;
+	MenuItemInfo.dwTypeData = (LPTSTR)pszString;
+
+	if(!::SetMenuItemInfo(hMenu, Item, ByPosition, &MenuItemInfo))
+		return false;
+
+	return true;
 }

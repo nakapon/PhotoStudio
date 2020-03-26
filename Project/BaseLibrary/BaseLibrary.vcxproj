@@ -91,7 +91,9 @@
     <ClInclude Include="..\..\Common\Generic\Include\WaveAudioReader.h" />
     <ClInclude Include="..\..\Common\Generic\Include\WaveAudioWriter.h" />
     <ClInclude Include="..\..\Common\Generic\Include\WaveFileTypes.h" />
+    <ClInclude Include="..\..\Common\Windows\Include\AudioPlayer.h" />
     <ClInclude Include="..\..\Common\Windows\Include\MenuLibrary.h" />
+    <ClInclude Include="..\..\Common\Windows\Include\WaveDeviceOut.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Common\Generic\Source\AudioData.cpp" />
@@ -101,7 +103,9 @@
     <ClCompile Include="..\..\Common\Generic\Source\StringConv.cpp" />
     <ClCompile Include="..\..\Common\Generic\Source\WaveAudioReader.cpp" />
     <ClCompile Include="..\..\Common\Generic\Source\WaveAudioWriter.cpp" />
+    <ClCompile Include="..\..\Common\Windows\Source\AudioPlayer.cpp" />
     <ClCompile Include="..\..\Common\Windows\Source\MenuLibrary.cpp" />
+    <ClCompile Include="..\..\Common\Windows\Source\WaveDeviceOut.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

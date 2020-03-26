@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 class MenuLibrary
 {
@@ -11,6 +11,9 @@ public:
 
 	static bool IsChecked(HMENU hMenu, UInt32 Item, bool ByPosition);
 	static bool Check(HMENU hMenu, UInt32 Item, bool ByPosition, bool Check);
+
+	static bool GetString(HMENU hMenu, UInt32 Item, bool ByPosition, LPTSTR pszString, UInt32 MaxLength);
+	static bool SetString(HMENU hMenu, UInt32 Item, bool ByPosition, LPCTSTR pszString);
 
 private:
 	MenuLibrary() = delete;

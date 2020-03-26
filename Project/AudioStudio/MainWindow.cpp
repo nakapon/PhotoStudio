@@ -5,6 +5,8 @@
 #include <WaveAudioReader.h>
 #include <WaveAudioWriter.h>
 
+#include <AudioPlayer.h>
+
 #include <MenuLibrary.h>
 
 #include "Session.h"
@@ -19,6 +21,8 @@ extern HINSTANCE g_hInstance;
 static CAudioData gs_AudioData;
 static CAudioData gs_ProcAudio;
 
+static CAudioPlayer gs_AudioPlayer;
+
 static void UpdateWaveform(HWND hWindow);
 static void LoadAudio(HWND hWindow, LPCTSTR pszFilePath, bool bShowErrorMsg);
 static void SaveAudio(HWND hWindow, LPCTSTR pszFilePath, const IAudioData* pAudioData);
@@ -27,6 +31,8 @@ static void UpdateAppTitle(HWND hWindow);
 
 static void OnFileMenuPopup(HMENU hMenu);
 static void OnAudioMenuPopup(HMENU hMenu);
+
+static void StartStopAudioPlay();
 
 // メインウィンドウ作成時の処理
 INT OnCreate(HWND hWindow, CREATESTRUCT* pCreateStruct)
@@ -149,6 +155,7 @@ INT OnCommand(HWND hWindow, WPARAM wParam, LPARAM lParam)
 		gs_AudioData.Destroy();
 		gs_ProcAudio.Destroy();
 		UpdateWaveform(hWindow);
+		UpdateAppTitle(hWindow);
 		break;
 
 	case ID_FILE_SAVE:
@@ -185,6 +192,12 @@ INT OnCommand(HWND hWindow, WPARAM wParam, LPARAM lParam)
 		break;
 
 	case ID_AUDIO_PLAY:
+		StartStopAudioPlay();
+		UpdateAppTitle(hWindow);
+		break;
+
+	case ID_AUDIO_LOOP:
+		gs_AudioPlayer.EnableLoopPlay(!gs_AudioPlayer.IsLoopPlayEnabled());
 		break;
 	}
 
@@ -200,6 +213,9 @@ void OnFileMenuPopup(HMENU hMenu)
 void OnAudioMenuPopup(HMENU hMenu)
 {
 	MenuLibrary::Enable(hMenu, ID_AUDIO_PLAY, false, gs_AudioData.IsCreated());
+	MenuLibrary::SetString(hMenu, ID_AUDIO_PLAY, false, gs_AudioPlayer.IsPlaying() ? TEXT("Stop\tSpace") : TEXT("Play\tSpace"));
+
+	MenuLibrary::Check(hMenu, ID_AUDIO_LOOP, false, gs_AudioPlayer.IsLoopPlayEnabled());
 }
 
 // メインウィンドウの通知処理
@@ -223,6 +239,16 @@ INT OnMouseEvent(HWND hWindow, UINT Message, WPARAM wParam, LPARAM lParam)
 // メインウィンドウのキー処理
 INT OnKeyEvent(HWND hWindow, UINT Message, WPARAM wParam, LPARAM lParam)
 {
+	if(Message == WM_KEYDOWN)
+	{
+		if(wParam == VK_SPACE)
+		{
+			// SHIFTキー押下 => 再生・停止制御
+			StartStopAudioPlay();
+			UpdateAppTitle(hWindow);
+		}
+	}
+
 	return 0;
 }
 
@@ -296,7 +322,7 @@ static void LoadAudio(HWND hWindow, LPCTSTR pszFilePath, bool bShowErrorMsg)
 
 static void SaveAudio(HWND hWindow, LPCTSTR pszFilePath, const IAudioData* pAudioData)
 {
-
+	WaveAudioWriter::WriteAudio(pszFilePath, pAudioData);
 }
 
 static void UpdateAppTitle(HWND hWindow)
@@ -326,16 +352,39 @@ static void UpdateAppTitle(HWND hWindow)
 			PFString::Append(szTitle, pszAudioName);
 		}
 
+		if(gs_AudioPlayer.IsPlaying())
+		{
+			PFString::Append(szTitle, TEXT(" (Playing)"));
+		}
+
 		// オーディオ情報
 		{
 			TCHAR szInfo[128] = { 0 };
 
 			IAudioData::AUDIOINFO AudioInfo = gs_AudioData.GetAudioInfo();
 
-			_stprintf_s(szInfo, TEXT(" [%dch %dbit %dHz %d samples]"), AudioInfo.ChannelCount, AudioInfo.BitsPerChannel, AudioInfo.SamplesPerSec, AudioInfo.SampleCount);
+			_stprintf_s(szInfo, TEXT(" [%dch %dbit %dHz %dsec]"), AudioInfo.ChannelCount, AudioInfo.BitsPerChannel, AudioInfo.SamplesPerSec, AudioInfo.SampleCount / AudioInfo.SamplesPerSec);
 			PFString::Append(szTitle, szInfo);
 		}
 	}
 
 	SetWindowText(hWindow, szTitle);
+}
+
+static void StartStopAudioPlay()
+{
+	if(!gs_AudioData.IsCreated())
+		return;
+
+	if(gs_AudioPlayer.IsPlaying())
+	{
+		gs_AudioPlayer.Stop();
+	}
+	else
+	{
+		IAudioData* pAudioData = gs_ProcAudio.IsCreated() ? &gs_ProcAudio : &gs_AudioData;
+
+		gs_AudioPlayer.SetAudioData(pAudioData);
+		gs_AudioPlayer.Play();
+	}
 }

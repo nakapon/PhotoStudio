@@ -169,6 +169,7 @@ INT OnCommand(HWND hWindow, WPARAM wParam, LPARAM lParam)
 		gs_ImageData.Destroy();
 		gs_ProcImage.Destroy();
 		UpdateImage(hWindow);
+		UpdateAppTitle(hWindow);
 		break;
 
 	case ID_FILE_SAVE:

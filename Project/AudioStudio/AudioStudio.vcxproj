@@ -86,11 +86,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Common\Generic\Source\AudioProc.cpp" />
     <ClCompile Include="MainWindow.cpp" />
     <ClCompile Include="Session.cpp" />
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Common\Generic\Include\AudioProc.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Session.h" />
   </ItemGroup>

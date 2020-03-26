@@ -43,6 +43,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Audio Studio", "Audio Studio", "{3AAC497D-10BB-45FB-9B9C-DE9E214014D4}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AudioStudio", "Project\AudioStudio\AudioStudio.vcxproj", "{82E5D896-019F-44A1-A6B1-251D324BBBF7}"
+	ProjectSection(ProjectDependencies) = postProject
+		{2A921716-CC74-4C25-806F-C920B311C102} = {2A921716-CC74-4C25-806F-C920B311C102}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -150,15 +150,14 @@ VS_VERSION_INFO VERSIONINFO
 BEGIN
     BLOCK "StringFileInfo"
     BEGIN
-        BLOCK "041104B0"
+        BLOCK "041104b0"
         BEGIN
-            VALUE "CompanyName", "TODO: <‰ïŽÐ–¼>"
-            VALUE "FileDescription", "PhotoStudioMfc"
+            VALUE "CompanyName", "Masayuki Nakatsuka"
             VALUE "FileVersion", "1.0.0.1"
             VALUE "InternalName", "PhotoStudioMfc.exe"
-            VALUE "LegalCopyright", "TODO: (C) <‰ïŽÐ–¼>.  All rights reserved."
+            VALUE "LegalCopyright", "Copyright (C) 2020 Masayuki Nakatsuka.  All rights reserved."
             VALUE "OriginalFilename", "PhotoStudioMfc.exe"
-            VALUE "ProductName", "TODO: <»•i–¼>"
+            VALUE "ProductName", "Photo Studio"
             VALUE "ProductVersion", "1.0.0.1"
         END
     END
