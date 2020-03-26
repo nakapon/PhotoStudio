@@ -40,6 +40,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Photo Studio Java", "Photo 
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PhotoStudioJni", "Project\PhotoStudioJni\PhotoStudioJni.vcxproj", "{94DBFC32-CF27-47AA-8FE1-7967A486E722}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Audio Studio", "Audio Studio", "{3AAC497D-10BB-45FB-9B9C-DE9E214014D4}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AudioStudio", "Project\AudioStudio\AudioStudio.vcxproj", "{82E5D896-019F-44A1-A6B1-251D324BBBF7}"
+	ProjectSection(ProjectDependencies) = postProject
+		{2A921716-CC74-4C25-806F-C920B311C102} = {2A921716-CC74-4C25-806F-C920B311C102}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Mixed Platforms = Debug|Mixed Platforms
@@ -104,6 +111,14 @@ Global
 		{94DBFC32-CF27-47AA-8FE1-7967A486E722}.Release|Mixed Platforms.Build.0 = Release|Win32
 		{94DBFC32-CF27-47AA-8FE1-7967A486E722}.Release|Win32.ActiveCfg = Release|Win32
 		{94DBFC32-CF27-47AA-8FE1-7967A486E722}.Release|Win32.Build.0 = Release|Win32
+		{82E5D896-019F-44A1-A6B1-251D324BBBF7}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{82E5D896-019F-44A1-A6B1-251D324BBBF7}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{82E5D896-019F-44A1-A6B1-251D324BBBF7}.Debug|Win32.ActiveCfg = Debug|Win32
+		{82E5D896-019F-44A1-A6B1-251D324BBBF7}.Debug|Win32.Build.0 = Debug|Win32
+		{82E5D896-019F-44A1-A6B1-251D324BBBF7}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{82E5D896-019F-44A1-A6B1-251D324BBBF7}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{82E5D896-019F-44A1-A6B1-251D324BBBF7}.Release|Win32.ActiveCfg = Release|Win32
+		{82E5D896-019F-44A1-A6B1-251D324BBBF7}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -116,5 +131,6 @@ Global
 		{5AEA5743-F896-41F2-AD8A-ECD8FB6FD0BA} = {33F4BFED-D78F-4C94-B775-760462351B59}
 		{FF3CADAF-ED0B-4B01-B374-3EFFE952FD8B} = {C27CFAA1-96EC-413A-BC9D-85C098EDBE74}
 		{94DBFC32-CF27-47AA-8FE1-7967A486E722} = {89695CD1-94A4-40FA-BB5A-741D6BEA315D}
+		{82E5D896-019F-44A1-A6B1-251D324BBBF7} = {3AAC497D-10BB-45FB-9B9C-DE9E214014D4}
 	EndGlobalSection
 EndGlobal

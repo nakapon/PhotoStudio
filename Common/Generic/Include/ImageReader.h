@@ -5,7 +5,6 @@
 class ImageReader
 {
 public:
-
 	// TODO Support 1CH
 	static bool ReadImage(LPCTSTR pszFilePath, IImageData* pImageData);
 

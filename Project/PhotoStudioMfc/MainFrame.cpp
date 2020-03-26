@@ -260,6 +260,7 @@ void CMainFrame::OnFileClose()
 	this->m_ProcImage.Destroy();
 
 	this->UpdateImage();
+	this->UpdateAppTitle();
 }
 
 void CMainFrame::OnFileClose(CCmdUI *pCmdUI)

@@ -1,36 +1,38 @@
 #include <Platform.h>
 
-#include <ImageData.h>
-#include <ImageReader.h>
-#include <ImageWriter.h>
+#include <AudioData.h>
 
-#include "ImageRenderer.h"
+#include <WaveAudioReader.h>
+#include <WaveAudioWriter.h>
 
-#include <ImageProc.h>
+#include <AudioPlayer.h>
 
 #include <MenuLibrary.h>
 
 #include "Session.h"
 
-#include "NewDlg.h"
-
 #include "resource.h"
 
 #define FILE_MENU_POS	0
-#define IMAGE_MENU_POS	1
+#define AUDIO_MENU_POS	1
 
 extern HINSTANCE g_hInstance;
 
-static CImageData gs_ImageData; /* 読み込んだ画像データ */
-static CImageData gs_ProcImage; /* 処理結果画像データ */
+static CAudioData gs_AudioData;
+static CAudioData gs_ProcAudio;
 
-static void UpdateImage(HWND hWindow);
-static void LoadImage(HWND hWindow, LPCTSTR pszFilePath, bool bShowErrorMsg);
+static CAudioPlayer gs_AudioPlayer;
+
+static void UpdateWaveform(HWND hWindow);
+static void LoadAudio(HWND hWindow, LPCTSTR pszFilePath, bool bShowErrorMsg);
+static void SaveAudio(HWND hWindow, LPCTSTR pszFilePath, const IAudioData* pAudioData);
 
 static void UpdateAppTitle(HWND hWindow);
 
 static void OnFileMenuPopup(HMENU hMenu);
-static void OnImageMenuPopup(HMENU hMenu);
+static void OnAudioMenuPopup(HMENU hMenu);
+
+static void StartStopAudioPlay();
 
 // メインウィンドウ作成時の処理
 INT OnCreate(HWND hWindow, CREATESTRUCT* pCreateStruct)
@@ -44,14 +46,14 @@ INT OnCreate(HWND hWindow, CREATESTRUCT* pCreateStruct)
 
 	// ファイルドロップ許可
 	DragAcceptFiles(hWindow, TRUE);
-
-	// 前回の画像データを読み込む
+	
+	// 前回のオーディオデータを読み込む
 	{
 		TCHAR szFilePath[MAX_PATH] = { 0 };
 
 		if(Session::RestoreSession(szFilePath, PF_ARRAY_LENGTH(szFilePath)))
 		{
-			LoadImage(hWindow, szFilePath, false);
+			LoadAudio(hWindow, szFilePath, false);
 		}
 	}
 
@@ -65,7 +67,7 @@ INT OnClose(HWND hWindow)
 {
 	DestroyWindow(hWindow);
 
-	Session::StoreSession(gs_ImageData.GetImageName());
+	Session::StoreSession(gs_AudioData.GetAudioName());
 
 	return 0;
 }
@@ -104,13 +106,7 @@ INT OnPaint(HWND hWindow)
 		SelectObject(hDC, hOldBrush);
 	}
 
-	if(gs_ImageData.IsCreated() || gs_ProcImage.IsCreated())
-	{
-		// 処理結果を優先して表示
-		IImageData* pImageData = gs_ProcImage.IsCreated() ? &gs_ProcImage : &gs_ImageData;
-
-		ImageRenderer::Render(hDC, ClientSize, pImageData);
-	}
+	// xxx TODO draw waveform
 
 	EndPaint(hWindow, &PaintStruct);
 
@@ -123,19 +119,10 @@ INT OnCommand(HWND hWindow, WPARAM wParam, LPARAM lParam)
 	switch(LOWORD(wParam))
 	{
 	case ID_FILE_NEW:
-		// MENU 「File」→「New」の処理
-		if(NewDlg::DoModal(g_hInstance, hWindow, &gs_ImageData))
-		{
-			gs_ProcImage.Destroy();
-
-			UpdateImage(hWindow);
-
-			UpdateAppTitle(hWindow);
-		}
+		// xxx TODO
 		break;
 
 	case ID_FILE_OPEN:
-		// MENU 「File」→「Open」の処理
 		{
 			OPENFILENAME OpenFileName = { 0 };
 
@@ -144,7 +131,8 @@ INT OnCommand(HWND hWindow, WPARAM wParam, LPARAM lParam)
 			// 「ファイル選択ダイアログ」を表示
 			OpenFileName.lStructSize     = sizeof(OPENFILENAME);
 			OpenFileName.hwndOwner       = hWindow;
-			OpenFileName.lpstrFilter     = TEXT("All Files(*.*)\0*.*\0\0");
+			OpenFileName.lpstrFilter     = TEXT("WAVE (*.wav)\0*.wav\0\0");
+//			OpenFileName.lpstrFilter     = TEXT("All Files(*.*)\0*.*\0\0");
 			OpenFileName.nFilterIndex    = 1;
 			OpenFileName.lpstrFile       = szFilePath;
 			OpenFileName.nMaxFile        = MAX_PATH;
@@ -156,7 +144,7 @@ INT OnCommand(HWND hWindow, WPARAM wParam, LPARAM lParam)
 
 			if(GetOpenFileName(&OpenFileName))
 			{
-				LoadImage(hWindow, szFilePath, true);
+				LoadAudio(hWindow, szFilePath, true);
 
 				UpdateAppTitle(hWindow);
 			}
@@ -164,17 +152,13 @@ INT OnCommand(HWND hWindow, WPARAM wParam, LPARAM lParam)
 		break;
 
 	case ID_FILE_CLOSE:
-		// MENU 「File」→「Close」の処理
-		// 画像データを破棄して画面を再描画
-		gs_ImageData.Destroy();
-		gs_ProcImage.Destroy();
-		UpdateImage(hWindow);
+		gs_AudioData.Destroy();
+		gs_ProcAudio.Destroy();
+		UpdateWaveform(hWindow);
 		UpdateAppTitle(hWindow);
 		break;
 
 	case ID_FILE_SAVE:
-		// MENU 「File」→「Save」の処理
-		if(gs_ImageData.IsCreated() || gs_ProcImage.IsCreated())
 		{
 			OPENFILENAME SaveFileName = { 0 };
 
@@ -183,7 +167,8 @@ INT OnCommand(HWND hWindow, WPARAM wParam, LPARAM lParam)
 			// 「ファイル選択ダイアログ」を表示
 			SaveFileName.lStructSize     = sizeof(OPENFILENAME);
 			SaveFileName.hwndOwner       = hWindow;
-			SaveFileName.lpstrFilter     = TEXT("All Files(*.*)\0*.*\0\0");
+			SaveFileName.lpstrFilter     = TEXT("WAVE (*.wav)\0*.wav\0\0");
+//			SaveFileName.lpstrFilter     = TEXT("All Files(*.*)\0*.*\0\0");
 			SaveFileName.nFilterIndex    = 1;
 			SaveFileName.lpstrFile       = szFilePath;
 			SaveFileName.nMaxFile        = MAX_PATH;
@@ -195,9 +180,9 @@ INT OnCommand(HWND hWindow, WPARAM wParam, LPARAM lParam)
 
 			if(GetSaveFileName(&SaveFileName))
 			{
-				IImageData* pImageData = gs_ProcImage.IsCreated() ? &gs_ProcImage : &gs_ImageData;
+				IAudioData* pAudioData = gs_ProcAudio.IsCreated() ? &gs_ProcAudio : &gs_AudioData;
 
-				ImageWriter::WriteImage(szFilePath, pImageData);
+				SaveAudio(hWindow, szFilePath, pAudioData);
 			}
 		}
 		break;
@@ -206,12 +191,13 @@ INT OnCommand(HWND hWindow, WPARAM wParam, LPARAM lParam)
 		PostMessage(hWindow, WM_CLOSE, 0, 0);
 		break;
 
-	case ID_IMAGE_MONO:
-		if(gs_ImageData.IsCreated())
-		{
-			ImageProc::GrayScale(&gs_ProcImage, &gs_ImageData);
-			UpdateImage(hWindow);
-		}
+	case ID_AUDIO_PLAY:
+		StartStopAudioPlay();
+		UpdateAppTitle(hWindow);
+		break;
+
+	case ID_AUDIO_LOOP:
+		gs_AudioPlayer.EnableLoopPlay(!gs_AudioPlayer.IsLoopPlayEnabled());
 		break;
 	}
 
@@ -220,13 +206,16 @@ INT OnCommand(HWND hWindow, WPARAM wParam, LPARAM lParam)
 
 void OnFileMenuPopup(HMENU hMenu)
 {
-	MenuLibrary::Enable(hMenu, ID_FILE_CLOSE, false, gs_ImageData.IsCreated());
-	MenuLibrary::Enable(hMenu, ID_FILE_SAVE, false, gs_ImageData.IsCreated());
+	MenuLibrary::Enable(hMenu, ID_FILE_CLOSE, false, gs_AudioData.IsCreated());
+	MenuLibrary::Enable(hMenu, ID_FILE_SAVE, false, gs_AudioData.IsCreated());
 }
 
-void OnImageMenuPopup(HMENU hMenu)
+void OnAudioMenuPopup(HMENU hMenu)
 {
-	MenuLibrary::Enable(hMenu, ID_IMAGE_MONO, false, gs_ImageData.IsCreated());
+	MenuLibrary::Enable(hMenu, ID_AUDIO_PLAY, false, gs_AudioData.IsCreated());
+	MenuLibrary::SetString(hMenu, ID_AUDIO_PLAY, false, gs_AudioPlayer.IsPlaying() ? TEXT("Stop\tSpace") : TEXT("Play\tSpace"));
+
+	MenuLibrary::Check(hMenu, ID_AUDIO_LOOP, false, gs_AudioPlayer.IsLoopPlayEnabled());
 }
 
 // メインウィンドウの通知処理
@@ -250,6 +239,16 @@ INT OnMouseEvent(HWND hWindow, UINT Message, WPARAM wParam, LPARAM lParam)
 // メインウィンドウのキー処理
 INT OnKeyEvent(HWND hWindow, UINT Message, WPARAM wParam, LPARAM lParam)
 {
+	if(Message == WM_KEYDOWN)
+	{
+		if(wParam == VK_SPACE)
+		{
+			// SHIFTキー押下 => 再生・停止制御
+			StartStopAudioPlay();
+			UpdateAppTitle(hWindow);
+		}
+	}
+
 	return 0;
 }
 
@@ -269,10 +268,10 @@ INT OnInitMenuPopup(HWND hWindow, WPARAM wParam, LPARAM lParam)
 		OnFileMenuPopup(hMenu);
 	}
 
-	hMenu = ::GetSubMenu(hParentMenu, IMAGE_MENU_POS);
+	hMenu = ::GetSubMenu(hParentMenu, AUDIO_MENU_POS);
 	if(hMenu == hTargetMenu)
 	{
-		OnImageMenuPopup(hMenu);
+		OnAudioMenuPopup(hMenu);
 	}
 
 	return 0;
@@ -289,24 +288,24 @@ INT OnDropFiles(HWND hWindow, WPARAM wParam, LPARAM lParam)
 
 	DragQueryFile(hDrop, 0, szFilePath, PF_ARRAY_LENGTH(szFilePath));
 
-	LoadImage(hWindow, szFilePath, true);
+	LoadAudio(hWindow, szFilePath, true);
 
 	UpdateAppTitle(hWindow);
 
 	return 0;
 }
 
-static void UpdateImage(HWND hWindow)
+static void UpdateWaveform(HWND hWindow)
 {
 	RedrawWindow(hWindow, nullptr, nullptr, RDW_INVALIDATE | RDW_ERASENOW | RDW_UPDATENOW);
 }
 
-static void LoadImage(HWND hWindow, LPCTSTR pszFilePath, bool bShowErrorMsg)
+static void LoadAudio(HWND hWindow, LPCTSTR pszFilePath, bool bShowErrorMsg)
 {
-	// 処理結果画像を破棄
-	gs_ProcImage.Destroy();
+	// 処理結果を破棄
+	gs_ProcAudio.Destroy();
 
-	if(!ImageReader::ReadImage(pszFilePath, &gs_ImageData))
+	if(!WaveAudioReader::ReadAudio(pszFilePath, &gs_AudioData))
 	{
 		// 読み込み失敗
 		if(bShowErrorMsg)
@@ -316,48 +315,76 @@ static void LoadImage(HWND hWindow, LPCTSTR pszFilePath, bool bShowErrorMsg)
 	}
 	else
 	{
-		// 読み込み成功 - メインウィンドウを再描画して画面に読み込んだ画像を表示する
-		UpdateImage(hWindow);
+		// 読み込み成功 - メインウィンドウを再描画
+		UpdateWaveform(hWindow);
 	}
+}
+
+static void SaveAudio(HWND hWindow, LPCTSTR pszFilePath, const IAudioData* pAudioData)
+{
+	WaveAudioWriter::WriteAudio(pszFilePath, pAudioData);
 }
 
 static void UpdateAppTitle(HWND hWindow)
 {
 	TCHAR szTitle[256] = { 0 };
 
-	PFString::Copy(szTitle, TEXT("Photo Studio"));
+	PFString::Copy(szTitle, TEXT("Audio Studio"));
 
-	if(gs_ImageData.IsCreated())
+	if(gs_AudioData.IsCreated())
 	{
 		PFString::Append(szTitle, TEXT(" - "));
 
-		// 画像名 (ファイルパスの場合はファイル名部分だけを表示）
+		// オーディオ名 (ファイルパスの場合はファイル名部分だけを表示）
 		{
-			LPCTSTR pszImageName;
+			LPCTSTR pszAudioName;
 
-			pszImageName = PFString::Strrchr(gs_ImageData.GetImageName(), PF_DIR_SEP_CHAR);
-			if(pszImageName != nullptr)
+			pszAudioName = PFString::Strrchr(gs_AudioData.GetAudioName(), PF_DIR_SEP_CHAR);
+			if(pszAudioName != nullptr)
 			{
-				pszImageName++;
+				pszAudioName++;
 			}
 			else
 			{
-				pszImageName =gs_ImageData.GetImageName();
+				pszAudioName =gs_AudioData.GetAudioName();
 			}
 
-			PFString::Append(szTitle, pszImageName);
+			PFString::Append(szTitle, pszAudioName);
 		}
 
-		// 画像情報
+		if(gs_AudioPlayer.IsPlaying())
+		{
+			PFString::Append(szTitle, TEXT(" (Playing)"));
+		}
+
+		// オーディオ情報
 		{
 			TCHAR szInfo[128] = { 0 };
 
-			IImageData::IMAGEINFO ImageInfo = gs_ImageData.GetImageInfo();
+			IAudioData::AUDIOINFO AudioInfo = gs_AudioData.GetAudioInfo();
 
-			_stprintf_s(szInfo, TEXT(" [%dx%d %dch %dbit]"), ImageInfo.Width, ImageInfo.Height, ImageInfo.ChannelCount, ImageInfo.BitsPerChannel);
+			_stprintf_s(szInfo, TEXT(" [%dch %dbit %dHz %dsec]"), AudioInfo.ChannelCount, AudioInfo.BitsPerChannel, AudioInfo.SamplesPerSec, AudioInfo.SampleCount / AudioInfo.SamplesPerSec);
 			PFString::Append(szTitle, szInfo);
 		}
 	}
 
 	SetWindowText(hWindow, szTitle);
+}
+
+static void StartStopAudioPlay()
+{
+	if(!gs_AudioData.IsCreated())
+		return;
+
+	if(gs_AudioPlayer.IsPlaying())
+	{
+		gs_AudioPlayer.Stop();
+	}
+	else
+	{
+		IAudioData* pAudioData = gs_ProcAudio.IsCreated() ? &gs_ProcAudio : &gs_AudioData;
+
+		gs_AudioPlayer.SetAudioData(pAudioData);
+		gs_AudioPlayer.Play();
+	}
 }

@@ -1,54 +1,102 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    <Filter Include="AudioData">
+      <UniqueIdentifier>{eb19af6b-ae27-4e53-86ff-c31c8501403c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    <Filter Include="ImageData">
+      <UniqueIdentifier>{18d324f8-fdb2-4686-ae2e-50d5f851e8b6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    <Filter Include="ImageStream">
+      <UniqueIdentifier>{d47924ea-c1d2-4503-b11b-017bfa4f384f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AudioStream">
+      <UniqueIdentifier>{7bbb668e-7e70-4c99-af06-7484280de98e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI">
+      <UniqueIdentifier>{4aed478f-cf71-4726-81bd-1154e0dddaaf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="String">
+      <UniqueIdentifier>{4b9eabe6-a715-4690-9896-7e6021b1e164}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AudioDevice">
+      <UniqueIdentifier>{22153253-1dc7-404c-a950-56071b0cbbc0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Common\Generic\Include\AudioData.h">
+      <Filter>AudioData</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\Generic\Include\IAudioData.h">
+      <Filter>AudioData</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\Common\Generic\Include\IImageData.h">
-      <Filter>Header Files</Filter>
+      <Filter>ImageData</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Common\Generic\Include\ImageData.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Common\Generic\Include\ImageReader.h">
-      <Filter>Header Files</Filter>
+      <Filter>ImageData</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Common\Generic\Include\ImageWriter.h">
-      <Filter>Header Files</Filter>
+      <Filter>ImageStream</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Common\Generic\Include\StringConv.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="..\..\Common\Generic\Include\ImageReader.h">
+      <Filter>ImageStream</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\Generic\Include\WaveAudioWriter.h">
+      <Filter>AudioStream</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\Generic\Include\WaveAudioReader.h">
+      <Filter>AudioStream</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\Generic\Include\RiffTypes.h">
+      <Filter>AudioStream</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\Generic\Include\WaveFileTypes.h">
+      <Filter>AudioStream</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Common\Windows\Include\MenuLibrary.h">
-      <Filter>Header Files</Filter>
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\Generic\Include\StringConv.h">
+      <Filter>String</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\Windows\Include\AudioPlayer.h">
+      <Filter>AudioDevice</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\Windows\Include\WaveDeviceOut.h">
+      <Filter>AudioDevice</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Common\Generic\Source\AudioData.cpp">
+      <Filter>AudioData</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Common\Generic\Source\ImageData.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>ImageData</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Common\Generic\Source\ImageReader.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>ImageStream</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Common\Generic\Source\ImageWriter.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>ImageStream</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Common\Generic\Source\StringConv.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="..\..\Common\Generic\Source\WaveAudioReader.cpp">
+      <Filter>AudioStream</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\Generic\Source\WaveAudioWriter.cpp">
+      <Filter>AudioStream</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Common\Windows\Source\MenuLibrary.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\Generic\Source\StringConv.cpp">
+      <Filter>String</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\Windows\Source\AudioPlayer.cpp">
+      <Filter>AudioDevice</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\Windows\Source\WaveDeviceOut.cpp">
+      <Filter>AudioDevice</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
