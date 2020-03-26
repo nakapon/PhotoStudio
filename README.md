@@ -11,6 +11,7 @@ This project is for beginners who would like to learn followings;
 - Qt5 Multi-Platform GUI Programming (Windows / Linux / Mac) - `PhotoStudioQt` project
 - Java Swing Programming - `PhotoStudioJava` project
 - Image Processing
+- Audio Processing - `AudioStudio` project
 
 Enjoy engineer life!
 
@@ -23,6 +24,14 @@ In order to build this project, you will need to install:
 - Visual Studio 2013 or later
 
 To build this project, open the `PhotoStudio.sln` with Visual Studio and build `PhotoStudio` project
+
+### AudioStudio (C++, Windows Platform SDK)
+
+In order to build this project, you will need to install:
+
+- Visual Studio 2013 or later
+
+To build this project, open the `PhotoStudio.sln` with Visual Studio and build `AudioStudio` project
 
 ### PhotoStudioMfc (C++, MFC - Microsoft Foundation Class)
 
