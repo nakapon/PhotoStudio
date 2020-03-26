@@ -118,15 +118,19 @@ END
 IDR_MAINFRAME ACCELERATORS
 BEGIN
     "C",            ID_EDIT_COPY,           VIRTKEY, CONTROL, NOINVERT
-    "V",            ID_EDIT_PASTE,          VIRTKEY, CONTROL, NOINVERT
-    VK_BACK,        ID_EDIT_UNDO,           VIRTKEY, ALT, NOINVERT
+    VK_INSERT,      ID_EDIT_COPY,           VIRTKEY, CONTROL, NOINVERT
     VK_DELETE,      ID_EDIT_CUT,            VIRTKEY, SHIFT, NOINVERT
+    "X",            ID_EDIT_CUT,            VIRTKEY, CONTROL, NOINVERT
+    "V",            ID_EDIT_PASTE,          VIRTKEY, CONTROL, NOINVERT
+    VK_INSERT,      ID_EDIT_PASTE,          VIRTKEY, SHIFT, NOINVERT
+    VK_BACK,        ID_EDIT_UNDO,           VIRTKEY, ALT, NOINVERT
+    "Z",            ID_EDIT_UNDO,           VIRTKEY, CONTROL, NOINVERT
     VK_F6,          ID_NEXT_PANE,           VIRTKEY, NOINVERT
     VK_F6,          ID_PREV_PANE,           VIRTKEY, SHIFT, NOINVERT
-    VK_INSERT,      ID_EDIT_COPY,           VIRTKEY, CONTROL, NOINVERT
-    VK_INSERT,      ID_EDIT_PASTE,          VIRTKEY, SHIFT, NOINVERT
-    "X",            ID_EDIT_CUT,            VIRTKEY, CONTROL, NOINVERT
-    "Z",            ID_EDIT_UNDO,           VIRTKEY, CONTROL, NOINVERT
+    "N",            ID_FILE_NEW,            VIRTKEY, CONTROL, NOINVERT
+    "O",            ID_FILE_OPEN,           VIRTKEY, CONTROL, NOINVERT
+    "W",            ID_FILE_CLOSE,          VIRTKEY, CONTROL, NOINVERT
+    "S",            ID_FILE_SAVE,           VIRTKEY, CONTROL, NOINVERT
 END
 
 
@@ -166,6 +170,53 @@ BEGIN
         VALUE "Translation", 0x411, 1200
     END
 END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_NEW DIALOGEX 0, 0, 243, 128
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "New"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    RTEXT           "Name: ",IDC_STATIC,6,8,42,8
+    EDITTEXT        IDC_EDIT_NAME,48,6,180,12,ES_AUTOHSCROLL
+    RTEXT           "Width: ",IDC_STATIC,6,26,42,8
+    EDITTEXT        IDC_EDIT_WIDTH,48,24,36,12,ES_AUTOHSCROLL | ES_NUMBER
+    LTEXT           " Pixels",IDC_STATIC,84,26,30,8
+    RTEXT           "Height: ",IDC_STATIC,6,44,42,8
+    EDITTEXT        IDC_EDIT_HEIGHT,48,42,36,12,ES_AUTOHSCROLL | ES_NUMBER
+    LTEXT           " Pixels",IDC_STATIC,84,44,30,8
+    RTEXT           "Channels: ",IDC_STATIC,6,62,42,8
+    EDITTEXT        IDC_EDIT_CHANNELS,48,60,36,12,ES_AUTOHSCROLL | ES_NUMBER
+    RTEXT           "Depth: ",IDC_STATIC,6,80,42,8
+    EDITTEXT        IDC_EDIT_DEPTH,48,78,36,12,ES_AUTOHSCROLL | ES_NUMBER
+    LTEXT           " bits per channel",IDC_STATIC,84,80,60,8
+    DEFPUSHBUTTON   "OK",IDOK,48,108,60,12
+    PUSHBUTTON      "Cancel",IDCANCEL,132,108,60,12
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO
+BEGIN
+    IDD_NEW, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 236
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 121
+    END
+END
+#endif    // APSTUDIO_INVOKED
 
 
 /////////////////////////////////////////////////////////////////////////////

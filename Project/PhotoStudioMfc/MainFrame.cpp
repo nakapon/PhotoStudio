@@ -8,6 +8,8 @@
 
 #include "Session.h"
 
+#include "NewDlg.h"
+
 #include "MainFrame.h"
 
 #ifdef _DEBUG
@@ -237,7 +239,18 @@ void CMainFrame::UpdateAppTitle()
 
 void CMainFrame::OnFileNew()
 {
-	// TODO
+	CNewDlg NewDlg;
+
+	NewDlg.m_pImageData = &this->m_ImageData;
+
+	if(NewDlg.DoModal())
+	{
+		this->m_ProcImage.Destroy();
+
+		this->UpdateImage();
+
+		this->UpdateAppTitle();
+	}
 }
 
 void CMainFrame::OnFileOpen()

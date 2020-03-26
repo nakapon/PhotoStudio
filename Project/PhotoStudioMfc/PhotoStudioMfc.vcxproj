@@ -109,6 +109,7 @@
     <ClInclude Include="..\..\Common\Generic\Include\ImageProc.h" />
     <ClInclude Include="ImageRenderer.h" />
     <ClInclude Include="MainFrame.h" />
+    <ClInclude Include="NewDlg.h" />
     <ClInclude Include="PhotoStudioApp.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Session.h" />
@@ -125,6 +126,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="MainFrame.cpp" />
+    <ClCompile Include="NewDlg.cpp" />
     <ClCompile Include="PhotoStudioApp.cpp" />
     <ClCompile Include="Session.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
