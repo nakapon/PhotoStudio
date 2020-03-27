@@ -22,6 +22,9 @@
     <Filter Include="AudioDevice">
       <UniqueIdentifier>{22153253-1dc7-404c-a950-56071b0cbbc0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="System">
+      <UniqueIdentifier>{9a2358a3-b395-42ab-8a29-4c5dac2ca933}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Common\Generic\Include\AudioData.h">
@@ -66,6 +69,9 @@
     <ClInclude Include="..\..\Common\Windows\Include\WaveDeviceOut.h">
       <Filter>AudioDevice</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Common\Windows\Include\FontUtilities.h">
+      <Filter>System</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Common\Generic\Source\AudioData.cpp">
@@ -97,6 +103,9 @@
     </ClCompile>
     <ClCompile Include="..\..\Common\Windows\Source\WaveDeviceOut.cpp">
       <Filter>AudioDevice</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\Windows\Source\FontUtilities.cpp">
+      <Filter>System</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

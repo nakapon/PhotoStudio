@@ -11,19 +11,19 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{FF3CADAF-ED0B-4B01-B374-3EFFE952FD8B}</ProjectGuid>
+    <ProjectGuid>{50657904-C6F2-40B8-9A37-E8F749538E39}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>BaseLibraryTest</RootNamespace>
+    <RootNamespace>BaseLibraryImu</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v120</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v120</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -40,13 +40,11 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <LinkIncremental>true</LinkIncremental>
-    <OutDir>..\..\Bin\$(Configuration)\</OutDir>
+    <OutDir>..\..\Common\Windows\Library\$(Configuration)\</OutDir>
     <IntDir>..\..\Obj\$(Configuration)\$(ProjectName)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <LinkIncremental>false</LinkIncremental>
-    <OutDir>..\..\Bin\$(Configuration)\</OutDir>
+    <OutDir>..\..\Common\Windows\Library\$(Configuration)\</OutDir>
     <IntDir>..\..\Obj\$(Configuration)\$(ProjectName)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -55,14 +53,12 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\Common\Generic\Include;..\..\Common\Windows\Include;..\..\ThirdParty\Windows\Include</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\Common\Generic\Include;..\..\Common\Windows\Include;..\..\ThirdParty\Windows\Include;..\..\ThirdParty\Generic</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>..\..\Common\Windows\Library\$(Configuration)\;..\..\ThirdParty\Windows\Library</AdditionalLibraryDirectories>
-      <AdditionalDependencies>BaseLibrary.lib;gtest-mdd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -73,23 +69,33 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\Common\Generic\Include;..\..\Common\Windows\Include;..\..\ThirdParty\Windows\Include</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\Common\Generic\Include;..\..\Common\Windows\Include;..\..\ThirdParty\Windows\Include;..\..\ThirdParty\Generic</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>..\..\Common\Windows\Library\$(Configuration)\;..\..\ThirdParty\Windows\Library</AdditionalLibraryDirectories>
-      <AdditionalDependencies>BaseLibrary.lib;gtest-md.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="test_platform_macro.cpp" />
-    <ClCompile Include="test_platform_math.cpp" />
-    <ClCompile Include="test_platform_string.cpp" />
+    <ClInclude Include="..\..\Common\Windows\Include\imgui\PlatformOpenGL2.h" />
+    <ClInclude Include="..\..\Common\Windows\Include\imgui\StyleLibrary.h" />
+    <ClInclude Include="..\..\ThirdParty\Generic\imgui\imconfig.h" />
+    <ClInclude Include="..\..\ThirdParty\Generic\imgui\imgui.h" />
+    <ClInclude Include="..\..\ThirdParty\Generic\imgui\imgui_internal.h" />
+    <ClInclude Include="..\..\ThirdParty\Generic\imgui\imstb_rectpack.h" />
+    <ClInclude Include="..\..\ThirdParty\Generic\imgui\imstb_textedit.h" />
+    <ClInclude Include="..\..\ThirdParty\Generic\imgui\imstb_truetype.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\Common\Windows\Source\imgui\PlatformOpenGL2.cpp" />
+    <ClCompile Include="..\..\Common\Windows\Source\imgui\StyleLibrary.cpp" />
+    <ClCompile Include="..\..\ThirdParty\Generic\imgui\imgui.cpp" />
+    <ClCompile Include="..\..\ThirdParty\Generic\imgui\imgui_demo.cpp" />
+    <ClCompile Include="..\..\ThirdParty\Generic\imgui\imgui_draw.cpp" />
+    <ClCompile Include="..\..\ThirdParty\Generic\imgui\imgui_widgets.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
