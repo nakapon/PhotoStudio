@@ -92,6 +92,7 @@
     <ClInclude Include="..\..\Common\Generic\Include\WaveAudioWriter.h" />
     <ClInclude Include="..\..\Common\Generic\Include\WaveFileTypes.h" />
     <ClInclude Include="..\..\Common\Windows\Include\AudioPlayer.h" />
+    <ClInclude Include="..\..\Common\Windows\Include\FontUtilities.h" />
     <ClInclude Include="..\..\Common\Windows\Include\MenuLibrary.h" />
     <ClInclude Include="..\..\Common\Windows\Include\WaveDeviceOut.h" />
   </ItemGroup>
@@ -104,6 +105,7 @@
     <ClCompile Include="..\..\Common\Generic\Source\WaveAudioReader.cpp" />
     <ClCompile Include="..\..\Common\Generic\Source\WaveAudioWriter.cpp" />
     <ClCompile Include="..\..\Common\Windows\Source\AudioPlayer.cpp" />
+    <ClCompile Include="..\..\Common\Windows\Source\FontUtilities.cpp" />
     <ClCompile Include="..\..\Common\Windows\Source\MenuLibrary.cpp" />
     <ClCompile Include="..\..\Common\Windows\Source\WaveDeviceOut.cpp" />
   </ItemGroup>
