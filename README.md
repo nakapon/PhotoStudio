@@ -8,9 +8,10 @@ This project is for beginners who would like to learn followings;
 - Windows GUI Programming (Platform SDK / WIN32 API) - `PhotoStudio` project
 - Windows GUI Programming (MFC) - `PhotoStudioMfc` project
 - Windows GUI Programming (C# Windows Forms) - `PhotoStudioForms` project
+- Windows GUI Programming ([Dear ImGui](https://github.com/ocornut/imgui) + OpenGL2) - `PhotoStudioImu` project
 - Qt5 Multi-Platform GUI Programming (Windows / Linux / Mac) - `PhotoStudioQt` project
-- Java Swing Programming - `PhotoStudioJava` project
-- Image Processing
+- Java Swing and JNI Programming - `PhotoStudioJava` and `PhotoStudioJni` project
+- Image Processing - `PhotoStudio`, `PhotoStudioMfc`, `PhotoStudioForms`, `PhotoStudioImu`, `PhotoStudioQt`, `PhotoStudioJava` project
 - Audio Processing - `AudioStudio` project
 
 Enjoy engineer life!
@@ -48,6 +49,14 @@ In order to build this project, you will need to install:
 - Visual Studio 2013 or later
 
 To build this project, open the `PhotoStudio.sln` with Visual Studio and build `PhotoStudioForms` project
+
+### PhotoStudioImu (C++, [Dear ImGui](https://github.com/ocornut/imgui))
+
+In order to build this project, you will need to install:
+
+- Visual Studio 2013 or later
+
+To build this project, open the `PhotoStudio.sln` with Visual Studio and build `PhotoStudioImu` project
 
 ### PhotoStudioQt (C++, Qt5 Multi-Platform)
 
