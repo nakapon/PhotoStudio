@@ -1,5 +1,7 @@
 ﻿#pragma once
 
+#include <GenericPlatformString.h>
+
 template <typename T>
 struct TWindowsPlatformString : public TGenericPlatformString<T>
 {

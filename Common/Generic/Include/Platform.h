@@ -8,7 +8,11 @@
 
 #include <PlatformCompiler.h>
 
+#include <PlatformCrt.h>
+
 #include <PlatformMath.h>
+
+#include <PlatformMemory.h>
 
 #if PLATFORM_WINDOWS
 	#ifdef PLATFORM_WINDOWS_AFX
@@ -23,8 +27,6 @@
 #else
 	#error Unknown Platform
 #endif
-
-#include <PlatformCrt.h>
 
 #include <PlatformString.h>
 

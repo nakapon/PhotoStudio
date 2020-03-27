@@ -16,7 +16,7 @@ CImageView::CImageView()
 	, m_TextureWidth(0)
 	, m_TextureHeight(0)
 {
-	memset(&this->m_ImageInfo, 0, sizeof(this->m_ImageInfo));
+	PFMemory::Zero(&this->m_ImageInfo, sizeof(this->m_ImageInfo));
 }
 
 CImageView::~CImageView()
@@ -32,7 +32,7 @@ void CImageView::Clear()
 	}
 
 	this->m_TextureId = 0;
-	memset(&this->m_ImageInfo, 0, sizeof(this->m_ImageInfo));
+	PFMemory::Zero(&this->m_ImageInfo, sizeof(this->m_ImageInfo));
 	this->m_TextureWidth = 0;
 	this->m_TextureHeight = 0;
 }

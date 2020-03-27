@@ -2,6 +2,8 @@
 
 #include <locale.h>
 
+#include <GenericPlatformString.h>
+
 template <typename T>
 struct TUnixPlatformString : public TGenericPlatformString<T>
 {

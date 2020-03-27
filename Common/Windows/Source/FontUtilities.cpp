@@ -78,8 +78,8 @@ bool FontUtilities::GetSystemFontPath(LPCTSTR pszFaceName, LPTSTR pszFontPath, U
 		DWORD ValueDataSize = MaxValueDataSize;
 		DWORD ValueType;
 
-		memset(&ValueName[0], 0, sizeof(TCHAR) * MaxValueNameSize);
-		memset(&ValueData[0], 0, sizeof(BYTE) * MaxValueDataSize);
+		PFMemory::Zero(&ValueName[0], sizeof(TCHAR) * MaxValueNameSize);
+		PFMemory::Zero(&ValueData[0], sizeof(BYTE) * MaxValueDataSize);
 
 		lResult = RegEnumValue(hKey, ValueIndex, &ValueName[0], &ValueNameSize, 0, &ValueType, &ValueData[0], &ValueDataSize);
 

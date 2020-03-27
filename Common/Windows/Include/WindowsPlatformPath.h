@@ -1,5 +1,7 @@
 ﻿#pragma once
 
+#include <GenericPlatformPath.h>
+
 template <typename T>
 struct TWindowsPlatformPath : public TGenericPlatformPath<T>
 {

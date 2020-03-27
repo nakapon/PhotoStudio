@@ -4,9 +4,9 @@
 
 CImageData::CImageData()
 {
-	memset(&this->m_szImageName, 0, sizeof(this->m_szImageName));
+	PFMemory::Zero(&this->m_szImageName, sizeof(this->m_szImageName));
 
-	memset(&this->m_ImageInfo, 0, sizeof(this->m_ImageInfo));
+	PFMemory::Zero(&this->m_ImageInfo, sizeof(this->m_ImageInfo));
 }
 
 CImageData::~CImageData()
@@ -62,9 +62,9 @@ bool CImageData::Create(LPCTSTR pszImageName, UInt32 Width, UInt32 Height, UInt3
 
 void CImageData::Destroy()
 {
-	memset(&this->m_szImageName, 0, sizeof(this->m_szImageName));
+	PFMemory::Zero(&this->m_szImageName, sizeof(this->m_szImageName));
 
-	memset(&this->m_ImageInfo, 0, sizeof(this->m_ImageInfo));
+	PFMemory::Zero(&this->m_ImageInfo, sizeof(this->m_ImageInfo));
 
 	this->m_ImageData.clear();
 }
@@ -87,7 +87,7 @@ void CImageData::SetImageName(LPCTSTR pszImageName)
 	}
 	else
 	{
-		memset(&this->m_szImageName, 0, sizeof(this->m_szImageName));
+		PFMemory::Zero(&this->m_szImageName, sizeof(this->m_szImageName));
 	}
 }
 
@@ -139,7 +139,7 @@ bool CImageData::CopyTo(IImageData* pImageData) const
 		pbySrcLine = &pbySrcBits[SrcInfo.BytesPerLine * y];
 		pbyDstLine = &pbyDstBits[DstInfo.BytesPerLine * y];
 
-		memcpy(pbyDstLine, pbySrcLine, CopyLineSize);
+		PFMemory::Copy(pbyDstLine, pbySrcLine, CopyLineSize);
 	}
 
 	return true;

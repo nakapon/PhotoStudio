@@ -148,7 +148,7 @@ bool CWaveDeviceOut::PrepareHeaders(UInt32 HeaderCount, DWORD BufferSize)
 	if(pHeaders == nullptr)
 		return false;
 
-	memset(pHeaders, 0, sizeof(WAVEHDR) * HeaderCount);
+	PFMemory::Zero(pHeaders, sizeof(WAVEHDR) * HeaderCount);
 
 	for(UInt32 i = 0; i < HeaderCount; i++)
 	{
@@ -173,7 +173,7 @@ bool CWaveDeviceOut::PrepareHeaders(UInt32 HeaderCount, DWORD BufferSize)
 		}
 		else
 		{
-			memset(pHeaders[i].lpData, 0, BufferSize);
+			PFMemory::Zero(pHeaders[i].lpData, BufferSize);
 		}
 
 		if(::waveOutPrepareHeader(this->m_hWaveOut, &pHeaders[i], sizeof(WAVEHDR)) != MMSYSERR_NOERROR)
@@ -258,7 +258,7 @@ bool CWaveDeviceOut::SetWaveBuffer(UInt32 HeaderIndex, PVOID pvBuffer, DWORD Buf
 
 		dwCopySize = PFMath::Min(dwCopySize, BufferSize);
 
-		memcpy(this->m_pWaveOutHeaders[HeaderIndex].lpData, pvBuffer, dwCopySize);
+		PFMemory::Copy(this->m_pWaveOutHeaders[HeaderIndex].lpData, pvBuffer, dwCopySize);
 	}
 
 	return true;
