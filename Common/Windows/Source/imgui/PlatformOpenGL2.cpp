@@ -243,6 +243,11 @@ void CPlatformOpenGL2::EndRender()
 	this->m_IsRendering = false;
 }
 
+bool CPlatformOpenGL2::IsRendering()
+{
+	return this->m_IsRendering;
+}
+
 bool CPlatformOpenGL2::InitializeGL()
 {
 	bool bReturn;

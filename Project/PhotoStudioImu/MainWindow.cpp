@@ -34,6 +34,8 @@ static CImageData gs_ProcImage; /* èàóùåãâ âÊëúÉfÅ[É^ */
 
 static bool gs_IsRenderingRateVisible = true;
 
+static bool gs_ShowNew = false;
+
 static bool gs_ShowImGuiMetrics = false;
 static bool gs_ShowImGuiStyleEditor = false;
 static bool gs_ShowImGuiAbout = false;
@@ -240,7 +242,7 @@ INT OnDropFiles(HWND hWindow, WPARAM wParam, LPARAM lParam)
 
 static void OnFileNew(HWND hWindow)
 {
-	// TODO
+	gs_ShowNew = true;
 }
 
 static void OnFileOpen(HWND hWindow)
@@ -588,5 +590,85 @@ static void RenderCore(HWND hWindow)
 	if(gs_ShowImGuiDemo)
 	{
 		ImGui::ShowDemoWindow(&gs_ShowImGuiDemo);
+	}
+
+	// Dialogs
+	if(gs_ShowNew)
+	{
+		ImGui::OpenPopup("New");
+
+		if(ImGui::BeginPopupModal("New", &gs_ShowNew, ImGuiWindowFlags_AlwaysAutoResize))
+		{
+			static CHAR s_szImageName[MAX_PATH] = "Untitiled";
+			static IImageData::IMAGEINFO s_ImageInfo = {256, 256, 3, 8};
+			static float s_Color[3] = {1.0f, 1.0f, 1.0f};
+
+			static const auto InitParam = [&](){
+				PFStringA::Copy(s_szImageName, "Untitiled");
+
+				s_ImageInfo.Width = 256;
+				s_ImageInfo.Height = 256;
+				s_ImageInfo.ChannelCount = 3;
+				s_ImageInfo.BitsPerChannel = 8;
+			};
+
+			ImGui::InputText("Image Name", s_szImageName, IM_ARRAYSIZE(s_szImageName));
+
+			ImGui::Dummy(ImVec2(0.0f, 8.0f));
+
+			ImGui::InputInt("Width", (int*)&s_ImageInfo.Width);
+			ImGui::InputInt("Height", (int*)&s_ImageInfo.Height);
+			ImGui::InputInt("Channels", (int*)&s_ImageInfo.ChannelCount);
+			ImGui::InputInt("Depth", (int*)&s_ImageInfo.BitsPerChannel);
+
+			ImGui::Dummy(ImVec2(0.0f, 8.0f));
+
+			ImGui::ColorEdit3("Background", s_Color);
+
+			ImGui::Dummy(ImVec2(0.0f, 8.0f));
+
+			ImGui::Separator();
+
+			ImGui::Dummy(ImVec2(0.0f, 8.0f));
+
+			if(ImGui::Button("OK", ImVec2(120, 0)))
+			{
+				if(gs_ImageData.Create(ASTR_TO_TSTR(s_szImageName), s_ImageInfo))
+				{
+					UInt32 MaxValue;
+					UInt32 R, G, B;
+
+					MaxValue = (1 << s_ImageInfo.BitsPerChannel) - 1;
+
+					R = (UInt32)(MaxValue * s_Color[0] + 0.5f);
+					G = (UInt32)(MaxValue * s_Color[1] + 0.5f);
+					B = (UInt32)(MaxValue * s_Color[2] + 0.5f);
+
+					ImageProc::Fill(&gs_ImageData, R, G, B);
+
+					gs_ProcImage.Destroy();
+
+					UpdateImageView(&gs_ImageData);
+
+					UpdateAppTitle(hWindow);
+				}
+
+				gs_ShowNew = false;
+				InitParam();
+
+				ImGui::CloseCurrentPopup();
+			}
+			ImGui::SetItemDefaultFocus();
+			ImGui::SameLine();
+			if(ImGui::Button("Cancel", ImVec2(120, 0)))
+			{
+				gs_ShowNew = false;
+				InitParam();
+
+				ImGui::CloseCurrentPopup();
+			}
+
+			ImGui::EndPopup();
+		}
 	}
 }
