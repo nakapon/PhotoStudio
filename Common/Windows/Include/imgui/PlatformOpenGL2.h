@@ -23,6 +23,8 @@ public:
 	bool BeginRender(RECT Viewport, COLORREF ClearColor);
 	void EndRender();
 
+	bool IsRendering();
+
 	// Window Events
 	void OnKeyDown(UInt32 Char);
 	void OnKeyUp(UInt32 Char);
