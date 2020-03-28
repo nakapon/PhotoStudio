@@ -4,8 +4,6 @@
 
 CAudioData::CAudioData()
 {
-	PFMemory::Zero(&this->m_szAudioName, sizeof(this->m_szAudioName));
-
 	PFMemory::Zero(&this->m_AudioInfo, sizeof(this->m_AudioInfo));
 }
 
@@ -42,7 +40,7 @@ bool CAudioData::Create(LPCTSTR pszAudioName, UInt32 ChannelCount, UInt32 BitsPe
 
 	if(pszAudioName != nullptr && pszAudioName[0] != _T('\0'))
 	{
-		PFString::Copy(this->m_szAudioName, pszAudioName);
+		this->m_AudioName = pszAudioName;
 	}
 
 	this->m_AudioData.resize((SIZE_T)AudioDataSize);
@@ -59,7 +57,7 @@ bool CAudioData::Create(LPCTSTR pszAudioName, UInt32 ChannelCount, UInt32 BitsPe
 
 void CAudioData::Destroy()
 {
-	PFMemory::Zero(&this->m_szAudioName, sizeof(this->m_szAudioName));
+	this->m_AudioName.Clear();
 
 	PFMemory::Zero(&this->m_AudioInfo, sizeof(this->m_AudioInfo));
 
@@ -73,18 +71,18 @@ bool CAudioData::IsCreated() const
 
 LPCTSTR CAudioData::GetAudioName() const
 {
-	return this->m_szAudioName;
+	return this->m_AudioName;
 }
 
 void CAudioData::SetAudioName(LPCTSTR pszAudioName)
 {
 	if(pszAudioName != nullptr && pszAudioName[0] != _T('\0'))
 	{
-		PFString::Copy(this->m_szAudioName, pszAudioName);
+		this->m_AudioName = pszAudioName;
 	}
 	else
 	{
-		PFMemory::Zero(&this->m_szAudioName, sizeof(this->m_szAudioName));
+		this->m_AudioName.Clear();
 	}
 }
 
@@ -118,7 +116,7 @@ bool CAudioData::CopyTo(IAudioData* pAudioData) const
 
 	AudioInfo = this->m_AudioInfo;
 
-	pAudioData->Create(this->m_szAudioName, AudioInfo.ChannelCount, AudioInfo.BitsPerChannel, AudioInfo.SamplesPerSec, AudioInfo.SampleCount);
+	pAudioData->Create(this->m_AudioName, AudioInfo.ChannelCount, AudioInfo.BitsPerChannel, AudioInfo.SamplesPerSec, AudioInfo.SampleCount);
 
 	PFMemory::Copy(pAudioData->GetDataPtr(), &this->m_AudioData[0], (SIZE_T)(AudioInfo.BytesPerSample * AudioInfo.SampleCount));
 

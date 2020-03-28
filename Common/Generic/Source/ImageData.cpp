@@ -4,8 +4,6 @@
 
 CImageData::CImageData()
 {
-	PFMemory::Zero(&this->m_szImageName, sizeof(this->m_szImageName));
-
 	PFMemory::Zero(&this->m_ImageInfo, sizeof(this->m_ImageInfo));
 }
 
@@ -46,7 +44,7 @@ bool CImageData::Create(LPCTSTR pszImageName, UInt32 Width, UInt32 Height, UInt3
 
 	if(pszImageName != nullptr && pszImageName[0] != _T('\0'))
 	{
-		PFString::Copy(this->m_szImageName, pszImageName);
+		this->m_ImageName = pszImageName;
 	}
 
 	this->m_ImageData.resize(ImageDataSize);
@@ -62,7 +60,7 @@ bool CImageData::Create(LPCTSTR pszImageName, UInt32 Width, UInt32 Height, UInt3
 
 void CImageData::Destroy()
 {
-	PFMemory::Zero(&this->m_szImageName, sizeof(this->m_szImageName));
+	this->m_ImageName.Clear();
 
 	PFMemory::Zero(&this->m_ImageInfo, sizeof(this->m_ImageInfo));
 
@@ -76,18 +74,18 @@ bool CImageData::IsCreated() const
 
 LPCTSTR CImageData::GetImageName() const
 {
-	return this->m_szImageName;
+	return this->m_ImageName;
 }
 
 void CImageData::SetImageName(LPCTSTR pszImageName)
 {
 	if(pszImageName != nullptr && pszImageName[0] != _T('\0'))
 	{
-		PFString::Copy(this->m_szImageName, pszImageName);
+		this->m_ImageName = pszImageName;
 	}
 	else
 	{
-		PFMemory::Zero(&this->m_szImageName, sizeof(this->m_szImageName));
+		this->m_ImageName.Clear();
 	}
 }
 
@@ -124,7 +122,7 @@ bool CImageData::CopyTo(IImageData* pImageData) const
 	if(this->m_ImageData.empty() || pImageData == nullptr)
 		return false;
 
-	pImageData->Create(this->m_szImageName, this->m_ImageInfo);
+	pImageData->Create(this->m_ImageName, this->m_ImageInfo);
 
 	SrcInfo = this->m_ImageInfo;
 	DstInfo = pImageData->GetImageInfo();

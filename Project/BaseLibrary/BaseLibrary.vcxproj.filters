@@ -96,6 +96,9 @@
     <ClInclude Include="..\..\Common\Generic\Include\Math\Rect2.h">
       <Filter>Math</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Common\Generic\Include\FString.h">
+      <Filter>String</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Common\Generic\Source\AudioData.cpp">
@@ -136,6 +139,9 @@
     </ClCompile>
     <ClCompile Include="..\..\Common\Generic\Source\Math\Vec.cpp">
       <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\Generic\Source\FString.cpp">
+      <Filter>String</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

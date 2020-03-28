@@ -13,3 +13,5 @@
 #endif
 
 #include <StringConv.h>
+
+#include <FString.h>

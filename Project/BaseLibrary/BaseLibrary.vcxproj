@@ -81,6 +81,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Common\Generic\Include\AudioData.h" />
+    <ClInclude Include="..\..\Common\Generic\Include\FString.h" />
     <ClInclude Include="..\..\Common\Generic\Include\IAudioData.h" />
     <ClInclude Include="..\..\Common\Generic\Include\IImageData.h" />
     <ClInclude Include="..\..\Common\Generic\Include\ImageData.h" />
@@ -105,6 +106,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Common\Generic\Source\AudioData.cpp" />
+    <ClCompile Include="..\..\Common\Generic\Source\FString.cpp" />
     <ClCompile Include="..\..\Common\Generic\Source\ImageData.cpp" />
     <ClCompile Include="..\..\Common\Generic\Source\ImageReader.cpp" />
     <ClCompile Include="..\..\Common\Generic\Source\ImageWriter.cpp" />
