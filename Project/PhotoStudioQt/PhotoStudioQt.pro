@@ -56,20 +56,24 @@ macx:INCLUDEPATH += $$PWD/../../Common/Mac/Include
 macx:INCLUDEPATH += $$PWD/../../ThirdParty/Mac/Include
 
 # Library Path
-win32:LIBS += -L$$PWD/../../Common/Windows/Library.x64
+CONFIG(debug, debug|release){
+	win32:LIBS += -L$$PWD/../../Common/Windows/Library.x64/Release
+	unix:!macx:LIBS += -L$$PWD/../../Common/Linux/Library/Release
+	macx:LIBS += -L$$PWD/../../Common/Mac/Library/Release
+} else {
+	win32:LIBS += -L$$PWD/../../Common/Windows/Library.x64/Debug
+	unix:!macx:LIBS += -L$$PWD/../../Common/Linux/Library/Debug
+	macx:LIBS += -L$$PWD/../../Common/Mac/Library/Debug
+}
+
 win32:LIBS += -L$$PWD/../../ThirdParty/Windows/Library.x64
-unix:!macx:LIBS += -L$$PWD/../../Common/Linux/Library
 unix:!macx:LIBS += -L$$PWD/../../ThirdParty/Linux/Library
-macx:LIBS += -L/usr/local/lib
-macx:LIBS += -L$$PWD/../../Common/Mac/Library
 macx:LIBS += -L$$PWD/../../ThirdParty/Mac/Library
 
+macx:LIBS += -L/usr/local/lib
+
 # Library Files
-CONFIG(debug, debug|release){
-#	LIBS += -lxxx
-} else {
-#	LIBS += -lxxx
-}
+LIBS += -lBaseLibraryQt
 
 win32:LIBS += -lgdi32
 #!win32:LIBS += -ldl -ltiff -lz -lopencv_core -lopencv_imgproc
@@ -102,13 +106,6 @@ win32 {
 
 # Project Items
 SOURCES += \
-	../../Common/Generic/Source/Math/Vec.cpp \
-	../../Common/Generic/Source/Math/Mat.cpp \
-	../../Common/Generic/Source/ImageData.cpp \
-	../../Common/Generic/Source/ImageProc.cpp \
-	../../Common/Generic/Source/ImageReader.cpp \
-	../../Common/Generic/Source/ImageWriter.cpp \
-	../../Common/Generic/Source/StringConv.cpp \
 	main.cpp \
 	MainWindow.cpp \
 	ImageLibraryQt.cpp \
@@ -116,12 +113,6 @@ SOURCES += \
 
 
 HEADERS += \
-	../../Common/Generic/Include/IImageData.h \
-	../../Common/Generic/Include/ImageData.h \
-	../../Common/Generic/Include/ImageProc.h \
-	../../Common/Generic/Include/ImageReader.h \
-	../../Common/Generic/Include/ImageWriter.h \
-	../../Common/Generic/Include/StringConv.h \
 	MainWindow.h \
 	ImageLibraryQt.h \
 	Session.h
