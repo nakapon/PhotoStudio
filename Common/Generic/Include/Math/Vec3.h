@@ -303,7 +303,7 @@ public:
 
 	T Len() const
 	{
-		return PFMath::Sqrt(LenSqr());
+		return sqrt(LenSqr());
 	}
 
 	T LenSqr() const
@@ -316,7 +316,7 @@ public:
 		T dx = x - v.x;
 		T dy = y - v.y;
 		T dz = z - v.z;
-		return PFMath::Sqrt(dx * dx + dy * dy + dz * dz);
+		return sqrt(dx * dx + dy * dy + dz * dz);
 	}
 
 	T Dot(const TVec3& v) const
