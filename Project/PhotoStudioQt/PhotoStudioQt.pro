@@ -102,6 +102,8 @@ win32 {
 
 # Project Items
 SOURCES += \
+	../../Common/Generic/Source/Math/Vec.cpp \
+	../../Common/Generic/Source/Math/Mat.cpp \
 	../../Common/Generic/Source/ImageData.cpp \
 	../../Common/Generic/Source/ImageProc.cpp \
 	../../Common/Generic/Source/ImageReader.cpp \

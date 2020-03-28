@@ -11,3 +11,13 @@
 #else
 	#error Unknown Platform
 #endif
+
+#include <Math/Vec2.h>
+#include <Math/Vec3.h>
+
+#include <Math/Mat22.h>
+#include <Math/Mat33.h>
+
+#include <Math/Size2.h>
+#include <Math/Rect2.h>
+#include <Math/Region2.h>
