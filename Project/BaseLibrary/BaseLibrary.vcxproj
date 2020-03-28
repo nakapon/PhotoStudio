@@ -86,6 +86,13 @@
     <ClInclude Include="..\..\Common\Generic\Include\ImageData.h" />
     <ClInclude Include="..\..\Common\Generic\Include\ImageReader.h" />
     <ClInclude Include="..\..\Common\Generic\Include\ImageWriter.h" />
+    <ClInclude Include="..\..\Common\Generic\Include\Math\Mat22.h" />
+    <ClInclude Include="..\..\Common\Generic\Include\Math\Mat33.h" />
+    <ClInclude Include="..\..\Common\Generic\Include\Math\Rect2.h" />
+    <ClInclude Include="..\..\Common\Generic\Include\Math\Region2.h" />
+    <ClInclude Include="..\..\Common\Generic\Include\Math\Size2.h" />
+    <ClInclude Include="..\..\Common\Generic\Include\Math\Vec2.h" />
+    <ClInclude Include="..\..\Common\Generic\Include\Math\Vec3.h" />
     <ClInclude Include="..\..\Common\Generic\Include\RiffTypes.h" />
     <ClInclude Include="..\..\Common\Generic\Include\StringConv.h" />
     <ClInclude Include="..\..\Common\Generic\Include\WaveAudioReader.h" />
@@ -101,6 +108,8 @@
     <ClCompile Include="..\..\Common\Generic\Source\ImageData.cpp" />
     <ClCompile Include="..\..\Common\Generic\Source\ImageReader.cpp" />
     <ClCompile Include="..\..\Common\Generic\Source\ImageWriter.cpp" />
+    <ClCompile Include="..\..\Common\Generic\Source\Math\Mat.cpp" />
+    <ClCompile Include="..\..\Common\Generic\Source\Math\Vec.cpp" />
     <ClCompile Include="..\..\Common\Generic\Source\StringConv.cpp" />
     <ClCompile Include="..\..\Common\Generic\Source\WaveAudioReader.cpp" />
     <ClCompile Include="..\..\Common\Generic\Source\WaveAudioWriter.cpp" />

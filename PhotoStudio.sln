@@ -39,6 +39,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Photo Studio Java", "Photo Studio Java", "{89695CD1-94A4-40FA-BB5A-741D6BEA315D}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PhotoStudioJni", "Project\PhotoStudioJni\PhotoStudioJni.vcxproj", "{94DBFC32-CF27-47AA-8FE1-7967A486E722}"
+	ProjectSection(ProjectDependencies) = postProject
+		{2A921716-CC74-4C25-806F-C920B311C102} = {2A921716-CC74-4C25-806F-C920B311C102}
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Audio Studio", "Audio Studio", "{3AAC497D-10BB-45FB-9B9C-DE9E214014D4}"
 EndProject

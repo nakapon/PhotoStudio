@@ -87,6 +87,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="test_math_mat22.cpp" />
+    <ClCompile Include="test_math_mat33.cpp" />
+    <ClCompile Include="test_math_rect2.cpp" />
+    <ClCompile Include="test_math_region2.cpp" />
+    <ClCompile Include="test_math_size2.cpp" />
+    <ClCompile Include="test_math_vec2.cpp" />
+    <ClCompile Include="test_math_vec3.cpp" />
     <ClCompile Include="test_platform_macro.cpp" />
     <ClCompile Include="test_platform_math.cpp" />
     <ClCompile Include="test_platform_string.cpp" />
