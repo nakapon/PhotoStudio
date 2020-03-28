@@ -122,10 +122,10 @@ REM -----------------------------------
 :_BUILD_LIB
 	echo.
 	echo Library ---------------------------------------------------------
-	set PROJECT_PATH=Library\
+	set PROJECT_PATH=Project\
 
-REM	set PORJECT_NAME=MyLibrary
-REM	call :_MAKE
+	set PORJECT_NAME=BaseLibraryQt
+	call :_MAKE
 
 	exit /b
 
