@@ -11,6 +11,8 @@
 
 #include "Session.h"
 
+#include "NewDlg.h"
+
 #include "resource.h"
 
 #define FILE_MENU_POS	0
@@ -34,6 +36,8 @@ static void OnAudioMenuPopup(HMENU hMenu);
 
 static void StartStopAudioPlay();
 
+static Int32 CALLBACK WavePlayerCallback(CAudioPlayer::EMessages Message, LPVOID pvParam1, LPVOID pvParam2, LPVOID pvUserData);
+
 // メインウィンドウ作成時の処理
 INT OnCreate(HWND hWindow, CREATESTRUCT* pCreateStruct)
 {
@@ -56,6 +60,8 @@ INT OnCreate(HWND hWindow, CREATESTRUCT* pCreateStruct)
 			LoadAudio(hWindow, szFilePath, false);
 		}
 	}
+
+	gs_AudioPlayer.AttachCallback(WavePlayerCallback, hWindow);
 
 	UpdateAppTitle(hWindow);
 
@@ -119,7 +125,14 @@ INT OnCommand(HWND hWindow, WPARAM wParam, LPARAM lParam)
 	switch(LOWORD(wParam))
 	{
 	case ID_FILE_NEW:
-		// xxx TODO
+		if(NewDlg::DoModal(g_hInstance, hWindow, &gs_AudioData))
+		{
+			gs_ProcAudio.Destroy();
+
+			UpdateWaveform(hWindow);
+
+			UpdateAppTitle(hWindow);
+		}
 		break;
 
 	case ID_FILE_OPEN:
@@ -193,7 +206,6 @@ INT OnCommand(HWND hWindow, WPARAM wParam, LPARAM lParam)
 
 	case ID_AUDIO_PLAY:
 		StartStopAudioPlay();
-		UpdateAppTitle(hWindow);
 		break;
 
 	case ID_AUDIO_LOOP:
@@ -387,4 +399,32 @@ static void StartStopAudioPlay()
 		gs_AudioPlayer.SetAudioData(pAudioData);
 		gs_AudioPlayer.Play();
 	}
+}
+
+static Int32 CALLBACK WavePlayerCallback(CAudioPlayer::EMessages Message, LPVOID pvParam1, LPVOID pvParam2, LPVOID pvUserData)
+{
+	HWND hWindow = (HWND)pvUserData;
+
+	switch(Message)
+	{
+	case CAudioPlayer::EMessages::MSG_START:
+		UpdateAppTitle(hWindow);
+		break;
+
+	case CAudioPlayer::EMessages::MSG_PLAYING:
+		break;
+
+	case CAudioPlayer::EMessages::MSG_END:
+		UpdateAppTitle(hWindow);
+		break;
+
+	case CAudioPlayer::EMessages::MSG_STOP:
+		UpdateAppTitle(hWindow);
+		break;
+
+	case CAudioPlayer::EMessages::MSG_PAUSE:
+		break;
+	}
+
+	return 0;
 }

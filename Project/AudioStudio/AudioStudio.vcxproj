@@ -64,6 +64,9 @@
       <AdditionalLibraryDirectories>..\..\Common\Windows\Library\$(Configuration)\;..\..\ThirdParty\Windows\Library</AdditionalLibraryDirectories>
       <AdditionalDependencies>BaseLibrary.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <Manifest>
+      <AdditionalManifestFiles>AudioStudio.exe.manifest</AdditionalManifestFiles>
+    </Manifest>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -84,15 +87,20 @@
       <AdditionalLibraryDirectories>..\..\Common\Windows\Library\$(Configuration)\;..\..\ThirdParty\Windows\Library</AdditionalLibraryDirectories>
       <AdditionalDependencies>BaseLibrary.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <Manifest>
+      <AdditionalManifestFiles>AudioStudio.exe.manifest</AdditionalManifestFiles>
+    </Manifest>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Common\Generic\Source\AudioProc.cpp" />
     <ClCompile Include="MainWindow.cpp" />
+    <ClCompile Include="NewDlg.cpp" />
     <ClCompile Include="Session.cpp" />
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Common\Generic\Include\AudioProc.h" />
+    <ClInclude Include="NewDlg.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Session.h" />
   </ItemGroup>
