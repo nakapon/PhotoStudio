@@ -52,6 +52,11 @@ bool CAudioData::Create(LPCTSTR pszAudioName, UInt32 ChannelCount, UInt32 BitsPe
 	this->m_AudioInfo.BytesPerSec = BytesPerSec;
 	this->m_AudioInfo.SampleCount = SampleCount;
 
+	if(this->m_AudioInfo.BitsPerChannel == 8)
+	{
+		PFMemory::Fill(&this->m_AudioData[0], 128, this->m_AudioData.size());
+	}
+
 	return true;
 }
 
