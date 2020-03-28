@@ -30,8 +30,7 @@ public:
 	virtual bool CopyTo(IAudioData* pAudioData) const override;
 
 private:
-	// TODO 文字列クラスを作ろう (std::basic_string はちょっとね…)
-	TCHAR m_szAudioName[MAX_PATH];
+	FString m_AudioName;
 
 	AUDIOINFO m_AudioInfo;
 

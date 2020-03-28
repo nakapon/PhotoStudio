@@ -64,6 +64,7 @@ SOURCES += \
 	../../Common/Generic/Source/ImageReader.cpp \
 	../../Common/Generic/Source/ImageWriter.cpp \
 	../../Common/Generic/Source/StringConv.cpp \
+	../../Common/Generic/Source/FString.cpp \
 
 HEADERS += \
 	../../Common/Generic/Include/IImageData.h \
@@ -72,3 +73,4 @@ HEADERS += \
 	../../Common/Generic/Include/ImageReader.h \
 	../../Common/Generic/Include/ImageWriter.h \
 	../../Common/Generic/Include/StringConv.h \
+	../../Common/Generic/Include/FString.h \

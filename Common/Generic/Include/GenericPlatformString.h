@@ -25,6 +25,10 @@ struct TGenericPlatformString
 	static inline bool Append(T (&pszDst)[MaxLength], const T* pszSrc, Int32 AppendLength = -1);
 	static bool Append(T* pszDst, SIZE_T MaxLength, const T* pszSrc, Int32 AppendLength = -1);
 
+	template <SIZE_T MaxLength>
+	static inline bool AppendChar(T (&pszDst)[MaxLength], T Src);
+	static bool AppendChar(T* pszDst, SIZE_T MaxLength, T Src);
+
 	static Int32 Compare(const T* pszString1, const T* pszString2, PFStringCaseSens::Enum CaseSens = PFStringCaseSens::Sensitive, Int32 CompareLength = -1);
 
 	static Int32 Find(const T* pszString, const T* pszFind, PFStringCaseSens::Enum CaseSens = PFStringCaseSens::Sensitive, Int32 StartIndex = -1);
@@ -151,6 +155,29 @@ bool TGenericPlatformString<T>::Append(T* pszDst, SIZE_T MaxLength, const T* psz
 	}
 
 	return false;
+}
+
+template <typename T>
+template <SIZE_T MaxLength>
+inline bool TGenericPlatformString<T>::AppendChar(T (&pszDst)[MaxLength], T Src)
+{
+	return AppendChar(pszDst, MaxLength, Src);
+}
+
+template <typename T>
+bool TGenericPlatformString<T>::AppendChar(T* pszDst, SIZE_T MaxLength, T Src)
+{
+	if(pszDst == nullptr || MaxLength == 0)
+		return false;
+
+	UInt32 DstLength = Length(pszDst);
+	if(MaxLength < (DstLength + 1 + 1))
+		return false;
+
+	pszDst[DstLength    ] = Src;
+	pszDst[DstLength + 1] = (T)'\0';
+
+	return true;
 }
 
 template <typename T>

@@ -51,5 +51,8 @@
     <ClCompile Include="test_math_region2.cpp">
       <Filter>Tests</Filter>
     </ClCompile>
+    <ClCompile Include="test_string.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
