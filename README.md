@@ -11,7 +11,7 @@ This project is for beginners who would like to learn followings;
 - Windows GUI Programming ([Dear ImGui](https://github.com/ocornut/imgui) + OpenGL2) - `PhotoStudioImu` project
 - Qt5 Multi-Platform GUI Programming (Windows / Linux / Mac) - `PhotoStudioQt` project
 - Java Swing and JNI Programming - `PhotoStudioJava` and `PhotoStudioJni` project
-- Image Processing - `PhotoStudio`, `PhotoStudioMfc`, `PhotoStudioForms`, `PhotoStudioImu`, `PhotoStudioQt`, `PhotoStudioJava` project
+- Image Processing - `PhotoStudioWin32`, `PhotoStudioMfc`, `PhotoStudioForms`, `PhotoStudioImu`, `PhotoStudioQt`, `PhotoStudioJava` project
 - Audio Processing - `AudioStudio` project
 
 Enjoy engineer life!
