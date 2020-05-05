@@ -87,7 +87,7 @@ bool Jni::Image::ConvertToAwtDataBuffer(JNIEnv* pEnv, IImageData *pImageData, jb
 {
 	bool bReturn;
 
-	IImageData::SImageInfo ImageInfo = { 0 };
+	IImageData::SImageInfo ImageInfo = { };
 	UInt32 BytesPerChannel;
 
 	if(pEnv == nullptr || pImageData == nullptr || !pImageData->IsCreated() || Pixels == nullptr)
@@ -124,7 +124,7 @@ static bool ConvDibFormat(JNIEnv* pEnv, IImageData *pImageData, jbyteArray Pixel
 {
 	INT i, j, k;
 
-	IImageData::SImageInfo ImageInfo = { 0 };
+	IImageData::SImageInfo ImageInfo = { };
 	UInt32 DstChannelCount, DstBytesPerLine;
 
 	BYTE *pbySrcBits;

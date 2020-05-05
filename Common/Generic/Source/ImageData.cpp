@@ -3,7 +3,6 @@
 #include <ImageData.h>
 
 CImageData::CImageData()
-	: m_DataType(EDataTypes::Unknown)
 {
 	PFMemory::Zero(&this->m_ImageInfo, sizeof(this->m_ImageInfo));
 }
@@ -27,9 +26,9 @@ CImageData& CImageData::operator=(const CImageData& ImageData)
 	return *this;
 }
 
-bool CImageData::Create(LPCTSTR pszImageName, EDataTypes DataType, const SImageInfo& ImageInfo)
+bool CImageData::Create(LPCTSTR pszImageName, const SImageInfo& ImageInfo)
 {
-	return this->Create(pszImageName, DataType, ImageInfo.Width, ImageInfo.Height, ImageInfo.ChannelCount, ImageInfo.BitsPerChannel);
+	return this->Create(pszImageName, ImageInfo.DataType, ImageInfo.Width, ImageInfo.Height, ImageInfo.ChannelCount, ImageInfo.BitsPerChannel);
 }
 
 bool CImageData::Create(LPCTSTR pszImageName, EDataTypes DataType, UInt32 Width, UInt32 Height, UInt32 ChannelCount, UInt32 BitsPerChannel)
@@ -41,8 +40,8 @@ bool CImageData::Create(LPCTSTR pszImageName, EDataTypes DataType, UInt32 Width,
 	UInt32 ImageDataSize = Height * BytesPerLine;
 
 	if(DataType == EDataTypes::Unknown
-	|| (DataType == EDataTypes::SingleFloat && BitsPerChannel != 32)
-	|| (DataType == EDataTypes::DoubleFloat && BitsPerChannel != 64)
+	|| (DataType == EDataTypes::Float32 && BitsPerChannel != 32)
+	|| (DataType == EDataTypes::Float64 && BitsPerChannel != 64)
 	|| ImageDataSize == 0)
 		return false;
 
@@ -53,8 +52,7 @@ bool CImageData::Create(LPCTSTR pszImageName, EDataTypes DataType, UInt32 Width,
 
 	this->m_ImageData.resize(ImageDataSize);
 
-	this->m_DataType = DataType;
-
+	this->m_ImageInfo.DataType = DataType;
 	this->m_ImageInfo.Width = Width;
 	this->m_ImageInfo.Height = Height;
 	this->m_ImageInfo.ChannelCount = ChannelCount;
@@ -67,8 +65,6 @@ bool CImageData::Create(LPCTSTR pszImageName, EDataTypes DataType, UInt32 Width,
 void CImageData::Destroy()
 {
 	this->m_ImageName.Clear();
-
-	this->m_DataType = EDataTypes::Unknown;
 
 	PFMemory::Zero(&this->m_ImageInfo, sizeof(this->m_ImageInfo));
 
@@ -95,11 +91,6 @@ void CImageData::SetImageName(LPCTSTR pszImageName)
 	{
 		this->m_ImageName.Clear();
 	}
-}
-
-IImageData::EDataTypes CImageData::GetDataType() const
-{
-	return this->m_DataType;
 }
 
 const IImageData::SImageInfo& CImageData::GetImageInfo() const
@@ -135,7 +126,7 @@ bool CImageData::CopyTo(IImageData* pImageData) const
 	if(this->m_ImageData.empty() || pImageData == nullptr)
 		return false;
 
-	pImageData->Create(this->m_ImageName, this->m_DataType, this->m_ImageInfo);
+	pImageData->Create(this->m_ImageName, this->m_ImageInfo);
 
 	SrcInfo = this->m_ImageInfo;
 	DstInfo = pImageData->GetImageInfo();

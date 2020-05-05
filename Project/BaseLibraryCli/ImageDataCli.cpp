@@ -19,13 +19,13 @@ PsImage::ImageData::!ImageData()
 	this->~ImageData();
 }
 
-System::Boolean PsImage::ImageData::Create(System::String^ ImageName, PsImage::DataTypes DataType, PsImage::ImageInfo ImageInfo)
+System::Boolean PsImage::ImageData::Create(System::String^ ImageName, PsImage::ImageInfo ImageInfo)
 {
 	bool bReturn;
 
 	System::IntPtr Ptr = System::Runtime::InteropServices::Marshal::StringToHGlobalAuto(ImageName);
 
-	bReturn = this->m_pImage->Create(static_cast<LPTSTR>(Ptr.ToPointer()), (::IImageData::EDataTypes)DataType,
+	bReturn = this->m_pImage->Create(static_cast<LPTSTR>(Ptr.ToPointer()), (::IImageData::EDataTypes)ImageInfo.DataType,
 									 ImageInfo.Width, ImageInfo.Height, ImageInfo.ChannelCount, ImageInfo.BitsPerChannel);
 
 	System::Runtime::InteropServices::Marshal::FreeHGlobal(Ptr);
@@ -85,14 +85,9 @@ System::String^ PsImage::ImageData::ImageName::get()
 	return ImageName;
 }
 
-PsImage::DataTypes PsImage::ImageData::DataType::get()
-{
-	return (PsImage::DataTypes)this->m_pImage->GetDataType();
-}
-
 PsImage::ImageInfo PsImage::ImageData::ImageInfo::get()
 {
-	::IImageData::SImageInfo Info = { 0 };
+	::IImageData::SImageInfo Info = { };
 	PsImage::ImageInfo ImageInfo;
 
 	Info = this->m_pImage->GetImageInfo();

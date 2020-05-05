@@ -73,7 +73,7 @@ static INT_PTR CALLBACK DialogProcedure(HWND hDialog, UINT unMessage, WPARAM wPa
 
 				GetDlgItemText(hDialog, IDC_EDIT_NAME, szAudioName, PF_ARRAY_LENGTH(szAudioName));
 
-				UInt32 BitsPerChannel = IsDlgButtonChecked(hDialog, IDC_RADIO_8BIT) ? 8 : 16;
+				IAudioData::EDataTypes DataType = IsDlgButtonChecked(hDialog, IDC_RADIO_8BIT) ? IAudioData::EDataTypes::UInt8 : IAudioData::EDataTypes::Int16;
 				UInt32 ChannelCount = IsDlgButtonChecked(hDialog, IDC_RADIO_MONO) ? 1 : 2;
 
 				UInt32 RateIndex = SendMessage(GetDlgItem(hDialog, IDC_COMBO_RATE), CB_GETCURSEL, 0, 0);
@@ -89,7 +89,7 @@ static INT_PTR CALLBACK DialogProcedure(HWND hDialog, UINT unMessage, WPARAM wPa
 				}
 				else
 				{
-					Result = s_pAudioData->Create(szAudioName, ChannelCount, BitsPerChannel, SamplesPerSec, SampleCount);
+					Result = s_pAudioData->Create(szAudioName, DataType, ChannelCount, SamplesPerSec, SampleCount);
 				}
 
 				// ¬Œ÷‚µ‚½ê‡‚Í 1 ‚ğ•Ô‚·

@@ -52,14 +52,15 @@ static INT_PTR CALLBACK DialogProcedure(HWND hDialog, UINT unMessage, WPARAM wPa
 
 				GetDlgItemText(hDialog, IDC_EDIT_NAME, szImageName, PF_ARRAY_LENGTH(szImageName));
 
+				IImageData::EDataTypes DataType = IImageData::EDataTypes::UInt;
 				UInt32 Width = GetDlgItemInt(hDialog, IDC_EDIT_WIDTH, nullptr, FALSE);
 				UInt32 Height = GetDlgItemInt(hDialog, IDC_EDIT_HEIGHT, nullptr, FALSE);
 				UInt32 Channels = GetDlgItemInt(hDialog, IDC_EDIT_CHANNELS, nullptr, FALSE);
-				UInt32 Depth = GetDlgItemInt(hDialog, IDC_EDIT_DEPTH, nullptr, FALSE);
+				UInt32 BitsPerChannel = GetDlgItemInt(hDialog, IDC_EDIT_DEPTH, nullptr, FALSE);
 
-				Result = s_pImageData->Create(szImageName, IImageData::EDataTypes::UnsignedInt, Width, Height, Channels, Depth);
+				Result = s_pImageData->Create(szImageName, DataType, Width, Height, Channels, BitsPerChannel);
 
-				UInt32 MaxValue = (1 << Depth) - 1;
+				UInt32 MaxValue = (1 << BitsPerChannel) - 1;
 
 				// 白色にする（画素値を最大値にする）
 				ImageProc::Fill(s_pImageData, MaxValue, MaxValue, MaxValue);

@@ -12,7 +12,7 @@ bool WaveAudioWriter::WriteAudio(LPCTSTR pszFilePath, const IAudioData* pAudioDa
 
 	FILE* fp;
 
-	IAudioData::AUDIOINFO AudioInfo;
+	IAudioData::SAudioInfo AudioInfo;
 
 	if(pszFilePath == nullptr || pAudioData == nullptr || !pAudioData->IsCreated())
 		return false;
@@ -44,7 +44,7 @@ bool WaveAudioWriter::WriteAudio(LPCTSTR pszFilePath, const IAudioData* pAudioDa
 		FormatChunk.SamplesPerSec = AudioInfo.SamplesPerSec;
 		FormatChunk.AvgBytesPerSec = AudioInfo.BytesPerSec;
 		FormatChunk.BlockAlign = AudioInfo.BytesPerSample;
-		FormatChunk.BitsPerSample = AudioInfo.BitsPerChannel;
+		FormatChunk.BitsPerSample = AudioData::GetBitsPerChannel(AudioInfo.DataType);
 
 		if(0 == fwrite(&FormatChunk, sizeof(FormatChunk), 1, fp))
 			goto LABEL_RETURN;

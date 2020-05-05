@@ -19,7 +19,7 @@ bool ImageWriter::WriteImage(LPCTSTR pszFilePath, const IImageData* pImageData)
 	FREE_IMAGE_FORMAT fif = FIF_UNKNOWN;
 	FIBITMAP *dib = nullptr;
 
-	IImageData::SImageInfo ImageInfo = { 0 };
+	IImageData::SImageInfo ImageInfo = { };
 
 	if(pszFilePath == nullptr || pImageData == nullptr || !pImageData->IsCreated())
 		return false;

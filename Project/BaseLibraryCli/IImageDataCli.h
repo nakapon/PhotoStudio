@@ -8,15 +8,16 @@ namespace PsImage
 	public enum class DataTypes
 	{
 		Unknown = 0,
-		UnsignedInt,	/* Unsigned Integer */
-		SingleFloat,	/* Single Precision Float (BitsPerChannel must be 32) */
-		DoubleFloat,	/* Dobule Precision Float (BitsPerChannel must be 64) */
+		UInt,		/* Unsigned Integer */
+		Float32,	/* Single Precision Float (BitsPerChannel must be 32) */
+		Float64,	/* Dobule Precision Float (BitsPerChannel must be 64) */
 	};
 
 	[System::Serializable]
 	public value class ImageInfo
 	{
 	public:
+		DataTypes DataType;
 		Int32 Width;			// ïù
 		Int32 Height;			// çÇÇ≥
 		Int32 ChannelCount;		// É`ÉÉÉlÉãêî
@@ -27,7 +28,7 @@ namespace PsImage
 	public interface class IImageData
 	{
 	public:
-		System::Boolean Create(System::String^ ImageName, PsImage::DataTypes DataType, PsImage::ImageInfo ImageInfo);
+		System::Boolean Create(System::String^ ImageName, PsImage::ImageInfo ImageInfo);
 		System::Boolean Create(System::String^ ImageName, PsImage::DataTypes DataType, Int32 Width, Int32 Height, Int32 ChannelCount, Int32 BitsPerChannel);
 		void Destroy();
 
@@ -40,11 +41,6 @@ namespace PsImage
 		{
 			void set(System::String^ value);
 			System::String^ get();
-		}
-
-		property PsImage::DataTypes DataType
-		{
-			PsImage::DataTypes get();
 		}
 
 		property PsImage::ImageInfo ImageInfo

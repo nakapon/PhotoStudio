@@ -109,7 +109,7 @@ void CAudioPlayer::SetFilterProc(WAVE_FILTER_PROC pfnFilterProc, LPVOID pvUserDa
 
 bool CAudioPlayer::SetAudioData(const IAudioData *pAudioData)
 {
-	IAudioData::AUDIOINFO AudioInfo;
+	IAudioData::SAudioInfo AudioInfo;
 
 	this->DestroyThread();
 	this->DestroyAudioPlayer();
@@ -174,7 +174,7 @@ bool CAudioPlayer::Play(UInt32 DeviceId)
 {
 	UInt32 i;
 
-	IAudioData::AUDIOINFO AudioInfo;
+	IAudioData::SAudioInfo AudioInfo;
 
 	WAVEFORMATEX WaveFormat;
 
@@ -191,7 +191,7 @@ bool CAudioPlayer::Play(UInt32 DeviceId)
 	WaveFormat.nSamplesPerSec = AudioInfo.SamplesPerSec;
 	WaveFormat.nAvgBytesPerSec = AudioInfo.BytesPerSec;
 	WaveFormat.nBlockAlign = AudioInfo.BytesPerSample;
-	WaveFormat.wBitsPerSample = AudioInfo.BitsPerChannel;
+	WaveFormat.wBitsPerSample = AudioData::GetBitsPerChannel(AudioInfo.DataType);
 	WaveFormat.cbSize = 0;
 
 	// open the player device
@@ -328,7 +328,7 @@ bool CAudioPlayer::Seek(DWORD SampleIndex)
 
 bool CAudioPlayer::SetPlaybackRange(DWORD Start, DWORD End)
 {
-	IAudioData::AUDIOINFO AudioInfo = { };
+	IAudioData::SAudioInfo AudioInfo = { };
 
 	DWORD MaxSampleIndex;
 
@@ -386,7 +386,7 @@ bool CAudioPlayer::IsPlaybackRangeEnabled()
 
 bool CAudioPlayer::DisablePlaybackRange()
 {
-	IAudioData::AUDIOINFO AudioInfo = { };
+	IAudioData::SAudioInfo AudioInfo = { };
 
 	if(this->m_pAudioData == nullptr)
 		return false;
@@ -486,7 +486,7 @@ void CAudioPlayer::AudioPlayerCallBack(UInt32 uiMessage, DWORD_PTR dwParam1, DWO
 			// write next buffer
 			if(this->m_LastBufferIndex < 0)
 			{
-				IAudioData::AUDIOINFO AudioInfo = { };
+				IAudioData::SAudioInfo AudioInfo = { };
 				const BYTE* pbyWaveData, *pbyBuffer;
 
 				DWORD SamplePos;

@@ -10,7 +10,7 @@ bool WaveAudioReader::ReadAudio(LPCTSTR pszFilePath, IAudioData* pAudioData)
 {
 	bool bReturn = false;
 
-	IAudioData::AUDIOINFO AudioInfo = { };
+	IAudioData::SAudioInfo AudioInfo = { };
 
 	FILE* fp;
 
@@ -52,8 +52,14 @@ bool WaveAudioReader::ReadAudio(LPCTSTR pszFilePath, IAudioData* pAudioData)
 				if(0 == fread(&FormatChunk.FormatTag, sizeof(FormatChunk) - Riff::CHUNKHEADER_SIZE, 1, fp))
 					goto LABEL_RETURN;
 
+				switch(FormatChunk.BitsPerSample)
+				{
+				case 8: AudioInfo.DataType = IAudioData::EDataTypes::UInt8; break;
+				case 16: AudioInfo.DataType = IAudioData::EDataTypes::Int16; break;
+				default: AudioInfo.DataType = IAudioData::EDataTypes::Unknown; break;
+				}
+
 				AudioInfo.ChannelCount   = FormatChunk.Channels;
-				AudioInfo.BitsPerChannel = FormatChunk.BitsPerSample;
 				AudioInfo.SamplesPerSec  = FormatChunk.SamplesPerSec;
 				AudioInfo.BytesPerSample = FormatChunk.BlockAlign;
 				AudioInfo.BytesPerSec    = FormatChunk.AvgBytesPerSec;
@@ -67,8 +73,8 @@ bool WaveAudioReader::ReadAudio(LPCTSTR pszFilePath, IAudioData* pAudioData)
 				UInt32 SampleCount = Header.Size / AudioInfo.BytesPerSample;
 
 				if(!pAudioData->Create(pszFilePath
+									 , AudioInfo.DataType
 									 , AudioInfo.ChannelCount
-									 , AudioInfo.BitsPerChannel
 									 , AudioInfo.SamplesPerSec
 									 , SampleCount))
 					goto LABEL_RETURN;

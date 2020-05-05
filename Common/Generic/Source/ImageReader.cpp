@@ -22,7 +22,7 @@ bool ImageReader::ReadImage(LPCTSTR pszFilePath, IImageData* pImageData)
 	FREE_IMAGE_TYPE fit = FIT_UNKNOWN;
 	FIBITMAP *dib;
 
-	IImageData::SImageInfo ImageInfo = { 0 };
+	IImageData::SImageInfo ImageInfo = { };
 
 	if(pszFilePath == nullptr || pImageData == nullptr)
 		return false;
@@ -68,7 +68,7 @@ bool ImageReader::ReadImage(LPCTSTR pszFilePath, IImageData* pImageData)
 
 	GetImageInfo(dib, ImageInfo);
 
-	pImageData->Create(pszFilePath, IImageData::EDataTypes::UnsignedInt, ImageInfo);
+	pImageData->Create(pszFilePath, ImageInfo);
 	ImageInfo = pImageData->GetImageInfo(); // BytesPerLine を取得する為に Create 後に取得する
 
 	if(ImageInfo.BitsPerChannel == 8)
@@ -203,6 +203,7 @@ static void GetImageInfo(FIBITMAP* dib, IImageData::SImageInfo& ImageInfo)
 {
 	FREE_IMAGE_TYPE fit = FIT_UNKNOWN;
 
+
 	ImageInfo.Width = FreeImage_GetWidth(dib);
 	ImageInfo.Height = FreeImage_GetHeight(dib);
 
@@ -210,23 +211,27 @@ static void GetImageInfo(FIBITMAP* dib, IImageData::SImageInfo& ImageInfo)
 	switch(fit)
 	{
 	case FIT_BITMAP:
+		ImageInfo.DataType = IImageData::EDataTypes::UInt;
 		ImageInfo.ChannelCount = (32 == FreeImage_GetBPP(dib)) ? 4 : 3;
 		ImageInfo.BitsPerChannel = 8;
 		break;
 
 	case FIT_UINT16:
+		ImageInfo.DataType = IImageData::EDataTypes::UInt;
 		ImageInfo.ChannelCount = 1;
 		ImageInfo.BitsPerChannel = 16;
 		break;
 
 	case FIT_RGB16:
 	case FIT_RGBA16:
+		ImageInfo.DataType = IImageData::EDataTypes::UInt;
 		ImageInfo.ChannelCount = (FIT_RGBA16 == fit) ? 4 : 3;
 		ImageInfo.BitsPerChannel = 16;
 		break;
 
 	case FIT_RGBF:
 	case FIT_RGBAF:
+		ImageInfo.DataType = IImageData::EDataTypes::Float32;
 		ImageInfo.ChannelCount = (FIT_RGBAF == fit) ? 4 : 3;
 		ImageInfo.BitsPerChannel = 32;
 		break;

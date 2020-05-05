@@ -11,7 +11,7 @@ namespace PsImage
 		~ImageData();
 		!ImageData();
 
-		virtual System::Boolean Create(System::String^ ImageName, PsImage::DataTypes DataType, PsImage::ImageInfo ImageInfo);
+		virtual System::Boolean Create(System::String^ ImageName, PsImage::ImageInfo ImageInfo);
 		virtual System::Boolean Create(System::String^ ImageName, PsImage::DataTypes DataType, Int32 Width, Int32 Height, Int32 ChannelCount, Int32 BitsPerChannel);
 		virtual void Destroy();
 	
@@ -24,11 +24,6 @@ namespace PsImage
 		{
 			virtual void set(System::String^ value);
 			virtual System::String^ get();
-		}
-
-		property PsImage::DataTypes DataType
-		{
-			virtual PsImage::DataTypes get();
 		}
 
 		property PsImage::ImageInfo ImageInfo
