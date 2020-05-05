@@ -1,0 +1,329 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#ifndef APSTUDIO_INVOKED
+#include "targetver.h"
+#endif
+#include "afxres.h"
+#include "verrsrc.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// 日本語 (日本) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_JPN)
+LANGUAGE LANG_JAPANESE, SUBLANG_DEFAULT
+#pragma code_page(932)
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#ifndef APSTUDIO_INVOKED\r\n"
+    "#include ""targetver.h""\r\n"
+    "#endif\r\n"
+    "#include ""afxres.h""\r\n"
+    "#include ""verrsrc.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_JPN)\r\n"
+    "LANGUAGE 17, 1\r\n"
+    "#include ""res\\PhotoStudio.rc2""  // Microsoft Visual C++ 以外で編集されたリソース\r\n"
+    "#include ""l.JPN\\afxres.rc""      // 標準コンポーネント\r\n"
+    "#endif\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON                    "res\\PhotoStudio.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Toolbar
+//
+
+IDR_MAINFRAME TOOLBAR 16, 15
+BEGIN
+    BUTTON      ID_EDIT_CUT
+    BUTTON      ID_EDIT_COPY
+    BUTTON      ID_EDIT_PASTE
+    SEPARATOR
+    BUTTON      ID_APP_ABOUT
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDR_MAINFRAME MENU
+BEGIN
+    POPUP "&File"
+    BEGIN
+        MENUITEM "&New...\tCtrl+N",             ID_FILE_NEW
+        MENUITEM "&Open...\tCtrl+O",            ID_FILE_OPEN
+        MENUITEM SEPARATOR
+        MENUITEM "&Close\tCtrl+W",              ID_FILE_CLOSE
+        MENUITEM SEPARATOR
+        MENUITEM "&Save...\tCtrl+S",            ID_FILE_SAVE
+        MENUITEM SEPARATOR
+        MENUITEM "E&xit\tAlt+F4",               ID_FILE_EXIT
+    END
+    POPUP "&Image"
+    BEGIN
+        MENUITEM "&Monochrome",                 ID_IMAGE_MONO
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Accelerator
+//
+
+IDR_MAINFRAME ACCELERATORS
+BEGIN
+    "C",            ID_EDIT_COPY,           VIRTKEY, CONTROL, NOINVERT
+    VK_INSERT,      ID_EDIT_COPY,           VIRTKEY, CONTROL, NOINVERT
+    VK_DELETE,      ID_EDIT_CUT,            VIRTKEY, SHIFT, NOINVERT
+    "X",            ID_EDIT_CUT,            VIRTKEY, CONTROL, NOINVERT
+    "V",            ID_EDIT_PASTE,          VIRTKEY, CONTROL, NOINVERT
+    VK_INSERT,      ID_EDIT_PASTE,          VIRTKEY, SHIFT, NOINVERT
+    VK_BACK,        ID_EDIT_UNDO,           VIRTKEY, ALT, NOINVERT
+    "Z",            ID_EDIT_UNDO,           VIRTKEY, CONTROL, NOINVERT
+    VK_F6,          ID_NEXT_PANE,           VIRTKEY, NOINVERT
+    VK_F6,          ID_PREV_PANE,           VIRTKEY, SHIFT, NOINVERT
+    "N",            ID_FILE_NEW,            VIRTKEY, CONTROL, NOINVERT
+    "O",            ID_FILE_OPEN,           VIRTKEY, CONTROL, NOINVERT
+    "W",            ID_FILE_CLOSE,          VIRTKEY, CONTROL, NOINVERT
+    "S",            ID_FILE_SAVE,           VIRTKEY, CONTROL, NOINVERT
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,1
+ PRODUCTVERSION 1,0,0,1
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x40004L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "041104b0"
+        BEGIN
+            VALUE "CompanyName", "Masayuki Nakatsuka"
+            VALUE "FileVersion", "1.0.0.1"
+            VALUE "InternalName", "PhotoStudio.exe"
+            VALUE "LegalCopyright", "Copyright (C) 2020 Masayuki Nakatsuka.  All rights reserved."
+            VALUE "OriginalFilename", "PhotoStudio.exe"
+            VALUE "ProductName", "Photo Studio"
+            VALUE "ProductVersion", "1.0.0.1"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x411, 1200
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_NEW DIALOGEX 0, 0, 243, 128
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "New"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    RTEXT           "Name: ",IDC_STATIC,6,8,42,8
+    EDITTEXT        IDC_EDIT_NAME,48,6,180,12,ES_AUTOHSCROLL
+    RTEXT           "Width: ",IDC_STATIC,6,26,42,8
+    EDITTEXT        IDC_EDIT_WIDTH,48,24,36,12,ES_AUTOHSCROLL | ES_NUMBER
+    LTEXT           " Pixels",IDC_STATIC,84,26,30,8
+    RTEXT           "Height: ",IDC_STATIC,6,44,42,8
+    EDITTEXT        IDC_EDIT_HEIGHT,48,42,36,12,ES_AUTOHSCROLL | ES_NUMBER
+    LTEXT           " Pixels",IDC_STATIC,84,44,30,8
+    RTEXT           "Channels: ",IDC_STATIC,6,62,42,8
+    EDITTEXT        IDC_EDIT_CHANNELS,48,60,36,12,ES_AUTOHSCROLL | ES_NUMBER
+    RTEXT           "Depth: ",IDC_STATIC,6,80,42,8
+    EDITTEXT        IDC_EDIT_DEPTH,48,78,36,12,ES_AUTOHSCROLL | ES_NUMBER
+    LTEXT           " bits per channel",IDC_STATIC,84,80,60,8
+    DEFPUSHBUTTON   "OK",IDOK,48,108,60,12
+    PUSHBUTTON      "Cancel",IDCANCEL,132,108,60,12
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO
+BEGIN
+    IDD_NEW, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 236
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 121
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE
+BEGIN
+    IDP_OLE_INIT_FAILED     "OLE の初期化に失敗しました。OLE ライブラリのバージョンが正しいことを確認してください。"
+END
+
+STRINGTABLE
+BEGIN
+    IDR_MAINFRAME           "Photo Studio"
+END
+
+STRINGTABLE
+BEGIN
+    AFX_IDS_APP_TITLE       "PhotoStudio"
+    AFX_IDS_IDLEMESSAGE     "レディ"
+END
+
+STRINGTABLE
+BEGIN
+    ID_INDICATOR_EXT        "EXT"
+    ID_INDICATOR_CAPS       "CAP"
+    ID_INDICATOR_NUM        "NUM"
+    ID_INDICATOR_SCRL       "SCRL"
+    ID_INDICATOR_OVR        "OVR"
+    ID_INDICATOR_REC        "REC"
+END
+
+STRINGTABLE
+BEGIN
+    ID_APP_ABOUT            "プログラム情報、バージョン、著作権を表示します。\nバージョン情報"
+    ID_APP_EXIT             "アプリケーションを終了し、ファイルの保存を指示\n終了"
+END
+
+STRINGTABLE
+BEGIN
+    ID_NEXT_PANE            "次のウィンドウに切り替える\n次のペイン"
+    ID_PREV_PANE            "前のウィンドウに切り替える\n前のペイン"
+END
+
+STRINGTABLE
+BEGIN
+    ID_WINDOW_SPLIT         "作業中のウィンドウを分割\n分割"
+END
+
+STRINGTABLE
+BEGIN
+    ID_EDIT_CLEAR           "選択範囲を消去\n消去"
+    ID_EDIT_CLEAR_ALL       "すべて消去\nすべて消去"
+    ID_EDIT_COPY            "選択範囲をコピーしてクリップボードに保存\nコピー"
+    ID_EDIT_CUT             "選択範囲を切り取ってクリップボードに保存\n切り取り"
+    ID_EDIT_FIND            "指定した文字列の検索\n検索"
+    ID_EDIT_PASTE           "クリップボードの内容を貼り付け\n貼り付け"
+    ID_EDIT_REPEAT          "直前に行った動作を繰り返す\n繰り返し"
+    ID_EDIT_REPLACE         "指定した文字列を他の文字列で置換\n置換"
+    ID_EDIT_SELECT_ALL      "ファイル内のすべてを選択\nすべて選択"
+    ID_EDIT_UNDO            "直前に行った動作を元に戻す\n元に戻す"
+    ID_EDIT_REDO            "取り消した操作をやり直す\nやり直す"
+END
+
+STRINGTABLE
+BEGIN
+    ID_VIEW_TOOLBAR         "ツール バーの 表示/非表示\nツール バーの表示切り替え"
+END
+
+STRINGTABLE
+BEGIN
+    AFX_IDS_SCSIZE          "ウィンドウのサイズを変更"
+    AFX_IDS_SCMOVE          "ウィンドウの位置を変更"
+    AFX_IDS_SCMINIMIZE      "ウィンドウを最小化する"
+    AFX_IDS_SCMAXIMIZE      "ウィンドウを最大化する"
+    AFX_IDS_SCNEXTWINDOW    "次のウィンドウに切り替える"
+    AFX_IDS_SCPREVWINDOW    "前のウィンドウに切り替える"
+    AFX_IDS_SCCLOSE         "作業中のウィンドウを閉じ、変更したファイルの保存を指示"
+END
+
+STRINGTABLE
+BEGIN
+    AFX_IDS_SCRESTORE       "ウィンドウを通常のサイズに戻す"
+    AFX_IDS_SCTASKLIST      "タスク一覧をアクティブにする"
+END
+
+#endif    // 日本語 (日本) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_JPN)
+LANGUAGE 17, 1
+#include "res\PhotoStudio.rc2"  // Microsoft Visual C++ 以外で編集されたリソース
+#include "l.JPN\afxres.rc"      // 標準コンポーネント
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

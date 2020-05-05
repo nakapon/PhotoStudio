@@ -1,82 +1,69 @@
-#include <Platform.h>
+#include "stdafx.h"
 
 #include <ImageProc.h>
 
 #include "NewDlg.h"
 
-#include "resource.h"
+IMPLEMENT_DYNAMIC(CNewDlg, CDialog)
 
-static INT_PTR CALLBACK DialogProcedure(HWND hDialog, UINT unMessage, WPARAM wParam, LPARAM lParam);
-
-bool NewDlg::DoModal(HINSTANCE hInstance, HWND hWindow, IImageData* pImageData)
+CNewDlg::CNewDlg(CWnd* pParent /*=NULL*/)
+	: CDialog(CNewDlg::IDD, pParent)
+	, m_pImageData(nullptr)
 {
-	Int32 Result;
-
-	Result = DialogBoxParam(hInstance, MAKEINTRESOURCE(IDD_NEW), hWindow, DialogProcedure, (LPARAM)pImageData);
-
-	return (Result != 0) ? true : false;
 }
 
-static INT_PTR CALLBACK DialogProcedure(HWND hDialog, UINT unMessage, WPARAM wParam, LPARAM lParam)
+CNewDlg::~CNewDlg()
 {
-	static IImageData* s_pImageData;
+}
 
-	switch(unMessage)
-	{
-	case WM_INITDIALOG:
-		s_pImageData = (IImageData*)lParam; // DialogBoxParam の dwInitParam で渡したものが来る
+void CNewDlg::DoDataExchange(CDataExchange* pDX)
+{
+	CDialog::DoDataExchange(pDX);
+}
 
-		SetDlgItemText(hDialog, IDC_EDIT_NAME, TEXT("Untitled"));
+BEGIN_MESSAGE_MAP(CNewDlg, CDialog)
+END_MESSAGE_MAP()
 
-		// TODO クリップボードに画像がある場合はクリップボード上の画像サイズを設定する (PhotoShop仕様)
-		SetDlgItemInt(hDialog, IDC_EDIT_WIDTH, 256, FALSE);
-		SetDlgItemInt(hDialog, IDC_EDIT_HEIGHT, 256, FALSE);
-		SetDlgItemInt(hDialog, IDC_EDIT_CHANNELS, 3, FALSE);
-		SetDlgItemInt(hDialog, IDC_EDIT_DEPTH, 8, FALSE);
+BOOL CNewDlg::OnInitDialog()
+{
+	CDialog::OnInitDialog();
 
-		return 1; /* コントロールにフォーカスを与える場合は非0を返す */
+	this->SetDlgItemText(IDC_EDIT_NAME, TEXT("Untitled"));
 
-	case WM_CLOSE:
-		// キャンセルは 0 を返す
-		EndDialog(hDialog, 0);
-		break;
+	this->SetDlgItemInt(IDC_EDIT_WIDTH, 256, FALSE);
+	this->SetDlgItemInt(IDC_EDIT_HEIGHT, 256, FALSE);
+	this->SetDlgItemInt(IDC_EDIT_CHANNELS, 3, FALSE);
+	this->SetDlgItemInt(IDC_EDIT_DEPTH, 8, FALSE);
 
-	case WM_COMMAND:
-		switch(LOWORD(wParam))
-		{
-		case IDOK:
-			{
-				bool Result;
+	return TRUE;  // return TRUE unless you set the focus to a control
+	// 例外 : OCX プロパティ ページは必ず FALSE を返します。
+}
 
-				TCHAR szImageName[256] = { 0 };
+void CNewDlg::OnOK()
+{
+	bool Result;
 
-				GetDlgItemText(hDialog, IDC_EDIT_NAME, szImageName, PF_ARRAY_LENGTH(szImageName));
+	TCHAR szImageName[256] = { 0 };
 
-				IImageData::EDataTypes DataType = IImageData::EDataTypes::UInt;
-				UInt32 Width = GetDlgItemInt(hDialog, IDC_EDIT_WIDTH, nullptr, FALSE);
-				UInt32 Height = GetDlgItemInt(hDialog, IDC_EDIT_HEIGHT, nullptr, FALSE);
-				UInt32 Channels = GetDlgItemInt(hDialog, IDC_EDIT_CHANNELS, nullptr, FALSE);
-				UInt32 BitsPerChannel = GetDlgItemInt(hDialog, IDC_EDIT_DEPTH, nullptr, FALSE);
+	this->GetDlgItemText(IDC_EDIT_NAME, szImageName, PF_ARRAY_LENGTH(szImageName));
 
-				Result = s_pImageData->Create(szImageName, DataType, Width, Height, Channels, BitsPerChannel);
+	IImageData::EDataTypes DataType = IImageData::EDataTypes::UInt;
+	UInt32 Width = this->GetDlgItemInt(IDC_EDIT_WIDTH, nullptr, FALSE);
+	UInt32 Height = this->GetDlgItemInt(IDC_EDIT_HEIGHT, nullptr, FALSE);
+	UInt32 Channels = this->GetDlgItemInt(IDC_EDIT_CHANNELS, nullptr, FALSE);
+	UInt32 BitsPerChannel = this->GetDlgItemInt(IDC_EDIT_DEPTH, nullptr, FALSE);
 
-				UInt32 MaxValue = (1 << BitsPerChannel) - 1;
+	Result = this->m_pImageData->Create(szImageName, DataType, Width, Height, Channels, BitsPerChannel);
 
-				// 白色にする（画素値を最大値にする）
-				ImageProc::Fill(s_pImageData, MaxValue, MaxValue, MaxValue);
+	UInt32 MaxValue = (1 << BitsPerChannel) - 1;
 
-				// 成功した場合は 1 を返す
-				EndDialog(hDialog, Result ? 1 : 0);
-			}
-			break;
+	// 白色にする（画素値を最大値にする）
+	ImageProc::Fill(this->m_pImageData, MaxValue, MaxValue, MaxValue);
 
-		case IDCANCEL:
-			// キャンセルは 0 を返す
-			EndDialog(hDialog, 0);
-			break;
-		}
-		break;
-	}
+	this->EndDialog(Result ? 1 : 0);
+}
 
-	return 0;
+void CNewDlg::OnCancel()
+{
+	this->EndDialog(0);
 }

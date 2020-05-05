@@ -2,16 +2,27 @@
 
 #include <IImageData.h>
 
-class NewDlg
+#include "resource.h"
+
+class CNewDlg : public CDialog
 {
+	DECLARE_DYNAMIC(CNewDlg)
+
 public:
+	CNewDlg(CWnd* pParent = NULL);
+	virtual ~CNewDlg();
 
-	// 「新規作成」モーダルダイアログ
-	static bool DoModal(HINSTANCE hInstance, HWND hWindow, IImageData* pImageData);
+	enum { IDD = IDD_NEW };
 
-private:
-	NewDlg() = delete;
-	~NewDlg() = delete;
-	NewDlg(const NewDlg&) = delete;
-	NewDlg& operator=(const NewDlg&) = delete;
+	IImageData* m_pImageData;
+
+protected:
+	virtual void DoDataExchange(CDataExchange* pDX);
+
+	DECLARE_MESSAGE_MAP()
+
+	virtual BOOL OnInitDialog();
+
+	virtual void OnOK();
+	virtual void OnCancel();
 };
