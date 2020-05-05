@@ -53,8 +53,8 @@ public:
 
 	FStringT<T>& AppendChar(T Char);
 
-	Int32 Compare(const FStringT& String, PFStringCaseSens::Enum CaseSens = PFStringCaseSens::Sensitive, Int32 CompareLength = -1) const;
-	Int32 Compare(const T* pszString, PFStringCaseSens::Enum CaseSens = PFStringCaseSens::Sensitive, Int32 CompareLength = -1) const;
+	Int32 Compare(const FStringT& String, PFStringCaseSens CaseSens = PFStringCaseSens::Sensitive, Int32 CompareLength = -1) const;
+	Int32 Compare(const T* pszString, PFStringCaseSens CaseSens = PFStringCaseSens::Sensitive, Int32 CompareLength = -1) const;
 
 public:
 	// operator=

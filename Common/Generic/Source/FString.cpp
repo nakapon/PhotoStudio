@@ -184,13 +184,13 @@ FStringT<T>& FStringT<T>::AppendChar(T Char)
 }
 
 template <typename T>
-Int32 FStringT<T>::Compare(const FStringT& String, PFStringCaseSens::Enum CaseSens, Int32 CompareLength) const
+Int32 FStringT<T>::Compare(const FStringT& String, PFStringCaseSens CaseSens, Int32 CompareLength) const
 {
 	return PFStringT<T>::Compare(pszData, String.pszData, CaseSens, CompareLength);
 }
 
 template <typename T>
-Int32 FStringT<T>::Compare(const T* pszString, PFStringCaseSens::Enum CaseSens, Int32 CompareLength) const
+Int32 FStringT<T>::Compare(const T* pszString, PFStringCaseSens CaseSens, Int32 CompareLength) const
 {
 	return PFStringT<T>::Compare(pszData, pszString, CaseSens, CompareLength);
 }
