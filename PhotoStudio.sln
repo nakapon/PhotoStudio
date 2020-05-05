@@ -62,6 +62,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PhotoStudioWin32", "Project
 		{2A921716-CC74-4C25-806F-C920B311C102} = {2A921716-CC74-4C25-806F-C920B311C102}
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PhotoStudio", "Project\PhotoStudio\PhotoStudio.vcxproj", "{F59237ED-84B1-495C-9816-A8F1D3C32FFF}"
+	ProjectSection(ProjectDependencies) = postProject
+		{2A921716-CC74-4C25-806F-C920B311C102} = {2A921716-CC74-4C25-806F-C920B311C102}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Mixed Platforms = Debug|Mixed Platforms
@@ -150,6 +155,14 @@ Global
 		{3E952423-DE97-4E89-99A5-915CF51AA371}.Release|Mixed Platforms.Build.0 = Release|Win32
 		{3E952423-DE97-4E89-99A5-915CF51AA371}.Release|Win32.ActiveCfg = Release|Win32
 		{3E952423-DE97-4E89-99A5-915CF51AA371}.Release|Win32.Build.0 = Release|Win32
+		{F59237ED-84B1-495C-9816-A8F1D3C32FFF}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{F59237ED-84B1-495C-9816-A8F1D3C32FFF}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{F59237ED-84B1-495C-9816-A8F1D3C32FFF}.Debug|Win32.ActiveCfg = Debug|Win32
+		{F59237ED-84B1-495C-9816-A8F1D3C32FFF}.Debug|Win32.Build.0 = Debug|Win32
+		{F59237ED-84B1-495C-9816-A8F1D3C32FFF}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{F59237ED-84B1-495C-9816-A8F1D3C32FFF}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{F59237ED-84B1-495C-9816-A8F1D3C32FFF}.Release|Win32.ActiveCfg = Release|Win32
+		{F59237ED-84B1-495C-9816-A8F1D3C32FFF}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -165,5 +178,6 @@ Global
 		{789458A7-FC13-4891-8693-7416BB72D3C9} = {A4A39518-356B-4205-B144-3F978C05A1B9}
 		{50657904-C6F2-40B8-9A37-E8F749538E39} = {A4A39518-356B-4205-B144-3F978C05A1B9}
 		{3E952423-DE97-4E89-99A5-915CF51AA371} = {DB216DDB-3351-489B-87BB-7CF32C97971B}
+		{F59237ED-84B1-495C-9816-A8F1D3C32FFF} = {C27CFAA1-96EC-413A-BC9D-85C098EDBE74}
 	EndGlobalSection
 EndGlobal
