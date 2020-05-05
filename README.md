@@ -5,7 +5,7 @@ Welcome to the PhotoStudio project!
 This project is for beginners who would like to learn followings;
 
 - C / C++ / C++CLI / C# / Java Programming
-- Windows GUI Programming (Platform SDK / WIN32 API) - `PhotoStudio` project
+- Windows GUI Programming (Platform SDK / WIN32 API) - `PhotoStudioWin32` project
 - Windows GUI Programming (MFC) - `PhotoStudioMfc` project
 - Windows GUI Programming (C# Windows Forms) - `PhotoStudioForms` project
 - Windows GUI Programming ([Dear ImGui](https://github.com/ocornut/imgui) + OpenGL2) - `PhotoStudioImu` project
@@ -18,13 +18,13 @@ Enjoy engineer life!
 
 ## Building
 
-### PhotoStudio (C++, Windows Platform SDK)
+### PhotoStudioWin32 (C++, Windows Platform SDK)
 
 In order to build this project, you will need to install:
 
 - Visual Studio 2013 or later
 
-To build this project, open the `PhotoStudio.sln` with Visual Studio and build `PhotoStudio` project
+To build this project, open the `PhotoStudio.sln` with Visual Studio and build `PhotoStudioWin32` project
 
 ### AudioStudio (C++, Windows Platform SDK)
 
