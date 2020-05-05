@@ -7,7 +7,7 @@ static void ConvertImage(QImage* pDstImage, const IImageData* pSrcImage);
 
 QImage* ImageLibraryQt::ImageToQImage(const IImageData* pImage)
 {
-	IImageData::IMAGEINFO ImageInfo = { 0 };
+	IImageData::SImageInfo ImageInfo = { };
 	UInt32 BytesPerChannel;
 
 	QImage *pDstImage;
@@ -42,7 +42,7 @@ QImage* ImageLibraryQt::ImageToQImage(const IImageData* pImage)
 template <typename T>
 static void ConvertImage(QImage* pDstImage, const IImageData* pSrcImage)
 {
-	IImageData::IMAGEINFO ImageInfo = { 0 };
+	IImageData::SImageInfo ImageInfo = { };
 	UInt32 BytesPerLine;
 
 	const BYTE *pSrc;
