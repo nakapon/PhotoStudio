@@ -13,7 +13,7 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{3E952423-DE97-4E89-99A5-915CF51AA371}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>PhotoStudio</RootNamespace>
+    <RootNamespace>PhotoStudioWin32</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -65,7 +65,7 @@
       <AdditionalDependencies>BaseLibrary.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Manifest>
-      <AdditionalManifestFiles>PhotoStudio.exe.manifest</AdditionalManifestFiles>
+      <AdditionalManifestFiles>PhotoStudioWin32.exe.manifest</AdditionalManifestFiles>
     </Manifest>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -88,7 +88,7 @@
       <AdditionalDependencies>BaseLibrary.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Manifest>
-      <AdditionalManifestFiles>PhotoStudio.exe.manifest</AdditionalManifestFiles>
+      <AdditionalManifestFiles>PhotoStudioWin32.exe.manifest</AdditionalManifestFiles>
     </Manifest>
   </ItemDefinitionGroup>
   <ItemGroup>

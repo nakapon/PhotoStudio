@@ -2,7 +2,7 @@
 
 #include "Session.h"
 
-#define SESSION_FILE_NAME	TEXT("PhotoStudio.ssn")
+#define SESSION_FILE_NAME	TEXT("PhotoStudioWin32.ssn")
 
 static void GetFilePath(LPTSTR pszFilePath, UInt32 MaxLength);
 
