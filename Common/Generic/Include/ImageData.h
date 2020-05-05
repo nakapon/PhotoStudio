@@ -12,9 +12,9 @@ public:
 	CImageData(const CImageData& ImageData);
 	CImageData& operator=(const CImageData& ImageData);
 
-	virtual bool Create(LPCTSTR pszImageName, const IMAGEINFO& ImageInfo) override;
+	virtual bool Create(LPCTSTR pszImageName, EDataTypes DataType, const SImageInfo& ImageInfo) override;
 
-	virtual bool Create(LPCTSTR pszImageName, UInt32 Width, UInt32 Height, UInt32 ChannelCount, UInt32 BitsPerChannel) override;
+	virtual bool Create(LPCTSTR pszImageName, EDataTypes DataType, UInt32 Width, UInt32 Height, UInt32 ChannelCount, UInt32 BitsPerChannel) override;
 
 	virtual void Destroy() override;
 
@@ -24,7 +24,9 @@ public:
 
 	virtual void SetImageName(LPCTSTR pszImageName) override;
 
-	virtual const IMAGEINFO& GetImageInfo() const override;
+	virtual EDataTypes GetDataType() const override;
+
+	virtual const SImageInfo& GetImageInfo() const override;
 
 	virtual const BYTE* GetDataPtr() const override;
 	virtual BYTE* GetDataPtr() override;
@@ -34,7 +36,9 @@ public:
 private:
 	FString m_ImageName;
 
-	IMAGEINFO m_ImageInfo;
+	EDataTypes m_DataType;
+
+	SImageInfo m_ImageInfo;
 
 	std::vector<BYTE> m_ImageData;
 };

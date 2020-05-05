@@ -19,13 +19,13 @@ PsImage::ImageData::!ImageData()
 	this->~ImageData();
 }
 
-System::Boolean PsImage::ImageData::Create(System::String^ ImageName, PsImage::ImageInfo ImageInfo)
+System::Boolean PsImage::ImageData::Create(System::String^ ImageName, PsImage::DataTypes DataType, PsImage::ImageInfo ImageInfo)
 {
 	bool bReturn;
 
 	System::IntPtr Ptr = System::Runtime::InteropServices::Marshal::StringToHGlobalAuto(ImageName);
 
-	bReturn = this->m_pImage->Create(static_cast<LPTSTR>(Ptr.ToPointer()),
+	bReturn = this->m_pImage->Create(static_cast<LPTSTR>(Ptr.ToPointer()), (::IImageData::EDataTypes)DataType,
 									 ImageInfo.Width, ImageInfo.Height, ImageInfo.ChannelCount, ImageInfo.BitsPerChannel);
 
 	System::Runtime::InteropServices::Marshal::FreeHGlobal(Ptr);
@@ -33,13 +33,14 @@ System::Boolean PsImage::ImageData::Create(System::String^ ImageName, PsImage::I
 	return bReturn;
 }
 
-System::Boolean PsImage::ImageData::Create(System::String^ ImageName, Int32 Width, Int32 Height, Int32 ChannelCount, Int32 BitsPerChannel)
+System::Boolean PsImage::ImageData::Create(System::String^ ImageName, PsImage::DataTypes DataType, Int32 Width, Int32 Height, Int32 ChannelCount, Int32 BitsPerChannel)
 {
 	bool bReturn;
 
 	System::IntPtr Ptr = System::Runtime::InteropServices::Marshal::StringToHGlobalAuto(ImageName);
 
-	bReturn = this->m_pImage->Create(static_cast<LPTSTR>(Ptr.ToPointer()), Width, Height, ChannelCount, BitsPerChannel);
+	bReturn = this->m_pImage->Create(static_cast<LPTSTR>(Ptr.ToPointer()), (::IImageData::EDataTypes)DataType,
+									 Width, Height, ChannelCount, BitsPerChannel);
 
 	System::Runtime::InteropServices::Marshal::FreeHGlobal(Ptr);
 
@@ -84,9 +85,14 @@ System::String^ PsImage::ImageData::ImageName::get()
 	return ImageName;
 }
 
+PsImage::DataTypes PsImage::ImageData::DataType::get()
+{
+	return (PsImage::DataTypes)this->m_pImage->GetDataType();
+}
+
 PsImage::ImageInfo PsImage::ImageData::ImageInfo::get()
 {
-	::IImageData::IMAGEINFO Info = { 0 };
+	::IImageData::SImageInfo Info = { 0 };
 	PsImage::ImageInfo ImageInfo;
 
 	Info = this->m_pImage->GetImageInfo();

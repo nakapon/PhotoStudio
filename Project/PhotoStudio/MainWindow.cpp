@@ -352,7 +352,7 @@ static void UpdateAppTitle(HWND hWindow)
 		{
 			TCHAR szInfo[128] = { 0 };
 
-			IImageData::IMAGEINFO ImageInfo = gs_ImageData.GetImageInfo();
+			IImageData::SImageInfo ImageInfo = gs_ImageData.GetImageInfo();
 
 			_stprintf_s(szInfo, TEXT(" [%dx%d %dch %dbit]"), ImageInfo.Width, ImageInfo.Height, ImageInfo.ChannelCount, ImageInfo.BitsPerChannel);
 			PFString::Append(szTitle, szInfo);

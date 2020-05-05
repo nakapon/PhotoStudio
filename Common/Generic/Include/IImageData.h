@@ -3,24 +3,32 @@
 class IImageData
 {
 public:
-	typedef struct
+	enum class EDataTypes
+	{
+		Unknown = 0,
+		UnsignedInt,	/* Unsigned Integer */
+		SingleFloat,	/* Single Precision Float (BitsPerChannel must be 32) */
+		DoubleFloat,	/* Dobule Precision Float (BitsPerChannel must be 64) */
+	};
+
+	struct SImageInfo
 	{
 		UInt32 Width;			/* 幅 [pix] */
 		UInt32 Height;			/* 高さ [pix] */
 		UInt32 ChannelCount;	/* チャンネル数 */
 		UInt32 BitsPerChannel;	/* 1チャンネル当たりのビット数 */
 		UInt32 BytesPerLine;	/* メモリ上の横1ラインのバイト数 */
-	} IMAGEINFO;
+	};
 
 public:
 	virtual ~IImageData(){}
 
 	// 画像データ作成
 	// BytesPerLine は指定しても無視される（内部で自動計算する）
-	virtual bool Create(LPCTSTR pszImageName, const IMAGEINFO& ImageInfo) = 0;
+	virtual bool Create(LPCTSTR pszImageName, EDataTypes DataType, const SImageInfo& ImageInfo) = 0;
 
 	// 画像データ作成
-	virtual bool Create(LPCTSTR pszImageName, UInt32 Width, UInt32 Height, UInt32 ChannelCount, UInt32 BitsPerChannel) = 0;
+	virtual bool Create(LPCTSTR pszImageName, EDataTypes DataType, UInt32 Width, UInt32 Height, UInt32 ChannelCount, UInt32 BitsPerChannel) = 0;
 
 	// 画像データ破棄
 	virtual void Destroy() = 0;
@@ -34,8 +42,11 @@ public:
 	// 画像名変更
 	virtual void SetImageName(LPCTSTR pszImageName) = 0;
 
+	// データ型取得
+	virtual EDataTypes GetDataType() const = 0;
+
 	// 画像情報取得
-	virtual const IMAGEINFO& GetImageInfo() const = 0;
+	virtual const SImageInfo& GetImageInfo() const = 0;
 
 	// 画像データのポインタ取得
 	virtual const BYTE* GetDataPtr() const = 0;

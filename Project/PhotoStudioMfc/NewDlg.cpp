@@ -52,7 +52,7 @@ void CNewDlg::OnOK()
 	UInt32 Channels = this->GetDlgItemInt(IDC_EDIT_CHANNELS, nullptr, FALSE);
 	UInt32 Depth = this->GetDlgItemInt(IDC_EDIT_DEPTH, nullptr, FALSE);
 
-	Result = this->m_pImageData->Create(szImageName, Width, Height, Channels, Depth);
+	Result = this->m_pImageData->Create(szImageName, IImageData::EDataTypes::UnsignedInt, Width, Height, Channels, Depth);
 
 	UInt32 MaxValue = (1 << Depth) - 1;
 

@@ -32,7 +32,7 @@ static System::Drawing::Imaging::PixelFormat ConvChannelCountToDrawingPixelForma
 System::Boolean PsImage::ImageLibrary::Convert(System::Drawing::Bitmap^ %DstImage, IImageData^ SrcImage)
 {
 	::IImageData *pSrcImage;
-	::IImageData::IMAGEINFO ImageInfo = { 0 };
+	::IImageData::SImageInfo ImageInfo = { 0 };
 
 	Int32 BitShift;
 

@@ -5,7 +5,7 @@
 #include <Jni.Base.h>
 #include <Jni.Image.h>
 
-bool Jni::Image::GetImageInfo(JNIEnv* pEnv, jobject objImageInfo, IImageData::IMAGEINFO& ImageInfo)
+bool Jni::Image::GetImageInfo(JNIEnv* pEnv, jobject objImageInfo, IImageData::SImageInfo& ImageInfo)
 {
 	jclass clsImageInfo;
 	jfieldID Field;
@@ -55,7 +55,7 @@ bool Jni::Image::GetImageInfo(JNIEnv* pEnv, jobject objImageInfo, IImageData::IM
 	return true;
 }
 
-jobject Jni::Image::NewImageInfo(JNIEnv* pEnv, IImageData::IMAGEINFO ImageInfo)
+jobject Jni::Image::NewImageInfo(JNIEnv* pEnv, IImageData::SImageInfo ImageInfo)
 {
 	return Jni::Base::NewObject(pEnv, "Lphotostudio/image/ImageInfo;", "(IIII)V", ImageInfo.Width, ImageInfo.Height, ImageInfo.ChannelCount, ImageInfo.BitsPerChannel);
 }
@@ -87,7 +87,7 @@ bool Jni::Image::ConvertToAwtDataBuffer(JNIEnv* pEnv, IImageData *pImageData, jb
 {
 	bool bReturn;
 
-	IImageData::IMAGEINFO ImageInfo = { 0 };
+	IImageData::SImageInfo ImageInfo = { 0 };
 	UInt32 BytesPerChannel;
 
 	if(pEnv == nullptr || pImageData == nullptr || !pImageData->IsCreated() || Pixels == nullptr)
@@ -124,7 +124,7 @@ static bool ConvDibFormat(JNIEnv* pEnv, IImageData *pImageData, jbyteArray Pixel
 {
 	INT i, j, k;
 
-	IImageData::IMAGEINFO ImageInfo = { 0 };
+	IImageData::SImageInfo ImageInfo = { 0 };
 	UInt32 DstChannelCount, DstBytesPerLine;
 
 	BYTE *pbySrcBits;
