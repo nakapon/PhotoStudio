@@ -12,7 +12,7 @@
 
 static FREE_IMAGE_FORMAT GetFileType(LPCTSTR pszFilePath);
 
-static void GetImageInfo(FIBITMAP* dib, IImageData::IMAGEINFO& ImageInfo);
+static void GetImageInfo(FIBITMAP* dib, IImageData::SImageInfo& ImageInfo);
 
 bool ImageReader::ReadImage(LPCTSTR pszFilePath, IImageData* pImageData)
 {
@@ -22,7 +22,7 @@ bool ImageReader::ReadImage(LPCTSTR pszFilePath, IImageData* pImageData)
 	FREE_IMAGE_TYPE fit = FIT_UNKNOWN;
 	FIBITMAP *dib;
 
-	IImageData::IMAGEINFO ImageInfo = { 0 };
+	IImageData::SImageInfo ImageInfo = { 0 };
 
 	if(pszFilePath == nullptr || pImageData == nullptr)
 		return false;
@@ -68,7 +68,7 @@ bool ImageReader::ReadImage(LPCTSTR pszFilePath, IImageData* pImageData)
 
 	GetImageInfo(dib, ImageInfo);
 
-	pImageData->Create(pszFilePath, ImageInfo);
+	pImageData->Create(pszFilePath, IImageData::EDataTypes::UnsignedInt, ImageInfo);
 	ImageInfo = pImageData->GetImageInfo(); // BytesPerLine を取得する為に Create 後に取得する
 
 	if(ImageInfo.BitsPerChannel == 8)
@@ -199,7 +199,7 @@ static FREE_IMAGE_FORMAT GetFileType(LPCTSTR pszFilePath)
 	return fif;
 }
 
-static void GetImageInfo(FIBITMAP* dib, IImageData::IMAGEINFO& ImageInfo)
+static void GetImageInfo(FIBITMAP* dib, IImageData::SImageInfo& ImageInfo)
 {
 	FREE_IMAGE_TYPE fit = FIT_UNKNOWN;
 

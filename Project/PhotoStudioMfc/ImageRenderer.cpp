@@ -4,7 +4,7 @@
 
 bool ImageRenderer::Render(HDC hDC, SIZE ClientSize, const IImageData* pImageData)
 {
-	IImageData::IMAGEINFO ImageInfo;;
+	IImageData::SImageInfo ImageInfo;;
 
 	BITMAPINFO BitmapInfo = { 0 };
 	HBITMAP hBitmap;

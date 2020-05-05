@@ -20,7 +20,7 @@ private:
 	UInt32 m_TextureWidth;
 	UInt32 m_TextureHeight;
 
-	IImageData::IMAGEINFO m_ImageInfo; // original image info
+	IImageData::SImageInfo m_ImageInfo; // original image info
 
 	CImageData m_TextureObject;
 

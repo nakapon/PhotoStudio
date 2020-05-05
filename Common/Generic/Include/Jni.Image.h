@@ -9,9 +9,9 @@ namespace Jni
 	class Image
 	{
 	public:
-		static bool GetImageInfo(JNIEnv* pEnv, jobject objImageInfo, IImageData::IMAGEINFO& ImageInfo);
+		static bool GetImageInfo(JNIEnv* pEnv, jobject objImageInfo, IImageData::SImageInfo& ImageInfo);
 
-		static jobject NewImageInfo(JNIEnv* pEnv, IImageData::IMAGEINFO ImageInfo);
+		static jobject NewImageInfo(JNIEnv* pEnv, IImageData::SImageInfo ImageInfo);
 
 		static jobject NewImageObject(JNIEnv* pEnv);
 		static jobject NewImageObject(JNIEnv* pEnv, IImageData *pImageData);

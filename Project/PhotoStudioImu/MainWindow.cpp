@@ -390,7 +390,7 @@ static void UpdateAppTitle(HWND hWindow)
 		{
 			TCHAR szInfo[128] = { 0 };
 
-			IImageData::IMAGEINFO ImageInfo = gs_ImageData.GetImageInfo();
+			IImageData::SImageInfo ImageInfo = gs_ImageData.GetImageInfo();
 
 			_stprintf_s(szInfo, TEXT(" [%dx%d %dch %dbit]"), ImageInfo.Width, ImageInfo.Height, ImageInfo.ChannelCount, ImageInfo.BitsPerChannel);
 			PFString::Append(szTitle, szInfo);
@@ -600,7 +600,7 @@ static void RenderCore(HWND hWindow)
 		if(ImGui::BeginPopupModal("New", &gs_ShowNew, ImGuiWindowFlags_AlwaysAutoResize))
 		{
 			static CHAR s_szImageName[MAX_PATH] = "Untitiled";
-			static IImageData::IMAGEINFO s_ImageInfo = {256, 256, 3, 8};
+			static IImageData::SImageInfo s_ImageInfo = {256, 256, 3, 8};
 			static float s_Color[3] = {1.0f, 1.0f, 1.0f};
 
 			static const auto InitParam = [&](){
@@ -633,7 +633,7 @@ static void RenderCore(HWND hWindow)
 
 			if(ImGui::Button("OK", ImVec2(120, 0)))
 			{
-				if(gs_ImageData.Create(ASTR_TO_TSTR(s_szImageName), s_ImageInfo))
+				if(gs_ImageData.Create(ASTR_TO_TSTR(s_szImageName), IImageData::EDataTypes::UnsignedInt, s_ImageInfo))
 				{
 					UInt32 MaxValue;
 					UInt32 R, G, B;

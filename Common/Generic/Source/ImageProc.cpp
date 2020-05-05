@@ -5,7 +5,7 @@
 template <typename T>
 static void Fill(IImageData* pImageData, UInt32 ValueCh1, UInt32 ValueCh2, UInt32 ValueCh3)
 {
-	IImageData::IMAGEINFO ImageInfo;
+	IImageData::SImageInfo ImageInfo;
 
 	BYTE* pbyBits;
 
@@ -70,7 +70,7 @@ static void Fill(IImageData* pImageData, UInt32 ValueCh1, UInt32 ValueCh2, UInt3
 
 void ImageProc::Fill(IImageData* pImageData, UInt32 ValueCh1, UInt32 ValueCh2, UInt32 ValueCh3)
 {
-	IImageData::IMAGEINFO ImageInfo;
+	IImageData::SImageInfo ImageInfo;
 
 	if(pImageData == nullptr || !pImageData->IsCreated())
 		return;
@@ -89,8 +89,8 @@ void ImageProc::Fill(IImageData* pImageData, UInt32 ValueCh1, UInt32 ValueCh2, U
 
 void ImageProc::GrayScale(IImageData* pDstImage, const IImageData* pSrcImage)
 {
-	IImageData::IMAGEINFO SrcInfo;
-	IImageData::IMAGEINFO DstInfo;
+	IImageData::SImageInfo SrcInfo;
+	IImageData::SImageInfo DstInfo;
 
 	const BYTE* pSrcBits, *pSrcLine, *pSrcPixel;
 	BYTE* pDstBits, *pDstLine, *pDstPixel;
@@ -101,7 +101,7 @@ void ImageProc::GrayScale(IImageData* pDstImage, const IImageData* pSrcImage)
 	SrcInfo = pSrcImage->GetImageInfo();
 
 	// 画像処理結果用画像データを作成
-	pDstImage->Create(nullptr, SrcInfo);
+	pDstImage->Create(nullptr, IImageData::EDataTypes::UnsignedInt, SrcInfo);
 	DstInfo = pDstImage->GetImageInfo();
 
 	pSrcBits = pSrcImage->GetDataPtr();

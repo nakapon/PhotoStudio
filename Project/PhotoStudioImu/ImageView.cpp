@@ -39,7 +39,7 @@ void CImageView::Clear()
 
 void CImageView::SetImage(IImageData* pImageData)
 {
-	IImageData::IMAGEINFO ImageInfo = { 0 };
+	IImageData::SImageInfo ImageInfo = { 0 };
 
 	UINT TextureWidth, TextureHeight;
 
@@ -66,7 +66,7 @@ void CImageView::SetImage(IImageData* pImageData)
 	// Create texture object
 	if(bResizeTexture)
 	{
-		this->m_TextureObject.Create(TEXT(""), this->m_TextureWidth, this->m_TextureHeight, 4, 8);
+		this->m_TextureObject.Create(TEXT(""), IImageData::EDataTypes::UnsignedInt, this->m_TextureWidth, this->m_TextureHeight, 4, 8);
 	}
 
 	// Convert image data to texture format
@@ -184,7 +184,7 @@ void CImageView::Render(HWND hWindow)
 template <typename T>
 static void ConvertToTexture(IImageData* pDstImage, const IImageData* pSrcImage)
 {
-	IImageData::IMAGEINFO SrcInfo, DstInfo;
+	IImageData::SImageInfo SrcInfo, DstInfo;
 
 	const BYTE* pbySrcBits;
 	const T* pSrcLine, *pSrcPixel;

@@ -57,7 +57,7 @@ static INT_PTR CALLBACK DialogProcedure(HWND hDialog, UINT unMessage, WPARAM wPa
 				UInt32 Channels = GetDlgItemInt(hDialog, IDC_EDIT_CHANNELS, nullptr, FALSE);
 				UInt32 Depth = GetDlgItemInt(hDialog, IDC_EDIT_DEPTH, nullptr, FALSE);
 
-				Result = s_pImageData->Create(szImageName, Width, Height, Channels, Depth);
+				Result = s_pImageData->Create(szImageName, IImageData::EDataTypes::UnsignedInt, Width, Height, Channels, Depth);
 
 				UInt32 MaxValue = (1 << Depth) - 1;
 
