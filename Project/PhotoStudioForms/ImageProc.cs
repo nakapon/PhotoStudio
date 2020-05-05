@@ -20,7 +20,7 @@ namespace PhotoStudioForms
 
 			if(!DstImage.IsCreated)
 			{
-				DstImage.Create("ProcImage", PsImage.DataTypes.UnsignedInt, SrcInfo);
+				DstImage.Create("ProcImage", SrcInfo);
 			}
 
 			PsImage.ImageInfo DstInfo = DstImage.ImageInfo;

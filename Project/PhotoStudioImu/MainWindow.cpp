@@ -600,12 +600,13 @@ static void RenderCore(HWND hWindow)
 		if(ImGui::BeginPopupModal("New", &gs_ShowNew, ImGuiWindowFlags_AlwaysAutoResize))
 		{
 			static CHAR s_szImageName[MAX_PATH] = "Untitiled";
-			static IImageData::SImageInfo s_ImageInfo = {256, 256, 3, 8};
+			static IImageData::SImageInfo s_ImageInfo = {IImageData::EDataTypes::UInt, 256, 256, 3, 8};
 			static float s_Color[3] = {1.0f, 1.0f, 1.0f};
 
 			static const auto InitParam = [&](){
 				PFStringA::Copy(s_szImageName, "Untitiled");
 
+				s_ImageInfo.DataType = IImageData::EDataTypes::UInt;
 				s_ImageInfo.Width = 256;
 				s_ImageInfo.Height = 256;
 				s_ImageInfo.ChannelCount = 3;
@@ -633,7 +634,7 @@ static void RenderCore(HWND hWindow)
 
 			if(ImGui::Button("OK", ImVec2(120, 0)))
 			{
-				if(gs_ImageData.Create(ASTR_TO_TSTR(s_szImageName), IImageData::EDataTypes::UnsignedInt, s_ImageInfo))
+				if(gs_ImageData.Create(ASTR_TO_TSTR(s_szImageName), s_ImageInfo))
 				{
 					UInt32 MaxValue;
 					UInt32 R, G, B;

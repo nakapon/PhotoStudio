@@ -101,7 +101,7 @@ void ImageProc::GrayScale(IImageData* pDstImage, const IImageData* pSrcImage)
 	SrcInfo = pSrcImage->GetImageInfo();
 
 	// 画像処理結果用画像データを作成
-	pDstImage->Create(nullptr, IImageData::EDataTypes::UnsignedInt, SrcInfo);
+	pDstImage->Create(nullptr, SrcInfo);
 	DstInfo = pDstImage->GetImageInfo();
 
 	pSrcBits = pSrcImage->GetDataPtr();

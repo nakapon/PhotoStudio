@@ -19,7 +19,7 @@ JNIEXPORT jboolean JNICALL Java_photostudio_image_ImageData_createJni(JNIEnv* pE
 
 	LPCWSTR pszImageName = (LPCWSTR)pEnv->GetStringChars(ImageName, nullptr);
 
-	bReturn = pImageData->Create(pszImageName, IImageData::EDataTypes::UnsignedInt, Width, Height, ChannelCount, BitsPerChannel);
+	bReturn = pImageData->Create(pszImageName, IImageData::EDataTypes::UInt, Width, Height, ChannelCount, BitsPerChannel);
 
 	pEnv->ReleaseStringChars(ImageName, (const jchar*)pszImageName);
 
@@ -84,7 +84,7 @@ JNIEXPORT jobject JNICALL Java_photostudio_image_ImageData_getImageInfoJni(JNIEn
 {
 	IImageData* pImageData;
 
-	IImageData::SImageInfo ImageInfo = { 0 };
+	IImageData::SImageInfo ImageInfo = { };
 
 	pImageData = (IImageData *)Jni::Base::GetNativeHandle(pEnv, objImage, HANDLE_NAME);
 	if(pImageData != nullptr)
@@ -99,7 +99,7 @@ JNIEXPORT jintArray JNICALL Java_photostudio_image_ImageData_getPixelJni(JNIEnv*
 {
 	IImageData* pImageData;
 
-	IImageData::SImageInfo ImageInfo = { 0 };
+	IImageData::SImageInfo ImageInfo = { };
 
 	pImageData = (IImageData *)Jni::Base::GetNativeHandle(pEnv, objImage, HANDLE_NAME);
 	if(pImageData == nullptr)
@@ -144,7 +144,7 @@ JNIEXPORT jboolean JNICALL Java_photostudio_image_ImageData_setPixelJni(JNIEnv* 
 {
 	IImageData* pImageData;
 
-	IImageData::SImageInfo ImageInfo = { 0 };
+	IImageData::SImageInfo ImageInfo = { };
 
 	pImageData = (IImageData *)Jni::Base::GetNativeHandle(pEnv, objImage, HANDLE_NAME);
 	if(pImageData == nullptr)
