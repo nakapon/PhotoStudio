@@ -2,14 +2,11 @@
 
 #include <algorithm>
 
-namespace PFStringCaseSens
+enum class PFStringCaseSens
 {
-	enum Enum
-	{
-		Sensitive = 0,
-		Ignore,
-	};
-}
+	Sensitive = 0,
+	Ignore,
+};
 
 template <typename T>
 struct TGenericPlatformString
@@ -29,10 +26,10 @@ struct TGenericPlatformString
 	static inline bool AppendChar(T (&pszDst)[MaxLength], T Src);
 	static bool AppendChar(T* pszDst, SIZE_T MaxLength, T Src);
 
-	static Int32 Compare(const T* pszString1, const T* pszString2, PFStringCaseSens::Enum CaseSens = PFStringCaseSens::Sensitive, Int32 CompareLength = -1);
+	static Int32 Compare(const T* pszString1, const T* pszString2, PFStringCaseSens CaseSens = PFStringCaseSens::Sensitive, Int32 CompareLength = -1);
 
-	static Int32 Find(const T* pszString, const T* pszFind, PFStringCaseSens::Enum CaseSens = PFStringCaseSens::Sensitive, Int32 StartIndex = -1);
-	static Int32 FindLast(const T* pszString, const T* pszFind, PFStringCaseSens::Enum CaseSens = PFStringCaseSens::Sensitive, Int32 StartIndex = -1);
+	static Int32 Find(const T* pszString, const T* pszFind, PFStringCaseSens CaseSens = PFStringCaseSens::Sensitive, Int32 StartIndex = -1);
+	static Int32 FindLast(const T* pszString, const T* pszFind, PFStringCaseSens CaseSens = PFStringCaseSens::Sensitive, Int32 StartIndex = -1);
 
 	static Int32 FindChar(const T* pszString, T Find, Int32 StartIndex = -1);
 	static Int32 FindLastChar(const T* pszString, T Find, Int32 StartIndex = -1);
@@ -181,7 +178,7 @@ bool TGenericPlatformString<T>::AppendChar(T* pszDst, SIZE_T MaxLength, T Src)
 }
 
 template <typename T>
-Int32 TGenericPlatformString<T>::Compare(const T* pszString1, const T* pszString2, PFStringCaseSens::Enum CaseSens, Int32 CompareLength)
+Int32 TGenericPlatformString<T>::Compare(const T* pszString1, const T* pszString2, PFStringCaseSens CaseSens, Int32 CompareLength)
 {
 	if(pszString1 == nullptr || pszString2 == nullptr)
 		return -1;
@@ -218,7 +215,7 @@ Int32 TGenericPlatformString<T>::Compare(const T* pszString1, const T* pszString
 }
 
 template <typename T>
-Int32 TGenericPlatformString<T>::Find(const T* pszString, const T* pszFind, PFStringCaseSens::Enum CaseSens, Int32 StartIndex)
+Int32 TGenericPlatformString<T>::Find(const T* pszString, const T* pszFind, PFStringCaseSens CaseSens, Int32 StartIndex)
 {
 	UInt32 StringLength, FindLength;
 	UInt32 StringOffset = 0;
@@ -271,7 +268,7 @@ Int32 TGenericPlatformString<T>::Find(const T* pszString, const T* pszFind, PFSt
 }
 
 template <typename T>
-Int32 TGenericPlatformString<T>::FindLast(const T* pszString, const T* pszFind, PFStringCaseSens::Enum CaseSens, Int32 StartIndex)
+Int32 TGenericPlatformString<T>::FindLast(const T* pszString, const T* pszFind, PFStringCaseSens CaseSens, Int32 StartIndex)
 {
 	UInt32 StringLength, FindLength;
 	UInt32 SearchLength;
