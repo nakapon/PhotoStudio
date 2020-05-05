@@ -21,7 +21,7 @@ public:
 
 	typedef Int32 (CALLBACK *WAVE_PLAYER_CALLBACK)(EMessages Message, LPVOID pvParam1, LPVOID pvParam2, LPVOID pvUserData);
 
-	typedef Int32 (CALLBACK *WAVE_FILTER_PROC)(const IAudioData::AUDIOINFO& AudioInfo, PVOID pvBuffer, DWORD dwBufferLength, PVOID pvUserData);
+	typedef Int32 (CALLBACK *WAVE_FILTER_PROC)(const IAudioData::SAudioInfo& AudioInfo, PVOID pvBuffer, DWORD dwBufferLength, PVOID pvUserData);
 
 public:
 	CAudioPlayer();

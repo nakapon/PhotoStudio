@@ -12,7 +12,7 @@ public:
 	CAudioData(const CAudioData& AudioData);
 	CAudioData& operator=(const CAudioData& AudioData);
 
-	virtual bool Create(LPCTSTR pszAudioName, UInt32 ChannelCount, UInt32 BitsPerChannel, UInt32 SamplesPerSec, UInt32 SampleCount) override;
+	virtual bool Create(LPCTSTR pszAudioName, EDataTypes DataType, UInt32 ChannelCount, UInt32 SamplesPerSec, UInt32 SampleCount) override;
 
 	virtual void Destroy() override;
 
@@ -22,7 +22,7 @@ public:
 
 	virtual void SetAudioName(LPCTSTR pszAudioName) override;
 
-	virtual const AUDIOINFO& GetAudioInfo() const override;
+	virtual const SAudioInfo& GetAudioInfo() const override;
 
 	virtual const BYTE* GetDataPtr() const override;
 	virtual BYTE* GetDataPtr() override;
@@ -32,7 +32,7 @@ public:
 private:
 	FString m_AudioName;
 
-	AUDIOINFO m_AudioInfo;
+	SAudioInfo m_AudioInfo;
 
 	std::vector<BYTE> m_AudioData;
 };

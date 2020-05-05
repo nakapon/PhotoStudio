@@ -373,9 +373,9 @@ static void UpdateAppTitle(HWND hWindow)
 		{
 			TCHAR szInfo[128] = { 0 };
 
-			IAudioData::AUDIOINFO AudioInfo = gs_AudioData.GetAudioInfo();
+			IAudioData::SAudioInfo AudioInfo = gs_AudioData.GetAudioInfo();
 
-			_stprintf_s(szInfo, TEXT(" [%dch %dbit %dHz %dsec]"), AudioInfo.ChannelCount, AudioInfo.BitsPerChannel, AudioInfo.SamplesPerSec, AudioInfo.SampleCount / AudioInfo.SamplesPerSec);
+			_stprintf_s(szInfo, TEXT(" [%dch %dbit %dHz %dsec]"), AudioInfo.ChannelCount, AudioData::GetBitsPerChannel(AudioInfo.DataType), AudioInfo.SamplesPerSec, AudioInfo.SampleCount / AudioInfo.SamplesPerSec);
 			PFString::Append(szTitle, szInfo);
 		}
 	}
