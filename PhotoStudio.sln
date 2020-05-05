@@ -58,6 +58,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Photo Studio Win32", "Photo Studio Win32", "{DB216DDB-3351-489B-87BB-7CF32C97971B}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PhotoStudioWin32", "Project\PhotoStudioWin32\PhotoStudioWin32.vcxproj", "{3E952423-DE97-4E89-99A5-915CF51AA371}"
+	ProjectSection(ProjectDependencies) = postProject
+		{2A921716-CC74-4C25-806F-C920B311C102} = {2A921716-CC74-4C25-806F-C920B311C102}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
