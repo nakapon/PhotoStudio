@@ -22,7 +22,7 @@ Enjoy engineer life!
 
 In order to build this project, you will need to install:
 
-- Visual Studio 2013 or later
+- Visual Studio 2019 or later
 
 To build this project, open the `PhotoStudio.sln` with Visual Studio and build `PhotoStudioWin32` project
 
@@ -30,7 +30,7 @@ To build this project, open the `PhotoStudio.sln` with Visual Studio and build `
 
 In order to build this project, you will need to install:
 
-- Visual Studio 2013 or later
+- Visual Studio 2019 or later
 
 To build this project, open the `PhotoStudio.sln` with Visual Studio and build `AudioStudio` project
 
@@ -38,7 +38,7 @@ To build this project, open the `PhotoStudio.sln` with Visual Studio and build `
 
 In order to build this project, you will need to install:
 
-- Visual Studio 2013 or later
+- Visual Studio 2019 or later
 
 To build this project, open the `PhotoStudio.sln` with Visual Studio and build `PhotoStudioMfc` project
 
@@ -46,7 +46,7 @@ To build this project, open the `PhotoStudio.sln` with Visual Studio and build `
 
 In order to build this project, you will need to install:
 
-- Visual Studio 2013 or later
+- Visual Studio 2019 or later
 
 To build this project, open the `PhotoStudio.sln` with Visual Studio and build `PhotoStudioForms` project
 
@@ -54,7 +54,7 @@ To build this project, open the `PhotoStudio.sln` with Visual Studio and build `
 
 In order to build this project, you will need to install:
 
-- Visual Studio 2013 or later
+- Visual Studio 2019 or later
 
 To build this project, open the `PhotoStudio.sln` with Visual Studio and build `PhotoStudioImu` project
 
@@ -63,7 +63,7 @@ To build this project, open the `PhotoStudio.sln` with Visual Studio and build `
 In order to build this project, you will need to install:
 
 #### Windows
-- Visual Studio 2013 or later
+- Visual Studio 2019 or later
 - Qt5
 
 #### Linux
@@ -80,7 +80,7 @@ To build this project, open the `PhotoStudioQt.pro` with QtCreator and build `Ph
 
 In order to build this project, you will need to install:
 
-- Visual Studio 2013 or later
+- Visual Studio 2019 or later
 - Java 8
 - Eclipse
 
