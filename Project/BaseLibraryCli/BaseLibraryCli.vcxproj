@@ -62,7 +62,7 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>BaseLibrary.lib</AdditionalDependencies>
+      <AdditionalDependencies>BaseLibrary.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>..\..\Common\Windows\Library\$(Configuration)\;..\..\ThirdParty\Windows\Library</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -75,7 +75,7 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>BaseLibrary.lib</AdditionalDependencies>
+      <AdditionalDependencies>BaseLibrary.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>..\..\Common\Windows\Library\$(Configuration)\;..\..\ThirdParty\Windows\Library</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
